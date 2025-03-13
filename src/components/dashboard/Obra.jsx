@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import DataObra from './DataObra.jsx';
-import { Drawer } from 'antd';
+import DataObra from '../Data/DataObra.js';
 import PopupTO from './PopUps/PopupTO.jsx';
 import PopupAO from './PopUps/PopupAO.jsx'; // Importar el componente PopupAO
 
@@ -33,7 +32,7 @@ const Obra = () => {
   };
 
   return (
-    <div className="flex flex-col items-center ml-[25%]">
+    <div className="flex flex-col items-center ml-[20%]">
 
       {/* Primer div que abre el primer Drawer (PopupAO) */}
       <div onClick={showDrawer1} style={{ cursor: 'pointer' }}>

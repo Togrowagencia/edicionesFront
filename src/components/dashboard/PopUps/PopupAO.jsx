@@ -5,8 +5,19 @@ import { Drawer } from 'antd';
 import ObraPropia from './AO/ObraPropia';
 import ObraConsignacion from './AO/ObraConsignacion';
 import IVA from './AO/IVA';
+import InputRow from './AO/InputRow';
+import CheckboxWithLabel from './AO/CheckboxWithLabel';
+import DataAO from '../../Data/DataAO';
 
 const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
+  const [currentPage] = useState(1);
+  const itemsPerPage = 10; // Elementos por página
+
+  // Calcular los índices para paginación
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = DataAO.slice(startIndex, endIndex);  
+
   const [selectedCheckboxes, setSelectedCheckboxes] = useState({
     obraPropia: false,
     obraConsignacion: false,
@@ -28,21 +39,40 @@ const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
     }
   };
 
+  // Definir las filas de campos
+  const rows = [
+    [
+      { iconSrc: "/public/svg/popup-ao/ISBN.svg", placeholder: "ISBN" },
+      { iconSrc: "/public/svg/popup-ao/NDLO.svg", placeholder: "Nombre de la obra" },
+      { placeholder: "Proveedor", hasArrow: true },
+    ],
+    [
+      { placeholder: "Editorial", hasArrow: true },
+      { placeholder: "Autor", hasArrow: true },
+      { placeholder: "Contenido", hasArrow: true },
+    ],
+    [
+      { placeholder: "Clasificación", hasArrow: true },
+      { placeholder: "Genero", hasArrow: true },
+      { iconSrc: "/public/svg/popup-ao/costo.svg", placeholder: "Costo del libro" },
+    ],
+    [
+      { iconSrc: "/public/svg/popup-ao/precio.svg", placeholder: "Precio de venta" },
+      { iconSrc: "/public/svg/popup-ao/cantidad.svg", placeholder: "Cantidad" },
+    ],
+  ];
+
   return (
-    <div style={{ position: 'relative'}}>
+    <div style={{ position: 'relative' }}>
       <Drawer
         placement="right"
         onClose={handlePopupClose}
         open={isPopupOpen}
         width={1483}
-        closable={false} // Desactiva el botón de cierre predeterminado
-        headerStyle={{ display: 'none' }} // Oculta el header del Drawer
-        drawerStyle={{ 
-          borderRadius: '10px 10px 10px 10px', 
-          height: '100%',
-        }} 
+        closable={false}
+        headerStyle={{ display: 'none' }}
+        drawerStyle={{ borderRadius: '10px 10px 10px 10px', height: '100%' }}
       >
-
         {/* Botón de cierre personalizado */}
         <div style={{ position: 'absolute', top: 20, right: 20, cursor: 'pointer' }} onClick={handlePopupClose}>
           <img src="/public/svg/popup-ao/cerrar (2).svg" alt="Cerrar" className="w-6 h-6 mt-[10%]" />
@@ -53,92 +83,32 @@ const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
           <h2 className="text-2xl mb-4 h3 verde-corporativo ml-[10px]">Añadir nueva obra</h2>
         </div>
 
-        {/* Primera fila de campos */}
-        <div className='w-full h-[10%] flex items-center gap-2 justify-start px-4 -mb-[27px]'>
-          <div className='w-[316px] bg-white border border-[#000] rounded-[10px] px-4 flex gap-4 items-center h-[43px] ml-[5px] '>
-            <img src="/public/svg/popup-ao/ISBN.svg" alt="" />
-            <input type="text" placeholder='ISBN' className='custom-datepicker h4 negro custom-input' />
-          </div>
-          <div className='w-[316px] bg-white border border-[#000] rounded-[10px] px-4 flex gap-4 items-center h-[43px] ml-[5px] '>
-            <img src="/public/svg/popup-ao/NDLO.svg" alt="" />
-            <input type="text" placeholder='Nombre de la obra' className='custom-datepicker h4 negro custom-input' />
-          </div>
-          <div className='w-[316px] bg-white border border-[#000] rounded-[10px] px-4 flex gap-4 items-center h-[43px] ml-[5px] '>
-            <input type="text" placeholder='Proveedor' className='custom-datepicker h4 negro custom-input' />
-            <img src="/public/svg/popup-ao/flechaA.svg" alt="" className='ml-[10%] mt-[3px]' />
-          </div>
-        </div>
-
-        {/* Segunda fila de campos */}
-        <div className='w-full h-[10%] flex items-center gap-2 justify-start px-4 -mb-[27px]'>
-          <div className='w-[316px] bg-white border border-[#000] rounded-[10px] px-4 flex gap-4 items-center h-[43px] ml-[5px] '>
-            <input type="text" placeholder='Editorial' className='custom-datepicker h4 custom-input' />
-            <img src="/public/svg/popup-ao/flechaA.svg" alt="" className='ml-[10%] mt-[3px]' />
-          </div>
-          <div className='w-[316px] bg-white border border-[#000] rounded-[10px] px-4 flex gap-4 items-center h-[43px] ml-[5px] '>
-            <input type="text" placeholder='Autor' className='custom-datepicker h4 custom-input' />
-            <img src="/public/svg/popup-ao/flechaA.svg" alt="" className='ml-[10%] mt-[3px]' />
-          </div>
-          <div className='w-[316px] bg-white border border-[#000] rounded-[10px] px-4 flex gap-4 items-center h-[43px] ml-[5px] '>
-            <input type="text" placeholder='Contenido' className='custom-datepicker h4 custom-input' />
-            <img src="/public/svg/popup-ao/flechaA.svg" alt="" className='ml-[10%] mt-[3px]' />
-          </div>
-        </div>
-
-        {/* Tercera fila de campos */}
-        <div className='w-full h-[10%] flex items-center gap-2 justify-start px-4 -mb-[27px]'>
-          <div className='w-[316px] bg-white border border-[#000] rounded-[10px] px-4 flex gap-4 items-center h-[43px] ml-[5px] '>
-            <input type="text" placeholder='Clasificación' className='custom-datepicker h4 custom-input' />
-            <img src="/public/svg/popup-ao/flechaA.svg" alt="" className='ml-[10%] mt-[3px]' />
-          </div>
-          <div className='w-[316px] bg-white border border-[#000] rounded-[10px] px-4 flex gap-4 items-center h-[43px] ml-[5px] '>
-            <input type="text" placeholder='Genero' className='custom-datepicker h4 custom-input' />
-            <img src="/public/svg/popup-ao/flechaA.svg" alt="" className='ml-[10%] mt-[3px]' />
-          </div>
-          <div className='w-[316px] bg-white border border-[#000] rounded-[10px] px-4 flex gap-4 items-center h-[43px] ml-[5px] '>
-            <img src="/public/svg/popup-ao/costo.svg" alt="" />
-            <input type="text" placeholder='Costo del libro' className='custom-datepicker h4 custom-input' />
-          </div>
-        </div>
-
-        {/* Cuarta fila de campos */}
-        <div className='w-full h-[10%] flex items-center gap-2 justify-start px-4 -mb-[27px]'>
-          <div className='w-[316px] bg-white border border-[#000] rounded-[10px] px-4 flex gap-4 items-center h-[43px] ml-[5px] '>
-            <img src="/public/svg/popup-ao/precio.svg" alt="" />
-            <input type="text" placeholder='Precio de venta' className='custom-datepicker h4 custom-input' />
-          </div>
-          <div className='w-[316px] bg-white border border-[#000] rounded-[10px] px-4 flex gap-4 items-center h-[43px] ml-[5px] '>
-            <img src="/public/svg/popup-ao/cantidad.svg" alt="" />
-            <input type="text" placeholder='Cantidad' className='custom-datepicker h4 custom-input' />
-          </div>
-        </div>
+        {/* Renderizar las filas de campos */}
+        {rows.map((fields, index) => (
+          <InputRow key={index} fields={fields} />
+        ))}
 
         {/* Checkboxes y textos */}
         <div className='w-full h-[10%] flex flex-col gap-2 justify-start px-4 mt-[36px]'>
           <div className='flex items-center'>
-            <input
-              type="checkbox"
-              className='mr-2 ml-[7px] check-box'
+            <CheckboxWithLabel
+              label="Obra propia"
               checked={selectedCheckboxes.obraPropia}
               onChange={() => handleCheckboxChange('obraPropia')}
+              className="mr-2 ml-[7px]"
             />
-            <p className='h4 gris-urbano'>Obra propia</p>
-
-            <input
-              type="checkbox"
-              className='mr-2 ml-[20px] check-box'
+            <CheckboxWithLabel
+              label="Obra en consignación"
               checked={selectedCheckboxes.obraConsignacion}
               onChange={() => handleCheckboxChange('obraConsignacion')}
+              className="mr-2 ml-[20px]"
             />
-            <p className='h4 gris-urbano'>Obra en consignación</p>
-
-            <input
-              type="checkbox"
-              className='mr-2 ml-[20px] check-box'
+            <CheckboxWithLabel
+              label="IVA"
               checked={selectedCheckboxes.iva}
               onChange={() => handleCheckboxChange('iva')}
+              className="mr-2 ml-[20px]"
             />
-            <p className='h4 gris-urbano'>IVA</p>
           </div>
         </div>
 
@@ -146,6 +116,47 @@ const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
         {selectedCheckboxes.obraPropia && <ObraPropia />}
         {selectedCheckboxes.obraConsignacion && <ObraConsignacion />}
         {selectedCheckboxes.iva && <IVA />}
+
+        <div className="flex flex-col items-center mt-[38px]">
+        <div className='w-full h-[10%] flex items-center gap-2 mb-[20px] relative mt-[16px] ml-[57px]'>
+          <p className='h4 verde-corporativo'>Compra de la obra</p>
+        </div>
+
+        <div className='w-full h-full justify-center'>
+{/* Encabezados de la tabla */}
+        <div className='w-[1385px] h-[10%] gap-2 border-b border-grey-500 flex items-end pb-2 mx-auto'>
+          <p className='gris-urbano w-[5%]'>ID</p> 
+          <p className='gris-urbano w-[10%] ml-[10px]'>ISBN</p> 
+          <p className='gris-urbano w-[20%] ml-[10px]'>Nombre de la obra</p> 
+          <p className='gris-urbano w-[10%] ml-[10px]'>Editorial</p> 
+          <p className='gris-urbano w-[10%] ml-[10px]'>Genero</p> 
+          <p className='gris-urbano w-[10%] ml-[10px]'>Costo</p> 
+          <p className='gris-urbano w-[10%] ml-[10px]'>Inducción</p> 
+          <p className='gris-urbano w-[10%] ml-[10px]'>Proveedor</p> 
+          <p className='gris-urbano w-[10%] ml-[10px]'>Cantidad total</p> 
+          <p className='gris-urbano w-[10%] ml-[10px]'>Costo total</p>
+          <p className='gris-urbano w-[10%] ml-[10px]'>Editar/Eliminar</p> 
+        </div>
+
+        {/* Filas de datos */}
+        {currentItems.map((item, index) => (
+          <div className='gap-2 flex mb-[20px] relative mt-[10px] ml-[22px]' key={index}>
+            <p className='textos-bold verde-eco w-[5.6%] truncate'>{item.ID}</p> 
+            <p className='textos-bold w-[9.4%] truncate'>{item.ISBN}</p> 
+            <p className='textos-bold w-[18%] truncate'>{item["Nombre de la obra"]}</p> 
+            <p className='textos-bold w-[10%] truncate'>{item["Editorial"]}</p> 
+            <p className='textos-bold w-[10%] truncate'>{item["Genero"]}</p> 
+            <p className='textos-bold w-[9%] truncate'>{item["Costo"]}</p> 
+            <p className='textos-bold w-[10%] truncate'>{item["Inducción"]}</p> 
+            <p className='textos-bold w-[10%] truncate'>{item["Proveedor"]}</p> 
+            <p className='textos-bold w-[10%] truncate'>{item["Cantidad Total"]}</p> 
+            <p className='textos-bold w-[10%] truncate'>{item["Costo total"]}</p>
+            <p className='textos-bold w-[10%] truncate'>{item["Editar/Eliminar"]}</p> 
+          </div>
+        ))}
+      </div>
+
+      </div>
 
       </Drawer>
     </div>

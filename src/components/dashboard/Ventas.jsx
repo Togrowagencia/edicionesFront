@@ -1,59 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, {useState} from 'react'
+import DataVentas from '../Data/DataVentas';
 
 const Ventas = () => {
-  const data = [
-    {
-      "sede": "Centro Comercial Gran Plaza",
-      "libros-vendidos": "150",
-      "total-vendido": "$3000",
-    },
-    {
-      "sede": "Librería El Ateneo",
-      "libros-vendidos": "200",
-      "total-vendido": "$4000",
-    },
-    {
-      "sede": "Centro Cultural Borges",
-      "libros-vendidos": "180",
-      "total-vendido": "$3600",
-    },
-    {
-      "sede": "Librería Gandhi",
-      "libros-vendidos": "220",
-      "total-vendido": "$4400",
-    },
-    {
-      "sede": "Centro Comercial Santa Fe",
-      "libros-vendidos": "170",
-      "total-vendido": "$3400",
-    },
-    {
-      "sede": "Librería Porrúa",
-      "libros-vendidos": "190",
-      "total-vendido": "$3800",
-    },
-    {
-      "sede": "Centro Comercial Perisur",
-      "libros-vendidos": "160",
-      "total-vendido": "$3200",
-    },
-    {
-      "sede": "Librería Fondo de Cultura Económica",
-      "libros-vendidos": "210",
-      "total-vendido": "$4200",
-    },
-    {
-      "sede": "Centro Comercial Andino",
-      "libros-vendidos": "140",
-      "total-vendido": "$2800",
-    },
-    {
-      "sede": "Librería Nacional",
-      "libros-vendidos": "230",
-      "total-vendido": "$4600",
-    }
-  ];
 
       const [currentPage] = useState(1);
       const itemsPerPage = 10; // Elementos por página
@@ -61,7 +10,7 @@ const Ventas = () => {
       // Calcular los índices para paginación
       const startIndex = (currentPage - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
-      const currentItems = data.slice(startIndex, endIndex);  
+      const currentItems = DataVentas.slice(startIndex, endIndex);  
 
   return (
   <div className="flex">

@@ -8,7 +8,7 @@ const Header = () => {
       };
   return (
     
-    <div className='w-full h-[10%] flex items-center gap-2 justify-start px-4'>
+    <div className='w-[95%] h-[10%] flex items-center gap-2 justify-start px-4'>
           <div className='w-[34%] bg-white border border-[#000] rounded-[10px] px-4 flex gap-4 items-center h-[50%] ml-[-30px] '>
               <img src="/svg/header/buscar.svg" alt=""/>
               <input type="text" placeholder='Buscar' className='custom-datepicker h4 custom-input'/>
@@ -19,7 +19,7 @@ const Header = () => {
           </div>
 
           <div>
-          <div className='w-[50%] px-4 flex gap-4 items-center h-[50%] ml-[210%]'>
+          <div className='w-[50%] px-4 flex gap-4 items-center h-[50%] ml-[243%]'>
               <img src="/svg/header/carrito.svg" alt=""/>
               <img src="/svg/header/stads.svg" alt=""/>
               <img src="/svg/header/notification.svg" alt=""/>

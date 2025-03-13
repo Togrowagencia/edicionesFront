@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -23,23 +23,23 @@ export const Login = () => {
 
         <form className='form-login'>
           <div className='div-inputs-login p-2 rounded-[10px]'>
-            <input type="text" placeholder='Usuario' className='inputs-login'/>
+            <input type="text" placeholder='Usuario' className='inputs-login z-10'/>
           </div>
           <div className='div-inputs-login p-2 rounded-[10px]'>
-            <input type="password" placeholder='Contraseña' className='inputs-login'/>
+            <input type="password" placeholder='Contraseña' className='inputs-login z-10'/>
           </div>
 
           <button className='w-full text-center bg-[#00733C] textos-grandes blanco mt-10 p-2 rounded-[10px]' onClick={() => navigate('/dashboard')}>Ingresar</button>
         </form>
 
         <div className='flex mt-[175px]'>
-        <div className='div-links-login  ml-[-50px]'>
+          <div className='div-links-login ml-[-50px]'>
             <a href="https://togrowagencia.com" className='marca-agua flex items-center w-[100%]'>Terminos y condiciones | Contactanos</a>
-        </div>
+          </div>
 
-        <div className='div-links-login'>
+          <div className='div-links-login'>
             <a href="https://togrowagencia.com" className='marca-agua flex items-center w-[65%]'>Desarrollo por <img src="/svg/sidebar/togrow.svg" className="w-[10%] mt-[4px] ml-[10px]"/></a>
-        </div>
+          </div>
         </div>
 
       </div>

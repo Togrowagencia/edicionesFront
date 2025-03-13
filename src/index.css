@@ -205,7 +205,9 @@ input {
   transform: rotate(15deg);
   flex-shrink: 0;
 }
-
+.sombra {
+  box-shadow: 0px 88px 25px 0px rgba(186, 186, 186, 0.00), 0px 57px 23px 0px rgba(186, 186, 186, 0.01), 0px 32px 19px 0px rgba(186, 186, 186, 0.05), 0px 14px 14px 0px rgba(186, 186, 186, 0.09), 0px 4px 8px 0px rgba(186, 186, 186, 0.10);
+}
 .panel-derecho-login{
   width: 100%;
   display: flex;
@@ -549,6 +551,11 @@ input {
   border-right: 3px solid #00733C;
 }
 
+
+.selected-dashboard > img {
+  padding-left: 47px;
+}
+
 .selected-logo {
   background-image: url('/svg/sidebar/sidebar-logo-border.svg');
   background-repeat: no-repeat;
@@ -697,9 +704,18 @@ border-radius: 10px;
   height: auto; /* Asegúrate de que el input se ajuste al contenido */
 }
 
+.custom-input {
+  outline: none;
+  border-color: white; /* Cambia el color del borde a blanco */
+  width: 100%;
+  height: auto;
+}
+
 .custom-input:focus {
   outline: none;
   border-color: white; /* Cambia el color del borde a blanco */
+  width: 100%;
+  height: auto;
 }
 
 .popup-agregar-obra {
@@ -737,4 +753,91 @@ border-radius: 10px;
   position: absolute;
   top: 20%;
   left: 20%;
+}
+
+.gestion-de-obras{
+  width: auto;
+  height: 883px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: var(--Gama-de-Grises-Blanco, #FFF);
+  box-shadow: -167px 150px 63px 0px rgba(128, 128, 128, 0.00), -107px 96px 57px 0px rgba(128, 128, 128, 0.01), -60px 54px 49px 0px rgba(128, 128, 128, 0.03), -27px 24px 36px 0px rgba(128, 128, 128, 0.05), -7px 6px 20px 0px rgba(128, 128, 128, 0.06);
+}
+
+.gestion-de-bodegas{
+width: 423px;
+height: 125px;
+}
+
+.libromain {
+  width: 33%;
+}
+.libromain2 {
+  width: 34%;
+}
+
+.libromain3 {
+  width: 35%;
+}
+
+/*carrusel*/
+.slide{
+  background: url("../public/images/fondolibro.png") center/cover;
+  width: 453px !important;
+  height: 155px !important;
+  flex-shrink: 0;
+}
+
+.slider-container{
+  margin-top: 30%;
+  width: 1225px;
+  height: 125px;
+  margin-left: 10%;
+}
+.slick-prev, .slick-next{
+  margin-top: -27px !important;
+  height: 34px !important;
+  width: 34px !important;
+}
+
+.slick-prev {
+  left: -50px !important;
+}
+
+.slick-next{
+  left: 1190px !important;
+}
+
+.banner-controlventas {
+  position: relative;
+  width: 1024px;
+  height: 260px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  overflow: hidden; /* Asegura que el pseudo-elemento no se salga del contenedor */
+}
+
+.banner-controlventas img {
+  flex-shrink: 0;
+}
+
+.banner-controlventas::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/banner-banerCdV.png');
+  background-color: var(--negro, #222);
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.3) contrast(1.2);
+  opacity: 0.86;
+  z-index: 1; /* Asegura que el pseudo-elemento esté detrás del contenido */
+}
+
+.banner-controlventas .texto-ingresos {
+  position: relative;
+  z-index: 2; /* Asegura que el texto esté por encima del pseudo-elemento */
 }
