@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import DataObra from '../Data/DataObra.js';
 import PopupTO from './PopUps/PopupTO.jsx';
-import PopupAO from './PopUps/PopupAO.jsx'; // Importar el componente PopupAO
+import PopupAO from './PopUps/PopupAO.jsx';
 
 const Obra = () => {
   const [openDrawer1, setOpenDrawer1] = useState(false); // Estado para el primer Drawer (PopupAO)

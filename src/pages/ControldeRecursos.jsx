@@ -21,7 +21,7 @@ const ControldeRecursos = () => {
         <div className='w-full h-[90%] flex -ml-[1%] mt-[0.6%]'>
           <div className='w-[100%] h-full'>
             <Banner/>
-            <div className='w-[100%] h-full pl-[1.5%] flex flex-wrap relative mt-[-5%]'>
+            <div className='w-[101%] h-full px-5 flex flex-wrap relative mt-[-3%] gap-x-[1.4%] gap-y-[2.9%]'>
               <Proveedores/>
               <Editorial/>
               <Autor/>

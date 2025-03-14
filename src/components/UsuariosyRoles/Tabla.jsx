@@ -52,6 +52,8 @@ const Tabla = () => {
                     <img src="/svg/editar.svg" alt="" className='ml-[5.5%]'/>
                 </div>
             ))}
+
+            
         </div>
     );
 };
