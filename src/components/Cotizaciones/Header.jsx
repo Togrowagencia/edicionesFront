@@ -42,7 +42,7 @@ const Header = () => {
             checked={selectedCheckboxes.obraPropia}
             onChange={() => handleCheckboxChange('obraPropia')}
             className="mr-2"
-          />
+            />
           <CheckboxWithLabel
             label="Retencion en la fuente"
             checked={selectedCheckboxes.obraConsignacion}

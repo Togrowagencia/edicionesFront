@@ -13,31 +13,21 @@ const Ventas = () => {
       const currentItems = DataVentas.slice(startIndex, endIndex);  
 
   return (
-  <div className="flex">
-    <div className="venta-tienda flex flex-col items-center mt-[38px]">
-      <div className='w-full h-[10%] items-center gap-2 flex mb-[20px] relative mt-[16px] ml-[57px]'>
-        <p className='h3 negro'>Top venta de tiendas</p>
-        <img src="/public/svg/vector.svg" alt="Icono" className="w-6 h-6 ml-[105px]" />
-      </div>
-        <div className='w-full h-full justify-center'>
-          <div className='w-[382px] h-[10%] gap-2 border-b border-green-500 flex items-end pb-2 -mt-[15] mx-auto'>
-            <p className='gris-urbano w-[20%] ml-[8px]'>Sede</p>
-            <p className='gris-urbano w-[40%] ml-[62px]'>Libros vendidos</p>
-            <p className='gris-urbano w-[30%] ml-[12px]'>Total vendido</p>
+    <div className="flex">
+        <div className="flex flex-col mt-[4%] items-center rounded-[10px] bg-white w-[100%] h-[100%] flex-shrink-0 sombra border-2 border-[#5FB868]">
+        <div className='w-[83%] h-[10%] items-center gap-3 flex mb-[20px] relative mt-[5%]'>
+            <p className='h3 verde-corporativo'>Resumen de la cotizacion</p>
+            <img src="/public/svg/Cotizaciones/Resumencotizacion.svg" alt="Icono" className="" />
         </div>
-
-    {
-      currentItems.map((item, index) => (
-        <div className='gap-2 flex mb-[20px] relative mt-[10px] ml-[32px]' key={index}>  
-          <p className='textos-bold w-[30%] ml-[12px] truncate'>{item.sede}</p>
-          <p className='textos-bold w-[26%] ml-[75px] truncate'>{item["libros-vendidos"]}</p>
-          <p className='textos-bold w-[22%] truncate'>{item["total-vendido"]}</p>
+            <div className='w-full h-full flex items-center justify-center'> {/* Contenedor padre */}
+                <div className='w-[83%] h-[10%] gap-2 flex flex-col'>
+                    <p className='gris-urbano w-[100%]'>Cliente</p>
+                    <p className='negro w-[100%]'>Universidad de Antioquia</p>
+                    <p className='gris-urbano w-[100%]'>Items a cotizar</p>
+                </div>
+            </div>
         </div>
-      ))
-    }
     </div>
-  </div>
-</div>
 
   )
 }
