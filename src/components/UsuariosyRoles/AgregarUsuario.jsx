@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Drawer } from 'antd';
 import BotonAgregar from '../inputs/BotonAgregar';
 import Roles from '../Data/UsuariosyRoles/Roles'
+import Tiendas from '../Data/UsuariosyRoles/Tienda';
 
 
 const AgregarUsuario = ({ isPopupOpen, handlePopupClose }) => {
@@ -13,7 +14,7 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose }) => {
     nombre: '',
     correo: '',
     cargo: '',
-    tienda: 'Tienda sandiego',
+    tienda: '',
     documento: '',
     password: '',
     rol: '',
@@ -59,91 +60,95 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose }) => {
         {/*inputs*/}
 
         <div className="grid grid-cols-2 gap-4 p-6 bg-white rounded-lg max-w-xl mx-auto">
-          <div>
-            <label className="block text-gray-500">Teléfono</label>
+          <div className="flex items-center justify-between border-b border-gray-300">
+            <label className="block text-gray-500 w-1/3">Teléfono</label>
             <input
               type="text"
               name="telefono"
               value={formData.telefono}
               onChange={handleInputChange}
-              className="w-full border-b border-gray-300 focus:outline-none bg-transparent"
+              className="w-full focus:outline-none bg-transparent"
               placeholder="+57 000 000 0000"
             />
           </div>
-          <div>
-            <label className="block text-gray-500">Nombre</label>
+          <div className="flex items-center justify-between border-b border-gray-300">
+            <label className="block text-gray-500 w-1/3">Nombre</label>
             <input
               type="text"
               name="nombre"
               value={formData.nombre}
               onChange={handleInputChange}
-              className="w-full border-b border-gray-300 focus:outline-none bg-transparent"
+              className="w-full focus:outline-none bg-transparent"
               placeholder="Nombre completo"
             />
           </div>
-          <div>
+          <div className="flex items-center justify-between border-b border-gray-300">
             <label className="block text-gray-500">Correo</label>
             <input
               type="email"
               name="correo"
               value={formData.correo}
               onChange={handleInputChange}
-              className="w-full border-b border-gray-300 focus:outline-none bg-transparent"
+              className="w-full focus:outline-none bg-transparent"
               placeholder="ejemplo@correo.com"
             />
           </div>
-          <div>
+          <div className="flex items-center justify-between border-b border-gray-300">
             <label className="block text-gray-500">Cargo</label>
             <input
               type="text"
               name="cargo"
               value={formData.cargo}
               onChange={handleInputChange}
-              className="w-full border-b border-gray-300 focus:outline-none bg-transparent"
+              className="w-full focus:outline-none bg-transparent"
               placeholder="Cargo"
             />
           </div>
-          <div>
+          <div className="flex items-center justify-between border-b border-gray-300">
             <label className="block text-gray-500">Asignar a tienda</label>
             <select
               name="tienda"
               value={formData.tienda}
               onChange={handleInputChange}
-              className="w-full border-b border-gray-300 focus:outline-none bg-transparent"
+              className="w-full focus:outline-none bg-transparent"
             >
-              <option value="Tienda sandiego">Tienda sandiego</option>
-              {/* Add more options as needed */}
+              <option value="">Seleccione una tienda</option>
+              {Tiendas.map((tienda) => (
+                <option key={tienda.id} value={tienda.nombre}>
+                  {tienda.nombre}
+                </option>
+              ))}
             </select>
           </div>
-          <div>
+          <div className="flex items-center justify-between border-b border-gray-300">
             <label className="block text-gray-500">Documento de Identidad</label>
             <input
               type="text"
               name="documento"
               value={formData.documento}
               onChange={handleInputChange}
-              className="w-full border-b border-gray-300 focus:outline-none bg-transparent"
+              className="w-full focus:outline-none bg-transparent"
               placeholder="0.000.000.000"
             />
           </div>
-          <div>
+          <div className="flex items-center justify-between border-b border-gray-300">
             <label className="block text-gray-500">Contraseña</label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleInputChange}
-              className="w-full border-b border-gray-300 focus:outline-none bg-transparent"
+              className="w-full focus:outline-none bg-transparent"
               placeholder="********"
             />
           </div>
-          <div>
+          <div className="flex items-center justify-between border-b border-gray-300">
             <label className="block text-gray-500">Rol</label>
             <select
               name="rol"
               value={formData.rol}
               onChange={handleInputChange}
-              className="w-full border-b border-gray-300 focus:outline-none bg-transparent"
+              className="w-full focus:outline-none bg-transparent"
             >
               {Roles.map((rol) => (
                 <option key={rol.id} value={rol.nombre}>
@@ -153,14 +158,14 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose }) => {
             </select>
           </div>
 
-          <div>
+          <div className="flex items-center justify-between border-b border-gray-300">
             <label className="block text-gray-500">Descuento</label>
             <input
               type="text"
               name="descuento"
               value={formData.descuento}
               onChange={handleInputChange}
-              className="w-full border-b border-gray-300 focus:outline-none bg-transparent"
+              className="w-full focus:outline-none bg-transparent"
               placeholder="0%"
             />
           </div>
