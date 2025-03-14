@@ -22,9 +22,9 @@ const Tabla = () => {
     };
 
     return (
-        <div className='w-full h-full justify-center'>
+        <div className='w-full h-[80%] justify-center '>
             {/* Encabezados de la tabla */}
-            <div className='w-[1385px] h-[10%] border-b border-grey-500 flex items-end pb-2 mx-auto ml-[2%]'>
+            <div className='w-[96%] h-[10%] border-b border-grey-500 flex items-end pb-2 mx-auto ml-[2%]'>
                 <p className='gris-urbano w-[9%]'>ID</p> 
                 <p className='gris-urbano w-[23%]'>Nombre / Usuario</p> 
                 <p className='gris-urbano w-[15%]'>Rol</p> 
@@ -37,7 +37,7 @@ const Tabla = () => {
 
             {/* Filas de datos */}
             {currentItems.map((item, index) => (
-                <div className='w-[1385px] flex mb-[20px] relative mt-[10px] mx-auto ml-[2%]' key={index}>
+                <div className='w-[96%] flex mb-[20px] relative mt-[10px] mx-auto ml-[2%]' key={index}>
                     <p className='textos-bold verde-eco w-[9%] truncate'>{item.ID}</p> 
                     <p className='textos-bold w-[23%] truncate'>{item["Nombre/Usuario"]}</p> 
                     <p className='textos-bold w-[15%] truncate'>{item.Rol}</p> 
@@ -48,7 +48,7 @@ const Tabla = () => {
                         src={lockedItems[item.ID] ? "/svg/candadov.svg" : "/svg/candador.svg"} 
                         alt="" 
                         onClick={() => toggleLock(item.ID)}
-                    className='ml-[6%]'/>
+                    className='ml-[6%] cursor-pointer'/>
                     <img src="/svg/editar.svg" alt="" className='ml-[5.5%]'/>
                 </div>
             ))}
