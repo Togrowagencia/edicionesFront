@@ -25,39 +25,34 @@ export const Login = (user, pass) => {
   };
 
   const signin = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     try {
-      if(username == "" && password == "")
-      {
+      if (username == "" && password == "") {
         return new Notify({
-          title: 'Acceso denegado',
-          text: 'Rellene todos los campos',
-          status : "warning",
+          title: "Acceso denegado",
+          text: "Rellene todos los campos",
+          status: "warning",
           position: "left top",
           effect: "slide",
           autotimeout: 900,
           autoclose: true,
-          button : true,
-          type:"filled",
-          gap : 5
-        })
+          button: true,
+          type: "filled",
+          gap: 5,
+        });
       }
       const response = await login(username, password);
-      if (
-        response.response &&
-        response.response.status == 401
-      ) {
+      if (response.response && response.response.status == 401) {
         return new Notify({
-          title: 'Acceso denegado',
-          text: 'Credenciales incorrectas',
-          status : "error",
+          title: "Acceso denegado",
+          text: "Credenciales incorrectas",
+          status: "error",
           autotimeout: 850,
           autoclose: true,
           position: "left top",
           effect: "slide",
-          gap : 20
-        })
-          
+          gap: 20,
+        });
       }
       if (response.data && response.data.accesToken) {
         if (check) {
@@ -68,18 +63,18 @@ export const Login = (user, pass) => {
               password: password,
             })
           );
-      }
-      new Notify({
-        title: 'Acceso correcto',
-        status : "success",
-        type:"filled",
-        autotimeout: 850,
-        autoclose: true,
-        position: "left top",
-        effect: "slide",
-        gap : 20
-      })
-      navigate("/dashboard")
+        }
+        new Notify({
+          title: "Acceso correcto",
+          status: "success",
+          type: "filled",
+          autotimeout: 850,
+          autoclose: true,
+          position: "left top",
+          effect: "slide",
+          gap: 20,
+        });
+        navigate("/dashboard");
       }
     } catch (error) {
       console.log(error);
@@ -105,23 +100,33 @@ export const Login = (user, pass) => {
           </p>
         </div>
         <form className="p-4" onSubmit={signin}>
-          <input
-            type="text"
-            placeholder="Usuario"
-            className="z-10 w-[490px] rounded-[10px] div-inputs-login p-2 my-2"
-            value={username} 
-            onChange={(e) => setUsername(e.target.value)} 
-          />
+          <div class="w-full max-w-sm min-w-[500px]">
+            <div class="relative my-5">
+              <input
+                class="peer w-full bg-transparent placeholder:text-green-600 text-slate-700 text-sm border border-slate-200 rounded-md px-3  py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm focus:shadow"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <label class="absolute cursor-text bg-[#f5f5f5] px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-2 peer-focus:left-2.5 peer-focus:text-xs peer-focus:text-green-600 peer-focus:scale-70">
+                Usuario
+              </label>
+            </div>
+          </div>
+          <div class="relative my-2">
+            <input
+              class="peer w-full bg-transparent placeholder:text-green-600 text-slate-700 text-sm border border-slate-200 rounded-md px-3  py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm focus:shadow"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <label class="absolute cursor-text bg-[#f5f5f5] px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-2 peer-focus:left-2.5 peer-focus:text-xs peer-focus:text-green-600 peer-focus:scale-70">
+              Contraseña
+            </label>
+          </div>
+      
 
-          <input
-            type="password"
-            placeholder="Contraseña"
-            className="z-10 w-[490px] rounded-[10px] div-inputs-login p-2 my-2"
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-          />
-
-          <button className="w-full text-center bg-[#00733C]  blanco mt-10 p-2 rounded-[10px]">
+          <button className="w-full text-center bg-[#00733C]  blanco mt-5 p-2 rounded-[10px]">
             Ingresar
           </button>
         </form>
@@ -141,10 +146,7 @@ export const Login = (user, pass) => {
               className="marca-agua flex items-center ml-2"
             >
               Desarrollo por
-              <img
-                src="/svg/sidebar/togrow.svg"
-                className="w-auto"
-              />
+              <img src="/svg/sidebar/togrow.svg" className="w-auto" />
             </a>
           </div>
         </div>
