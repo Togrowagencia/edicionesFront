@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, {useState} from 'react'
 import DataVentas from '../Data/DataVentas';
+import Grafico from './Grafico'
 
 const Ventas = () => {
 
@@ -41,13 +42,13 @@ const Ventas = () => {
         
         <p className="absolute top-0 left-0 m-4 h3 blanco">Total ingresos</p>
         <img src="/public/svg/vector(1).svg" alt="Icono" className="w-6 h-6 ml-[207px] mt-[20px]" />
+        <Grafico/>
 
-          <div className="total-inventario relative mt-[313px] ">
+          <div className="total-inventario relative mt-[9%] ">
             <p className="absolute top-0 left-0 m-4 h3 mt-[52px]">Inventario Total</p>
             <p className="absolute top-0 left-0 m-4 h3 mt-[87px]">654.541</p>
             <img src="/public/svg/vector(2).svg" alt="Icono" className='w-6 h-6 ml-[490px] absolute mt-[20px]'/>
           </div>
-
       </div>
       
 </div>
