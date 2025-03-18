@@ -8,7 +8,7 @@ function SampleArrow(props) {
   const { className, style, onClick } = props;
   return (
     <div className={className} style={{ ...style, display: "block" }} onClick={onClick}>
-      <img src="/images/flechacarrusel.png" alt="Flecha" className="mt-[-4%]"/>
+      <img src="/images/flechacarrusel.png" alt="Flecha" className="mt-[-4%]" />
     </div>
   );
 }
@@ -24,31 +24,39 @@ function Libros() {
     prevArrow: <SampleArrow />
   };
 
-    const [currentPage] = useState(1);
-    const itemsPerPage = 10; // Elementos por página
-  
-    // Calcular los índices para paginación
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const currentItems = Datalibro.slice(startIndex, endIndex);  
-    
+  const [currentPage] = useState(1);
+  const itemsPerPage = 10; // Elementos por página
+
+  // Calcular los índices para paginación
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = Datalibro.slice(startIndex, endIndex);
+
   return (
-    <div className="relative"> 
+    <div className="relative">
       <div className="slider-container relative">
         <Slider {...settings}>
-          <div className="slide blanco h3 ">
-          {
-      currentItems.map((item, index) => (
-        <div className='gap-2'key={index}>  
-          <p className='textos-bold w-[30%] ml-[12px] truncate'>{item["imagen-libro"]}</p>
-          <p className='textos-bold w-[30%] ml-[12px] truncate'>{item["Nombre-de-la-tienda"]}</p>
-          <p className='textos-bold w-[26%] ml-[75px] truncate'>{item.Local}</p>
-          <p className='textos-bold w-[22%] truncate'>{item.Inventario}</p>
-          <p className='textos-bold w-[22%] truncate'>{item["Ventas-mes"]}</p>
-        </div>
-      ))
-    }
+          <div className="slide">
+            {currentItems.map((item, index) => (
+              <div className='gap-2 flex' key={index}>
+                <img src={item.imagenlibro} alt="Libro" className='w-[32%]' />
+                <div className="flex flex-col !gap-y-[3%] mt-[3%]">
+                  <p className='w-full h3 blanco'>{item.Nombredelatienda}</p>
+                  <p className='textos-bold w-full blanco flex items-center gap-2'>
+                    <img src="/public/svg/Gestiondebodega/local.svg" alt="inventario" className="w-4 h-4" />
+                    {item.Local}</p>
+                  <p className='textos-bold w-full blanco flex items-center gap-2'>
+                    <img src="/public/svg/Gestiondebodega/inventario.svg" alt="inventario" className="w-4 h-4" />
+                    Inventario: {item.Inventario}
+                  </p>
+                  <p className='textos-bold w-full blanco flex items-center gap-2'>
+                    <img src="/public/svg/Gestiondebodega/ventas.svg" alt="inventario" className="w-4 h-4" />
+                    Ventas mes: {item.Ventasmes}</p>
+                </div>
+              </div>
+            ))}
           </div>
+
           <div className="slide">
             <p></p>
           </div>
@@ -59,7 +67,7 @@ function Libros() {
       </div>
 
       <img
-        src="/images/degrade carrusel.png" alt="" className="absolute top-0 ml-[1100px]"/>
+        src="/images/degrade carrusel.png" alt="" className="absolute top-0 ml-[1100px]" />
     </div>
   );
 }

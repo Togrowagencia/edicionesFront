@@ -766,17 +766,6 @@ width: 423px;
 height: 125px;
 }
 
-.libromain {
-  width: 33%;
-}
-.libromain2 {
-  width: 34%;
-}
-
-.libromain3 {
-  width: 35%;
-}
-
 /*carrusel*/
 .slide{
   background: url("../public/images/fondolibro.png") center/cover;

@@ -3,13 +3,10 @@ import React from 'react';
 
 function Libromain() {
   return (
-    <div className="w-[1024px] h-[260px] bg-cover relative flex items-center bg-[url('/images/fondolibromain.png')] bg-center mt-[20%]">
-      <div className="w-[505px] h-[297px] flex mt-[-15%]">
-        <img src="/images/libroflorida.png" alt="" className='libromain absolute ml-[210px]'/>
-        <img src="/images/libroflorida.png" alt="" className='libromain2 ml-[240px] absolute'/>
-        <img src="/images/libroflorida.png" alt="" className='libromain3 ml-[270px] absolute'/>
+    <div className="w-[81%] h-[41%] relative flex items-center bg-[url('/images/fondolibromain.png')] bg-center mt-[20%]">
+      <div className="w-[100%] h-[100%] flex justify-rigth items-center">
+        <img src="/images/libroflorida1.png" alt="" className='absolute ml-[20.5%] w-[53%]'/>
       </div>
-       
     </div>
   )
 }
