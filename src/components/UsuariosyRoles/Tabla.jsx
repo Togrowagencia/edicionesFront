@@ -1,6 +1,12 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import Data from '../Data/UsuariosyRoles/Data'; 
+import React, { useState, useEffect } from "react";
+import Data from "../Data/UsuariosyRoles/Data";
+import Notify from "simple-notify";
+import Swal from "sweetalert2";
+import { getUsers, putUser } from "../../api/user";
+const Tabla = () => {
+  const [currentPage] = useState(1);
+  const itemsPerPage = 17; // Elementos por página
+  const [datos, setDatos] = useState([]);
 
 const Tabla = () => {
     const [currentPage] = useState(1);
