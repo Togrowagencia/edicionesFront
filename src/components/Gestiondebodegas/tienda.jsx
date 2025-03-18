@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 function Tienda({ libro }) {
   if (!libro) {
-    return <p className="negro text-center mt-4">d</p>;
+    return <p className="negro text-center mt-4"></p>;
   }
 
   return (
@@ -25,7 +25,7 @@ function Tienda({ libro }) {
       </p>
       </div>
 
-      <table className="w-full mt-4">
+      <table className="w-full mt-1">
         <thead>
           <tr className="border-b border-grey-500">
             <th className="textos gris-elegancia p-2">ID</th>
@@ -63,7 +63,7 @@ function Tienda({ libro }) {
       </p>
       </div>
 
-      <table className="w-full mt-4">
+      <table className="w-full mt-1">
         <thead>
           <tr className="border-b border-grey-500">
             <th className="textos gris-elegancia p-2">ID</th>
