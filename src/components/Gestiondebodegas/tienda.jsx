@@ -2,39 +2,82 @@ import PropTypes from "prop-types";
 
 function Tienda({ libro }) {
   if (!libro) {
-    return <p className="text-white text-center mt-4">Selecciona un libro para ver los detalles</p>;
+    return <p className="negro text-center mt-4">d</p>;
   }
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg mt-6">
-      <h2 className="text-2xl font-bold mb-2">{libro.Nombredelatienda}</h2>
-      <p className="text-green-500">{libro.Local}</p>
+    <div className="bg-white p-6 mt-6">
+      <p className="h1">{libro.Nombredelatienda}</p>
+      <p className="h3 negro verde-corporativo flex gap-4">
+        <img src="/public/svg/Gestiondebodega/local1.svg" alt="" className="" />
+        {libro.Local}</p>
 
-      <h3 className="font-semibold mt-4">Inventario de tienda: {libro.Inventario} obras</h3>
-      <table className="w-full border border-gray-300 mt-4">
+      <p className="h3 negro mt-4 flex gap-4">
+        <img src="/public/svg/Gestiondebodega/inventario1.svg" alt="" className="" />
+        Inventario de tienda: {libro.Inventario} obras
+      </p>
+      <p className="h3 textos-bold verde-corporativo mt-4 flex gap-4">
+        Ultimas obras agregadas a la tienda
+      </p>
+
+      <table className="w-full mt-4">
         <thead>
-          <tr className="bg-gray-100">
-            <th className="border p-2">ID</th>
-            <th className="border p-2">ISBN</th>
-            <th className="border p-2">Nombre</th>
-            <th className="border p-2">Editorial</th>
-            <th className="border p-2">Género</th>
-            <th className="border p-2">Inducción</th>
-            <th className="border p-2">Cantidad</th>
+          <tr className="border-b border-grey-500">
+            <th className="textos gris-elegancia p-2">ID</th>
+            <th className="textos gris-elegancia p-2">ISBN</th>
+            <th className="textos gris-elegancia p-2">Nombre</th>
+            <th className="textos gris-elegancia p-2">Editorial</th>
+            <th className="textos gris-elegancia p-2">Género</th>
+            <th className="textos gris-elegancia p-2">Inducción</th>
+            <th className="textos gris-elegancia p-2">Cantidad Total</th>
           </tr>
         </thead>
         <tbody>
           <tr className="text-center">
-            <td className="border p-2">{libro.ID}</td>
-            <td className="border p-2">{libro.isbn || "N/A"}</td>
-            <td className="border p-2">{libro.nombre || "N/A"}</td>
-            <td className="border p-2">{libro.editorial || "N/A"}</td>
-            <td className="border p-2">{libro.genero || "N/A"}</td>
-            <td className="border p-2">{libro.induccion || "N/A"}</td>
-            <td className="border p-2">{libro.cantidad || "N/A"}</td>
+            <td className="textos-bold verde-eco p-2">{libro.ID}</td>
+            <td className="textos-bold p-2">{libro.isbn || "N/A"}</td>
+            <td className="textos-bold p-2">{libro.nombre || "N/A"}</td>
+            <td className="textos-bold p-2">{libro.editorial || "N/A"}</td>
+            <td className="textos-bold p-2">{libro.genero || "N/A"}</td>
+            <td className="textos-bold p-2">{libro.induccion || "N/A"}</td>
+            <td className="textos-bold p-2">{libro.cantidad || "N/A"}</td>
           </tr>
         </tbody>
       </table>
+
+      <p className="h3 negro mt-4 flex gap-4">
+        <img src="/public/svg/Gestiondebodega/ventas1.svg" alt="" className="" />
+        Ventas mes: {libro.Ventasmes}
+      </p>
+      <p className="h3 textos-bold verde-corporativo mt-4 flex gap-4">
+        Ultimas ventas hechas por la tienda
+      </p>
+
+      <table className="w-full mt-4">
+        <thead>
+          <tr className="border-b border-grey-500">
+            <th className="textos gris-elegancia p-2">ID</th>
+            <th className="textos gris-elegancia p-2">ISBN</th>
+            <th className="textos gris-elegancia p-2">Nombre de la obra</th>
+            <th className="textos gris-elegancia p-2">Editorial</th>
+            <th className="textos gris-elegancia p-2">Cantidad Total</th>
+            <th className="textos gris-elegancia p-2">Precio de venta</th>
+            <th className="textos gris-elegancia p-2">Costo Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="text-center">
+            <td className="textos-bold verde-eco p-2">{libro.ID}</td>
+            <td className="textos-bold p-2">{libro.isbn || "N/A"}</td>
+            <td className="textos-bold p-2">{libro.nombre || "N/A"}</td>
+            <td className="textos-bold p-2">{libro.editorial || "N/A"}</td>
+            <td className="textos-bold p-2">{libro.genero || "N/A"}</td>
+            <td className="textos-bold p-2">{libro.induccion || "N/A"}</td>
+            <td className="textos-bold p-2">{libro.cantidad || "N/A"}</td>
+          </tr>
+        </tbody>
+      </table>
+
     </div>
   );
 }

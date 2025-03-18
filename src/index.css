@@ -769,15 +769,14 @@ height: 125px;
 /*carrusel*/
 .slide{
   background: url("../public/images/fondolibro.png") center/cover;
-  width: 453px !important;
-  height: 155px ;
-  flex-shrink: 0;
+  width: 100% !important;
+  height: 100%;
 }
 
 .slider-container{
-  width: 1225px;
-  height: 125px;
-  margin-left: 10%;
+  width: 90%;
+  height: 100%;
+  margin-left: 7%;
 }
 .slick-prev, .slick-next{
   margin-top: -27px !important;
@@ -791,6 +790,7 @@ height: 125px;
 
 .slick-next{
   left: 1190px !important;
+  display: none !important;
 }
 
 .banner-controlventas {
