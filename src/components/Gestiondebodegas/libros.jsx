@@ -36,7 +36,7 @@ function Libros({ setLibroSeleccionado }) { // Recibe setLibroSeleccionado como 
                   src={item.imagenlibro}
                   alt="Libro"
                   className="w-[32%] cursor-pointer"
-                  onClick={() => setLibroSeleccionado(item)} // Actualiza el estado en GestiondeBodegas
+                  onClick={() => setLibroSeleccionado(item)} // Actualiza el estado
                 />
                 <div className="flex flex-col !gap-y-[3%] mt-[3%]">
                   <p className="w-full h3 blanco">{item.Nombredelatienda}</p>

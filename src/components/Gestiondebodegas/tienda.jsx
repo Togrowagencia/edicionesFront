@@ -6,7 +6,7 @@ function Tienda({ libro }) {
   }
 
   return (
-    <div className="bg-white p-6 mt-6">
+    <div className="bg-white p-6 mt-6 ml-[-8%]">
       <p className="h1">{libro.Nombredelatienda}</p>
       <p className="h3 negro verde-corporativo flex gap-4">
         <img src="/public/svg/Gestiondebodega/local1.svg" alt="" className="" />
@@ -16,9 +16,14 @@ function Tienda({ libro }) {
         <img src="/public/svg/Gestiondebodega/inventario1.svg" alt="" className="" />
         Inventario de tienda: {libro.Inventario} obras
       </p>
+      <div className="flex justify-between">
       <p className="h3 textos-bold verde-corporativo mt-4 flex gap-4">
         Ultimas obras agregadas a la tienda
       </p>
+      <p className="h3 textos-peques negro border-[4px] rounded-[4px] w-[10%] bg-[#A8D1BD] border-[#A8D1BD] mt-4 flex gap-4 justify-center">
+        Ver detalle
+      </p>
+      </div>
 
       <table className="w-full mt-4">
         <thead>
@@ -49,9 +54,14 @@ function Tienda({ libro }) {
         <img src="/public/svg/Gestiondebodega/ventas1.svg" alt="" className="" />
         Ventas mes: {libro.Ventasmes}
       </p>
+      <div className="flex justify-between">
       <p className="h3 textos-bold verde-corporativo mt-4 flex gap-4">
         Ultimas ventas hechas por la tienda
       </p>
+      <p className="h3 textos-peques negro border-[4px] rounded-[4px] w-[10%] bg-[#A8D1BD] border-[#A8D1BD] mt-4 flex gap-4 justify-center">
+        Ver detalle
+      </p>
+      </div>
 
       <table className="w-full mt-4">
         <thead>
