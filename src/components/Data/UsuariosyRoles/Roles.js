@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const Roles = [
     {
       id: 1,
@@ -25,4 +26,17 @@ const Roles = [
     }
   ];
   
+=======
+const Roles = [
+    {
+      id: 1,
+      nombre: "Administrador"
+    },
+    {
+      id: 2,
+      nombre: "Vendedor"
+    }
+  ];
+  
+>>>>>>> 9654bd9 ( fix: se añade la carpeta de apis)
   export default Roles;
