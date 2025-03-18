@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -13,7 +13,9 @@ function SampleArrow(props) {
   );
 }
 
-function Libros({ setLibroSeleccionado }) { // Recibe setLibroSeleccionado como prop
+function Libros({ setLibroSeleccionado }) {
+  const [startIndex, setStartIndex] = useState(0); // Índice del primer ítem visible
+
   const settings = {
     dots: false,
     infinite: true,
@@ -22,40 +24,54 @@ function Libros({ setLibroSeleccionado }) { // Recibe setLibroSeleccionado como 
     slidesToScroll: 1,
     nextArrow: null,
     prevArrow: <SampleArrow />,
+    beforeChange: (current, next) => {
+      console.log("Nuevo índice de inicio:", next);
+      setStartIndex(next);
+    },
   };
 
   return (
     <div className="relative">
-      {/* Carrusel */}
       <div className="slider-container relative">
         <Slider {...settings}>
-          {Datalibro.map((item, index) => (
-            <div className="slide" key={index}>
-              <div className="gap-2 flex">
-                <img
-                  src={item.imagenlibro}
-                  alt="Libro"
-                  className="w-[32%] cursor-pointer"
-                  onClick={() => setLibroSeleccionado(item)} // Actualiza el estado
-                />
-                <div className="flex flex-col !gap-y-[3%] mt-[3%]">
-                  <p className="w-full h3 blanco">{item.Nombredelatienda}</p>
-                  <p className="textos-bold w-full blanco flex items-center gap-2">
-                    <img src="/public/svg/Gestiondebodega/local.svg" alt="local" className="w-4 h-4" />
-                    {item.Local}
-                  </p>
-                  <p className="textos-bold w-full blanco flex items-center gap-2">
-                    <img src="/public/svg/Gestiondebodega/inventario.svg" alt="inventario" className="w-4 h-4" />
-                    Inventario: {item.Inventario}
-                  </p>
-                  <p className="textos-bold w-full blanco flex items-center gap-2">
-                    <img src="/public/svg/Gestiondebodega/ventas.svg" alt="ventas" className="w-4 h-4" />
-                    Ventas mes: {item.Ventasmes}
-                  </p>
+          {Datalibro.map((item, index) => {
+            const isThirdVisible = index === (startIndex + 2) % Datalibro.length; // Ajuste para el tercer ítem visible en 4 columnas
+
+            console.log(`Índice: ${index} | Tercer visible: ${isThirdVisible}`);
+
+            return (
+              <div className="slide relative" key={index}>
+                <div className="gap-2 flex relative">
+                  <img
+                    src={item.imagenlibro}
+                    alt="Libro"
+                    className="w-[32%] cursor-pointer"
+                    onClick={() => setLibroSeleccionado(item)}
+                  />
+                  <div className="flex flex-col !gap-y-[3%] mt-[3%]">
+                    <p className="w-full h3 blanco">{item.Nombredelatienda}</p>
+                    <p className="textos-bold w-full blanco flex items-center gap-2">
+                      <img src="/public/svg/Gestiondebodega/local.svg" alt="local" className="w-4 h-4" />
+                      {item.Local}
+                    </p>
+                    <p className="textos-bold w-full blanco flex items-center gap-2">
+                      <img src="/public/svg/Gestiondebodega/inventario.svg" alt="inventario" className="w-4 h-4" />
+                      Inventario: {item.Inventario}
+                    </p>
+                    <p className="textos-bold w-full blanco flex items-center gap-2">
+                      <img src="/public/svg/Gestiondebodega/ventas.svg" alt="ventas" className="w-4 h-4" />
+                      Ventas mes: {item.Ventasmes}
+                    </p>
+                  </div>
                 </div>
+
+                {/* Aplica el degradado solo al tercer ítem visible */}
+                {isThirdVisible && (
+                  <div className="degradado-carrusel"></div>
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </Slider>
       </div>
     </div>

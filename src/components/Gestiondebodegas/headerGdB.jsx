@@ -16,10 +16,10 @@ function HeaderGdB() {
     return (
         <div className="flex-1 flex justify-end items-end pr-[50px] h-[6%] gap-3">
             <div onClick={showDrawer1}>
-            <BotonAgregar texto="Agregar usuario"/>
+            <BotonAgregar texto="Agregar tienda"/>
             </div>
             <div>
-            <BotonEliminar texto="Eliminar usuario"/>
+            <BotonEliminar texto="Eliminar tienda"/>
             </div>
             {/* Drawer para agregar usuario */}
             <AgregarTienda isPopupOpen={openDrawer1} handlePopupClose={onCloseDrawer1} />

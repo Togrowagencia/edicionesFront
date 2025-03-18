@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
+import { useNavigate } from 'react-router-dom';
 
 function Tienda({ libro }) {
+  const navigate = useNavigate();
+
   if (!libro) {
     return <p className="negro text-center mt-4"></p>;
   }
@@ -17,12 +20,16 @@ function Tienda({ libro }) {
         Inventario de tienda: {libro.Inventario} obras
       </p>
       <div className="flex justify-between">
-      <p className="h3 textos-bold verde-corporativo mt-4 flex gap-4">
-        Ultimas obras agregadas a la tienda
-      </p>
-      <p className="h3 textos-peques negro border-[4px] rounded-[4px] w-[10%] bg-[#A8D1BD] border-[#A8D1BD] mt-4 flex gap-4 justify-center">
-        Ver detalle
-      </p>
+        <p className="h3 textos-bold verde-corporativo mt-4 flex gap-4">
+          Ultimas obras agregadas a la tienda
+        </p>
+
+        <button
+          onClick={() => navigate('/detalles-obras')}
+          className="h3 textos-peques negro border-[4px] rounded-[4px] w-[10%] bg-[#A8D1BD] border-[#A8D1BD] mt-4 flex gap-4 justify-center cursor-pointer"
+        >
+          Ver detalle
+        </button>
       </div>
 
       <table className="w-full mt-1">
@@ -55,12 +62,15 @@ function Tienda({ libro }) {
         Ventas mes: {libro.Ventasmes}
       </p>
       <div className="flex justify-between">
-      <p className="h3 textos-bold verde-corporativo mt-4 flex gap-4">
-        Ultimas ventas hechas por la tienda
-      </p>
-      <p className="h3 textos-peques negro border-[4px] rounded-[4px] w-[10%] bg-[#A8D1BD] border-[#A8D1BD] mt-4 flex gap-4 justify-center">
-        Ver detalle
-      </p>
+        <p className="h3 textos-bold verde-corporativo mt-4 flex gap-4">
+          Ultimas ventas hechas por la tienda
+        </p>
+        <button
+          onClick={() => navigate('/detalles-venta')}
+          className="h3 textos-peques negro border-[4px] rounded-[4px] w-[10%] bg-[#A8D1BD] border-[#A8D1BD] mt-4 flex gap-4 justify-center cursor-pointer"
+        >
+          Ver detalle
+        </button>
       </div>
 
       <table className="w-full mt-1">
