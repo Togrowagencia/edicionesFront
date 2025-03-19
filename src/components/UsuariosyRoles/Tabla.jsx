@@ -106,8 +106,9 @@ const Tabla = () => {
   };
 
   return (
-    <div className="w-full overflow-x-auto py-4">
-      <table className="w-full rounded-lg overflow-hidden bg-gray-blue-50/50">
+    <div className="container">
+      <div className="overflow-auto max-h-[400px] border border-gray-300 rounded-lg">
+      <table className="w-full rounded-lg overflow-auto">
         <thead className="bg-white ">
           <tr>
             <th className="textoss gris-elegancia text-left px-2">ID</th>
@@ -161,6 +162,8 @@ const Tabla = () => {
           descuento: "",
         }}
       />
+    
+    </div>
     </div>
   );
 };
