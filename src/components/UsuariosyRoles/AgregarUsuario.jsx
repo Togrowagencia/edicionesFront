@@ -6,7 +6,7 @@ import { Drawer } from "antd";
 import BotonAgregar from "../inputs/BotonAgregar";
 import Roles from "../Data/UsuariosyRoles/Roles";
 import Tiendas from "../Data/UsuariosyRoles/Tienda";
-import { createUsers } from "../../api/user";
+import { createUsers, getUsers } from "../../api/user";
 import { getWarehouses } from "../../api/warehouse";
 
 const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text }) => {
@@ -158,7 +158,7 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text }) => {
               </label>
               {field.isSelect ? (
                 <select
-                  name={field.name} 
+                  name={field.name}
                   value={formData[field.name]}
                   onChange={handleInputChange}
                   className="w-full focus:outline-none bg-transparent"
@@ -192,11 +192,27 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text }) => {
               charge: formData.cargo,
               email: formData.correo,
               password: formData.password,
-              role: formData.rol == "Administrador" ? "admin":"vendedor",
+              role: formData.rol == "Administrador" ? "admin" : "vendedor",
               authStrategy: "local",
               id_warehouse: formData.tienda,
-              blocked : false,
+              blocked: false,
               resetPasswordToken: null,
+            }}
+            onUpdate={() => {
+              getUsers(); 
+              setFormData({
+                telefono: "",
+                nombre: "",
+                correo: "",
+                cargo: "",
+                tienda: "",
+                documento: "",
+                password: "",
+                rol: "",
+                descuento: "",
+              }); 
+              
+
             }}
           />
         </div>
