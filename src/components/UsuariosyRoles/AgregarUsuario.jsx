@@ -192,6 +192,8 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text, data }) => {
                       </option>
                     ))}
                 </select>
+
+                
               ) : (
                 <input
                   type={field.type || "text"}
