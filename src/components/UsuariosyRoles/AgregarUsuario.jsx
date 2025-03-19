@@ -8,7 +8,8 @@ import Roles from "../Data/UsuariosyRoles/Roles";
 import Tiendas from "../Data/UsuariosyRoles/Tienda";
 import { createUsers } from "../../api/user";
 import { getWarehouses } from "../../api/warehouse";
-const AgregarUsuario = ({ isPopupOpen, handlePopupClose }) => {
+
+const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text }) => {
   const [warehouse, setwarehouse] = useState([]);
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose }) => {
 
     fetchwarehouse();
   }, []);
-// Add state for form values
+  // Add state for form values
   const [formData, setFormData] = useState({
     telefono: "",
     nombre: "",
@@ -45,28 +46,13 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose }) => {
     });
   };
 
-  const [image, setImage] = useState(null);
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        // Solo actualiza el estado si la imagen es diferente
-        if (image !== reader.result) {
-          setImage(reader.result); // Establecer la URL de la imagen en el estado
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   return (
     <div className="relative overflow-x-hidden">
       <Drawer
         placement="right"
         onClose={handlePopupClose}
         open={isPopupOpen}
-        width={555}
+        width={600}
         closable={false}
         bodyStyle={{ padding: "16px" }}
         drawerStyle={{ borderRadius: "10px 10px 10px 10px", height: "100%" }}
@@ -87,47 +73,29 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose }) => {
             className="w-6 h-6"
           />
         </div>
-        <div className="flex items-center space-x-2 px-4 mb-4">
-          <h2 className="text-2xl font-semibold verde-corporativo">
-            Crear usuario
+        <div className="flex items-center px-4 ">
+          <h2 className="text-2xl font-semibold verde-corporativo mt-4">
+            {text}
           </h2>
+          <hr />
           <img
             src="/public/svg/ControldeVentas/CdV.svg"
             alt="Icono"
-            className="w-6 h-6"
+            className="m-auto"
           />
         </div>
 
         {/* Imagen del usuario */}
-        <div className="w-full flex items-center h-[10%] mt-3 px-4">
-          <div className="w-[60px] h-[60px] rounded-full flex justify-center overflow-hidden border-[#00733C] border-[1px] p-[6px]">
-            <img
-              src={image ? image : "/svg/usuario.svg"}
-              className="w-[35px] h-[45px] object-contain bg-center"
-              alt="Imagen de usuario"
-            />
-          </div>
 
-          <div className="rounded-full bg-[#00733C] ml-[-20px] flex items-center justify-center w-[23px] h-[22px] mt-[-50px]">
-            <input
-              type="file"
-              id="file"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-            <label htmlFor="file">
-              <img src="/svg/camara.svg" className="w-[14px] h-[12px]" />
-            </label>
-          </div>
-
+        <div className="w-full h-[6%] flex ">
           <div className="flex flex-col ml-[10px] gap-2 justify-center w-[80%]">
-            <p className="h3">{formData.nombre}</p>
-            <p className="textos-bold gris-perla">{formData.cargo}</p>
+            <p className="h3 mx-1">{formData.nombre}</p>
+            <p className="textos-bold gris-perla mx-2">{formData.cargo}</p>
           </div>
         </div>
 
         {/* Inputs */}
-        <div className="grid grid-cols-2 gap-4 bg-white rounded-lg w-full px-2 overflow-hidden mt-[20px]">
+        <div className="grid grid-cols-2 gap-4 bg-white rounded-lg w-full px-2 overflow-hidden my-5 py-2">
           {[
             {
               label: "Teléfono",
@@ -144,11 +112,14 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose }) => {
             },
             { label: "Cargo", name: "cargo" },
             {
-              label: "Asignar a tienda",
+              label: "Seleccione una tienda",
               name: "tienda",
               isSelect: true,
-              defaultOption: "Seleccione una tienda",
-              options: warehouse.map((tienda) => tienda.name),
+              defaultOption: "",
+              options: warehouse.map((tienda) => ({
+                value: tienda.id,
+                label: tienda.name,
+              })),
             },
             {
               label: "Documento de Identidad",
@@ -162,11 +133,14 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose }) => {
               placeholder: "****",
             },
             {
-              label: "Rol",
+              label: "Seleccione un rol",
               name: "rol",
               isSelect: true,
-              defaultOption: "Seleccione un rol",
-              options: Roles.map((rol) => rol.nombre),
+              defaultOption: "",
+              options: Roles.map((rol) => ({
+                value: rol.nombre,
+                label: rol.nombre,
+              })),
             },
             {
               label: "Descuento",
@@ -179,22 +153,20 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose }) => {
               key={index}
               className="flex items-center justify-between border-b border-gray-300"
             >
-              <label className="block gris-perla flex-shrink-0  w-auto">
+              <label className="block gris-perla flex-shrink-0">
                 {field.label}
               </label>
               {field.isSelect ? (
                 <select
-                  name={field.name}
+                  name={field.name} 
                   value={formData[field.name]}
                   onChange={handleInputChange}
                   className="w-full focus:outline-none bg-transparent"
                 >
-                  <option value="">
-                    {field.defaultOption || "Seleccione"}
-                  </option>
+                  <option value="">{field.defaultOption || ""}</option>
                   {field.options.map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
+                    <option key={index} value={option.value}>
+                      {option.label}
                     </option>
                   ))}
                 </select>
@@ -212,7 +184,21 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose }) => {
           ))}
         </div>
         <div className="flex-1 flex justify-end pr-[10px] pt-[20px]">
-          <BotonAgregar texto="Agregar usuario" datos={formData} />
+          <BotonAgregar
+            texto="Agregar usuario"
+            opcion={"crear"}
+            datos={{
+              name: formData.nombre,
+              charge: formData.cargo,
+              email: formData.correo,
+              password: formData.password,
+              role: formData.rol == "Administrador" ? "admin":"vendedor",
+              authStrategy: "local",
+              id_warehouse: formData.tienda,
+              blocked : false,
+              resetPasswordToken: null,
+            }}
+          />
         </div>
       </Drawer>
     </div>

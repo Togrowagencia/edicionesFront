@@ -53,6 +53,7 @@ export const Sidebar = () => {
               <Link to="/gestion-de-bodegas" className={getSelectedLink("/gestion-de-bodegas")}>
                 <img src="/svg/sidebar/gdeb.svg" className="noselected-img" />
                 <img src="/svg/sidebar/gdeb-selected.svg" className="selected-img" />
+               
                 <p className='h4'>Gestión de bodegas</p>
               </Link>
 

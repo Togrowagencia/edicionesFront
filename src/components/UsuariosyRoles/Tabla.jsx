@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Data from "../Data/UsuariosyRoles/Data";
 import Notify from "simple-notify";
 import Swal from "sweetalert2";
+import AgregarUsuario from "./AgregarUsuario";
 import { getUsers, putUser } from "../../api/user";
+
 const Tabla = () => {
-  const [currentPage] = useState(1);
-  const itemsPerPage = 17; // Elementos por página
   const [datos, setDatos] = useState([]);
+  const [openDrawer1, setOpenDrawer1] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -21,18 +21,39 @@ const Tabla = () => {
     fetchUsers();
   }, []);
 
-  const handleEdit = async (id, locked) => {
+  const showDrawer1 = () => setOpenDrawer1(true);
+  const onCloseDrawer1 = () => setOpenDrawer1(false);
+
+  const handleEdit = async (id, datos) => {
+    let bandera = {
+      titulo: "¿Seguro de editar el usuario?",
+      texto: "",
+      confirmacion: "Se ha editado el usuario",
+      svg: '<img src="svg/usuario.svg" style="width:50px; height:50px;"/>',
+    };
+
+    if (datos.hasOwnProperty("blocked")) {
+      bandera = datos.blocked
+        ? {
+            titulo: "¿Seguro de bloquear el usuario?",
+            texto: "Al bloquear el usuario, este no podrá acceder al sistema.",
+            confirmacion: "Se ha bloqueado el usuario",
+            svg: '<img src="svg/candador.svg" style="width:50px; height:50px;"/>',
+          }
+        : {
+            titulo: "¿Seguro de desbloquear el usuario?",
+            texto: "Al desbloquear el usuario, este podrá acceder al sistema.",
+            confirmacion: "Se ha desbloqueado el usuario",
+            svg: '<img src="svg/candadov.svg" style="width:50px; height:50px;"/>',
+          };
+    }
+
     try {
       Swal.fire({
-        title: locked ? "seguro que quieres desbloquear el usuario":"¿Está seguro de bloquear el usuario?",
-        text: "Al bloquear el usuario, este no podrá acceder al sistema.",
-        imageUrl: src/trash.svg,
-        imageWidth: 200,
-        imageHeight: 100,
-        imageAlt: "Custom image",
+        title: bandera.titulo,
+        text: bandera.texto,
+        iconHtml: bandera.svg,
         width: 600,
-        padding: "3em",
-        showCancelButton: true,
         showCancelButton: true,
         confirmButtonColor: "#5fb868",
         cancelButtonColor: "black",
@@ -42,11 +63,17 @@ const Tabla = () => {
         background: "#ffff",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const edit = await putUser({ id: id, blocked: locked });
-          console.log("el pepe ");
-          console.log(edit);
+          await putUser({ id: id, datos });
+          setDatos((prevDatos) =>
+            prevDatos.map((user) =>
+              user.id === id ? { ...user, blocked: datos.blocked } : user
+            )
+          );
+
           new Notify({
-            title: "Se ha bloqueado el usuario",
+            title: datos.blocked
+              ? "Se ha bloqueado el usuario"
+              : "Se ha desbloqueado el usuario",
             status: "success",
             position: "left top",
             effect: "slide",
@@ -59,64 +86,61 @@ const Tabla = () => {
         }
       });
     } catch (error) {
-      return error;
+      console.error("Error al actualizar el usuario:", error);
     }
   };
 
-  // Calcular los índices para paginación
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentItems = datos.slice(startIndex, endIndex);
-  // Estado para manejar el cambio de imagen
-  const [lockedItems, setLockedItems] = useState({});
-
-  const toggleLock = (id, locked) => {
-    setLockedItems((prevState) => ({
-      ...prevState,
-      [id]: id,
-    }));
-  };
-
   return (
-    <div className="w-full h-[80%] justify-center ">
-      {/* Encabezados de la tabla */}
-      <div className="w-[96%] h-[10%] border-b border-grey-500 flex items-end pb-2 mx-auto ml-[2%]">
-        <p className="gris-urbano w-[9%]">ID</p>
-        <p className="gris-urbano w-[23%]">Nombre / Usuario</p>
-        <p className="gris-urbano w-[15%]">Rol</p>
-        <p className="gris-urbano w-[17%]">Correo</p>
-        <p className="gris-urbano w-[15%]">Bodega</p>
-        <p className="gris-urbano w-[7%]">Eliminar</p>
-        <p className="gris-urbano w-[7%]">Bloquear</p>
-        <p className="gris-urbano w-[7%]">Editar</p>
-      </div>
-
-      {/* Filas de datos */}
-      {currentItems.map((item, index) => (
-        <div
-          className="w-[96%] flex mb-[20px] relative mt-[10px] mx-auto ml-[2%]"
-          key={index}
-        >
-          <p className="textos-bold verde-eco w-[9%] truncate">{item.id}</p>
-          <p className="textos-bold w-[23%] truncate">
-            {item.firstName + " " + item.lastName}
-          </p>
-          <p className="textos-bold w-[15%] truncate">{item.role}</p>
-          <p className="textos-bold w-[18%] truncate">{item.email}</p>
-          <p className="textos-bold w-[15%] truncate">{item.warehouse}</p>
-
-          <img src="/svg/eliminar.svg" alt="" />
-          <img
-            src={item.blocked ? "/svg/candadov.svg" : "/svg/candador.svg"}
-            alt=""
-            onClick={() => {
-              handleEdit(item.id, !item.blocked);
-            }}
-            className="ml-[6%] cursor-pointer"
-          />
-          <img src="/svg/editar.svg" alt="" className="ml-[5.5%]" />
-        </div>
-      ))}
+    <div className="w-full overflow-x-auto py-4">
+      <table className="w-full rounded-lg overflow-hidden bg-gray-blue-50/50">
+        <thead className="bg-white ">
+          <th className=" textoss gris-elegancia text-left px-2">ID</th>
+          <th className="textoss gris-elegancia text-left">Nombre / Usuario</th>
+          <th className=" textoss gris-elegancia text-left">Rol</th>
+          <th className=" textoss gris-elegancia text-left">Correo</th>
+          {/*<th className=" textoss gris-elegancia text-left">Eliminar</th>*/}
+          <th className=" textoss gris-elegancia text-left">Bloquear</th>
+          <th className=" textoss gris-elegancia text-left">Editar</th>
+          <tr className=" textoss border-b p-2"></tr>
+        </thead>
+        {/* Cuerpo de la tabla */}
+        <tbody>
+          {datos.map((item, index) => (
+            <tr key={item.id} className="odd:bg-white">
+              <td className="font-bold verde-eco px-2  first:rounded-tl-lg last:rounded-bl-lg">
+                {item.id}
+              </td>
+              <td className="textos-bold px-2 py-2">{item.name}</td>
+              <td className="textos-bold px-2 py-2">{item.role}</td>
+              <td className="textos-bold px-2 py-2">{item.email}</td>
+              <td className="p-2">
+                <img
+                  src={item.blocked ? "/svg/candadov.svg" : "/svg/candador.svg"}
+                  alt="Bloquear/Desbloquear"
+                  onClick={() =>
+                    handleEdit(item.id, { blocked: !item.blocked })
+                  }
+                  className="cursor-pointer"
+                />
+              </td>
+              <td className="p-2 last:rounded-tr-lg last:rounded-br-lg">
+                <img
+                  src="/svg/editar.svg"
+                  alt="Editar"
+                  className="cursor-pointer"
+                  onClick={showDrawer1}
+                />
+              
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <AgregarUsuario
+                  isPopupOpen={openDrawer1}
+                  handlePopupClose={onCloseDrawer1}
+                  text={"Editar usuario"}
+                />
     </div>
   );
 };
