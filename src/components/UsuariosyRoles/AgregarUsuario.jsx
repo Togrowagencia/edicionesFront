@@ -9,13 +9,15 @@ import Tiendas from "../Data/UsuariosyRoles/Tienda";
 import { createUsers, getUsers } from "../../api/user";
 import { getWarehouses } from "../../api/warehouse";
 
-const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text }) => {
+const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text, data }) => {
   const [warehouse, setwarehouse] = useState([]);
 
   useEffect(() => {
     const fetchwarehouse = async () => {
       try {
         const response = await getWarehouses();
+        console.log("En agregar...");
+        console.log(data);
         setwarehouse(response.data); // Esto actualiza el estado de `warehouse`
       } catch (error) {
         console.error("Error al obtener los usuarios:", error);
@@ -36,6 +38,22 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text }) => {
     rol: "",
     descuento: "",
   });
+
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        telefono: data.telefono || "",
+        nombre: data.name || "",
+        correo: data.email || "",
+        cargo: data.charge || "",
+        tienda: data.warehouse || "",
+        documento: data.id || "",
+        password: data.password || "",
+        rol: data.role == "admin" ? "Administrador" : "Vendedor" || "",
+        descuento: data.descuento || "",
+      });
+    }
+  }, [data]);
 
   // Handle input changes
   const handleInputChange = (e) => {
@@ -112,10 +130,10 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text }) => {
             },
             { label: "Cargo", name: "cargo" },
             {
-              label: "Seleccione una tienda",
+              label: "Asignar tienda",
               name: "tienda",
               isSelect: true,
-              defaultOption: "",
+              defaultOption: formData.tienda.name,
               options: warehouse.map((tienda) => ({
                 value: tienda.id,
                 label: tienda.name,
@@ -136,7 +154,7 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text }) => {
               label: "Seleccione un rol",
               name: "rol",
               isSelect: true,
-              defaultOption: "",
+              defaultOption: formData.rol,
               options: Roles.map((rol) => ({
                 value: rol.nombre,
                 label: rol.nombre,
@@ -153,7 +171,7 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text }) => {
               key={index}
               className="flex items-center justify-between border-b border-gray-300"
             >
-              <label className="block gris-perla flex-shrink-0">
+              <label className="block gris-perla  scale-95">
                 {field.label}
               </label>
               {field.isSelect ? (
@@ -161,14 +179,18 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text }) => {
                   name={field.name}
                   value={formData[field.name]}
                   onChange={handleInputChange}
-                  className="w-full focus:outline-none bg-transparent"
+                  className="w-full focus:outline-none  bg-transparent text-end"
                 >
-                  <option value="">{field.defaultOption || ""}</option>
-                  {field.options.map((option, index) => (
-                    <option key={index} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
+                  <option value="">
+                    {field.defaultOption}
+                  </option>
+                  {field.options
+                    
+                    .map((option, index) => (
+                      <option key={index} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
                 </select>
               ) : (
                 <input
@@ -177,7 +199,7 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text }) => {
                   value={formData[field.name] || ""}
                   onChange={handleInputChange}
                   placeholder={field.placeholder}
-                  className="pl-[10px] focus:outline-none bg-transparent dark textos"
+                  className="pl-[10px] focus:outline-none bg-transparent dark textos text-end"
                 />
               )}
             </div>
@@ -185,7 +207,7 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text }) => {
         </div>
         <div className="flex-1 flex justify-end pr-[10px] pt-[20px]">
           <BotonAgregar
-            texto="Agregar usuario"
+            texto={text}
             opcion={"crear"}
             datos={{
               name: formData.nombre,
@@ -199,7 +221,6 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text }) => {
               resetPasswordToken: null,
             }}
             onUpdate={() => {
-              getUsers(); 
               setFormData({
                 telefono: "",
                 nombre: "",
@@ -210,9 +231,8 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text }) => {
                 password: "",
                 rol: "",
                 descuento: "",
-              }); 
-              
-
+              });
+             
             }}
           />
         </div>

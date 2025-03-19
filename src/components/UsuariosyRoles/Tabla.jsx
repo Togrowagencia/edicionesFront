@@ -7,6 +7,7 @@ import { getUsers, putUser } from "../../api/user";
 const Tabla = () => {
   const [datos, setDatos] = useState([]);
   const [openDrawer1, setOpenDrawer1] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null); // Estado para el usuario seleccionado
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -21,8 +22,22 @@ const Tabla = () => {
     fetchUsers();
   }, []);
 
-  const showDrawer1 = () => setOpenDrawer1(true);
-  const onCloseDrawer1 = () => setOpenDrawer1(false);
+  const showDrawer1 = (user) => {
+    console.log("Usuario seleccionado antes de actualizar el estado:", user);
+    setSelectedUser(user);
+  };
+
+  useEffect(() => {
+    if (selectedUser) {
+      console.log("Ahora sí está actualizado selectedUser:", selectedUser);
+      setOpenDrawer1(true);
+    }
+  }, [selectedUser]);
+
+  const onCloseDrawer1 = () => {
+    setOpenDrawer1(false);
+    setSelectedUser(null); // Limpiar el usuario seleccionado al cerrar
+  };
 
   const handleEdit = async (id, datos) => {
     let bandera = {
@@ -94,22 +109,19 @@ const Tabla = () => {
     <div className="w-full overflow-x-auto py-4">
       <table className="w-full rounded-lg overflow-hidden bg-gray-blue-50/50">
         <thead className="bg-white ">
-          <th className=" textoss gris-elegancia text-left px-2">ID</th>
-          <th className="textoss gris-elegancia text-left">Nombre / Usuario</th>
-          <th className=" textoss gris-elegancia text-left">Rol</th>
-          <th className=" textoss gris-elegancia text-left">Correo</th>
-          {/*<th className=" textoss gris-elegancia text-left">Eliminar</th>*/}
-          <th className=" textoss gris-elegancia text-left">Bloquear</th>
-          <th className=" textoss gris-elegancia text-left">Editar</th>
-          <tr className=" textoss border-b p-2"></tr>
+          <tr>
+            <th className="textoss gris-elegancia text-left px-2">ID</th>
+            <th className="textoss gris-elegancia text-left">Nombre / Usuario</th>
+            <th className="textoss gris-elegancia text-left">Rol</th>
+            <th className="textoss gris-elegancia text-left">Correo</th>
+            <th className="textoss gris-elegancia text-left">Bloquear</th>
+            <th className="textoss gris-elegancia text-left">Editar</th>
+          </tr>
         </thead>
-        {/* Cuerpo de la tabla */}
         <tbody>
-          {datos.map((item, index) => (
+          {datos.map((item) => (
             <tr key={item.id} className="odd:bg-white">
-              <td className="font-bold verde-eco px-2  first:rounded-tl-lg last:rounded-bl-lg">
-                {item.id}
-              </td>
+              <td className="font-bold verde-eco px-2">{item.id}</td>
               <td className="textos-bold px-2 py-2">{item.name}</td>
               <td className="textos-bold px-2 py-2">{item.role}</td>
               <td className="textos-bold px-2 py-2">{item.email}</td>
@@ -117,30 +129,38 @@ const Tabla = () => {
                 <img
                   src={item.blocked ? "/svg/candadov.svg" : "/svg/candador.svg"}
                   alt="Bloquear/Desbloquear"
-                  onClick={() =>
-                    handleEdit(item.id, { blocked: !item.blocked })
-                  }
+                  onClick={() => handleEdit(item.id, { blocked: !item.blocked })}
                   className="cursor-pointer"
                 />
               </td>
-              <td className="p-2 last:rounded-tr-lg last:rounded-br-lg">
+              <td className="p-2">
                 <img
                   src="/svg/editar.svg"
                   alt="Editar"
                   className="cursor-pointer"
-                  onClick={showDrawer1}
+                  onClick={() => showDrawer1(item)}
                 />
-              
               </td>
             </tr>
           ))}
         </tbody>
       </table>
       <AgregarUsuario
-                  isPopupOpen={openDrawer1}
-                  handlePopupClose={onCloseDrawer1}
-                  text={"Editar usuario"}
-                />
+        isPopupOpen={openDrawer1}
+        handlePopupClose={onCloseDrawer1}
+        text={"Editar usuario"}
+        data={selectedUser || {
+          telefono: "",
+          nombre: "",
+          correo: "",
+          cargo: "",
+          tienda: "",
+          documento: "",
+          password: "",
+          rol: "",
+          descuento: "",
+        }}
+      />
     </div>
   );
 };
