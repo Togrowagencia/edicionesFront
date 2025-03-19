@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState,useEffect} from "react";
 import Slider from "react-slick";
+import { baseurl2 } from "../../utils/baseurl";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Datalibro from "../Data/GestiondeBodegas/Data";
-
+import { getWarehouses } from "../../api/warehouse"; 
 function SampleArrow(props) {
+  
   const { className, style, onClick } = props;
   return (
     <div className={className} style={{ ...style, display: "block" }} onClick={onClick}>
@@ -14,8 +16,22 @@ function SampleArrow(props) {
 }
 
 function Libros({ setLibroSeleccionado }) {
-  const [startIndex, setStartIndex] = useState(0); // Índice del primer ítem visible
+  const [startIndex, setStartIndex] = useState(0); 
+  const [warehouse, setwarehouse] = useState([]);
+  useEffect(() => {
+    const fetchwarehouse = async () => {
+      
+      try {
+        const response = await getWarehouses();
+        setwarehouse(response.data); 
+        console.log(warehouse)// Esto actualiza el estado de `warehouse`
+      } catch (error) {
+        console.error("Error al obtener los usuarios:", error);
+      }
+    };
 
+    fetchwarehouse();
+  }, []);
   const settings = {
     dots: false,
     infinite: true,
@@ -34,8 +50,8 @@ function Libros({ setLibroSeleccionado }) {
     <div className="relative">
       <div className="slider-container relative">
         <Slider {...settings}>
-          {Datalibro.map((item, index) => {
-            const isThirdVisible = index === (startIndex + 2) % Datalibro.length; // Ajuste para el tercer ítem visible en 4 columnas
+          {warehouse.map((item, index) => {
+            const isThirdVisible = index === (startIndex + 2) % warehouse.length; // Ajuste para el tercer ítem visible en 4 
 
             console.log(`Índice: ${index} | Tercer visible: ${isThirdVisible}`);
 
@@ -43,20 +59,20 @@ function Libros({ setLibroSeleccionado }) {
               <div className="slide relative" key={index}>
                 <div className="gap-2 flex relative">
                   <img
-                    src={item.imagenlibro}
+                    src={ baseurl2+item.file}
                     alt="Libro"
                     className="w-[32%] cursor-pointer"
                     onClick={() => setLibroSeleccionado(item)}
                   />
                   <div className="flex flex-col !gap-y-[3%] mt-[3%]">
-                    <p className="w-full h3 blanco">{item.Nombredelatienda}</p>
+                    <p className="w-full h3 blanco">{item.name}</p>
                     <p className="textos-bold w-full blanco flex items-center gap-2">
                       <img src="/public/svg/Gestiondebodega/local.svg" alt="local" className="w-4 h-4" />
-                      {item.Local}
+                      {item.address}
                     </p>
                     <p className="textos-bold w-full blanco flex items-center gap-2">
                       <img src="/public/svg/Gestiondebodega/inventario.svg" alt="inventario" className="w-4 h-4" />
-                      Inventario: {item.Inventario}
+                      Inventario: {item.total}
                     </p>
                     <p className="textos-bold w-full blanco flex items-center gap-2">
                       <img src="/public/svg/Gestiondebodega/ventas.svg" alt="ventas" className="w-4 h-4" />

@@ -13,11 +13,11 @@ function Tienda({ libro }) {
       <p className="h1">{libro.Nombredelatienda}</p>
       <p className="h3 negro verde-corporativo flex gap-4">
         <img src="/public/svg/Gestiondebodega/local1.svg" alt="" className="" />
-        {libro.Local}</p>
+        {libro.address}</p>
 
       <p className="h3 negro mt-4 flex gap-4">
         <img src="/public/svg/Gestiondebodega/inventario1.svg" alt="" className="" />
-        Inventario de tienda: {libro.Inventario} obras
+        Inventario de tienda: {libro.total} obras
       </p>
       <div className="flex justify-between">
         <p className="h3 textos-bold verde-corporativo mt-4 flex gap-4">

@@ -26,9 +26,9 @@ export const getWarehouses = async () => {
   };
 
 
-  export const createUsers = async (formData) => {
+  export const createWarehouse = async (formData) => {
     try {
-      const response = await axios.post(`${baseurl}/users/register`, formData);
+      const response = await axios.post(`${baseurl}warehouse/register/`, formData);
       console.log(response);
       return response;
     } catch (error) {

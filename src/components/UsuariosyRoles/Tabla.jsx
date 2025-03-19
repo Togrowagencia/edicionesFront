@@ -106,64 +106,71 @@ const Tabla = () => {
   };
 
   return (
-    <div className="container">
-      <div className="overflow-auto max-h-[400px] border border-gray-300 rounded-lg">
-      <table className="w-full rounded-lg overflow-auto">
-        <thead className="bg-white ">
+    <div className="mt-2">
+      <div className="overflow-auto max-h-[500px] border border-gray-100 rounded-lg">
+        <table className="w-full rounded-lg overflow-auto">
+        <thead className="bg-white sticky top-0 z-10 shadow">
           <tr>
             <th className="textoss gris-elegancia text-left px-2">ID</th>
-            <th className="textoss gris-elegancia text-left">Nombre / Usuario</th>
+            <th className="textoss gris-elegancia text-left">
+              Nombre / Usuario
+            </th>
             <th className="textoss gris-elegancia text-left">Rol</th>
             <th className="textoss gris-elegancia text-left">Correo</th>
             <th className="textoss gris-elegancia text-left">Bloquear</th>
             <th className="textoss gris-elegancia text-left">Editar</th>
           </tr>
         </thead>
-        <tbody>
-          {datos.map((item) => (
-            <tr key={item.id} className="odd:bg-white">
-              <td className="font-bold verde-eco px-2">{item.id}</td>
-              <td className="textos-bold px-2 py-2">{item.name}</td>
-              <td className="textos-bold px-2 py-2">{item.role}</td>
-              <td className="textos-bold px-2 py-2">{item.email}</td>
-              <td className="p-2">
-                <img
-                  src={item.blocked ? "/svg/candadov.svg" : "/svg/candador.svg"}
-                  alt="Bloquear/Desbloquear"
-                  onClick={() => handleEdit(item.id, { blocked: !item.blocked })}
-                  className="cursor-pointer"
-                />
-              </td>
-              <td className="p-2">
-                <img
-                  src="/svg/editar.svg"
-                  alt="Editar"
-                  className="cursor-pointer"
-                  onClick={() => showDrawer1(item)}
-                />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <AgregarUsuario
-        isPopupOpen={openDrawer1}
-        handlePopupClose={onCloseDrawer1}
-        text={"Editar usuario"}
-        data={selectedUser || {
-          telefono: "",
-          nombre: "",
-          correo: "",
-          cargo: "",
-          tienda: "",
-          documento: "",
-          password: "",
-          rol: "",
-          descuento: "",
-        }}
-      />
-    
-    </div>
+          <tbody>
+            {datos.map((item) => (
+              <tr key={item.id} className="odd:bg-white">
+                <td className="font-bold verde-eco px-2">{item.id}</td>
+                <td className="textos-bold px-2 py-2">{item.name}</td>
+                <td className="textos-bold px-2 py-2">{item.role}</td>
+                <td className="textos-bold px-2 py-2">{item.email}</td>
+                <td className="p-2">
+                  <img
+                    src={
+                      item.blocked ? "/svg/candadov.svg" : "/svg/candador.svg"
+                    }
+                    alt="Bloquear/Desbloquear"
+                    onClick={() =>
+                      handleEdit(item.id, { blocked: !item.blocked })
+                    }
+                    className="cursor-pointer"
+                  />
+                </td>
+                <td className="p-2">
+                  <img
+                    src="/svg/editar.svg"
+                    alt="Editar"
+                    className="cursor-pointer"
+                    onClick={() => showDrawer1(item)}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <AgregarUsuario
+          isPopupOpen={openDrawer1}
+          handlePopupClose={onCloseDrawer1}
+          text={"Editar usuario"}
+          data={
+            selectedUser || {
+              telefono: "",
+              nombre: "",
+              correo: "",
+              cargo: "",
+              tienda: "",
+              documento: "",
+              password: "",
+              rol: "",
+              descuento: "",
+            }
+          }
+        />
+      </div>
     </div>
   );
 };

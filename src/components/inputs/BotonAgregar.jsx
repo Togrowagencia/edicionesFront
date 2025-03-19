@@ -1,34 +1,50 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { putUser, createUsers } from "../../api/user";
-const BotonAgregar = ({ texto, datos,opcion,onUpdate}) => {
+import { createWarehouse } from "../../api/warehouse";
+
+const BotonAgregar = ({ texto, datos, opcion, onUpdate }) => {
   const siuu = async (datos) => {
-   try {
-    if (opcion == "crear") {
-      const crear = await createUsers(datos);
-       new Notify({
-        title: "Usuario creado correctamente",
-        text: "Rellene todos los campos",
-        status: "success",
-        position: "left top",
-        effect: "slide",
-        autotimeout: 900,
-        autoclose: true,
-        button: true,
-        type: "filled",
-        gap: 5,
+    let creado = false;
+    let respuesta = null;
+    try {
+      if (opcion == "crear") {
+        switch (texto) {
+          case "Agregar usuario":
+            respuesta = await createUsers(datos)
+            console.log("AAAAAA")
+            console.log(datos)
+            break;
+          case "Agregar tienda":
+            respuesta = await createWarehouse(datos)
+            break;
+
+          default:
+            break;
+        }
+        if (respuesta && respuesta.status === 201) {
+          creado = true;
+        }
+        new Notify({
+          title: "Creado correctamente",
+          text: "",
+          status: "success",
+          position: "left top",
+          effect: "slide",
+          autotimeout: 900,
+          autoclose: true,
+          button: true,
+          type: "filled",
+          gap: 5,
+        });
+      } else if (opcion == "Editar") {
+        const actualizar = await putUser(datos);
+        
+      }
+      return new Promise((resolve) => {
+        setTimeout(() => resolve(true), 1000); // Espera la notificación y devuelve `true`
       });
-
-    }else if (bandera == "Editar"){
-      const actualizar = await putUser(datos);
-    }
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(true), 1000); // Espera la notificación y devuelve `true`
-    });
-
-   } catch (error) {
-    
-   }
+    } catch (error) {}
   };
   return (
     <div

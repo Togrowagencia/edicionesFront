@@ -7,7 +7,7 @@ import Tabla from '../components/UsuariosyRoles/Tabla'
 
 const UsuariosyRoles = () => {
   return (
-    <div className='w-full h-full px-4 pt-4 flex'>
+    <div className='w-full h-full px-4 pt-4 flex mt-5'>
       <Sidebar/>
 
       <div className='w-[83%] ml-[1%] px-8 -mt-[0.6%] '>
