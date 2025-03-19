@@ -35,8 +35,8 @@ const Resumen = () => {
         return total + item.PreciodeVenta * quantities[item.id];
     }, 0);
 
-    const IVA = subtotal * 0.19; 
-    const descuento = coupon === 'cupon123' ? subtotal * 0.10 : 0; 
+    const IVA = subtotal * 0.19;
+    const descuento = coupon === 'cupon123' ? subtotal * 0.10 : 0;
     const total = subtotal + IVA - descuento;
 
     // Calcular la cantidad total de libros seleccionados
@@ -68,39 +68,39 @@ const Resumen = () => {
                                     <p className="h4 w-full verde-corporativo flex items-center gap-2">
                                         ${item.PreciodeVenta}
                                     </p>
-                                    
+
                                     {/* Controles de cantidad */}
                                     <div className="flex items-center gap-3 mt-2">
-                                        <button 
-                                            onClick={() => handleQuantityChange(item.id, -1)} 
+                                        <button
+                                            onClick={() => handleQuantityChange(item.id, -1)}
                                             className="bg-gray-100 h-[45%] pb-[12%] w-[10%] rounded"
                                         >
                                             -
                                         </button>
                                         <span className="font-bold">{quantities[item.id]}</span>
-                                        <button 
-                                            onClick={() => handleQuantityChange(item.id, 1)} 
+                                        <button
+                                            onClick={() => handleQuantityChange(item.id, 1)}
                                             className="bg-gray-100 h-[45%] w-[10%] rounded"
                                         >
                                             +
                                         </button>
                                     </div>
 
-                                    
+
                                 </div>
                                 <div className='flex flex-col items-end py-2 justify-between'>
-                                <img src='/public/svg/PuntodeVenta/eliminarr.svg' alt="Libro" className="cursor-pointer" />
-                                <p className="textos-bold w-full verde-corporativo flex mt-2">
-                                    ${item.PreciodeVenta * quantities[item.id]}
-                                </p>
+                                    <img src='/public/svg/PuntodeVenta/eliminarr.svg' alt="Libro" className="cursor-pointer" />
+                                    <p className="textos-bold w-full verde-corporativo flex mt-2">
+                                        ${item.PreciodeVenta * quantities[item.id]}
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
 
-            {/* Resumen Final */}
-            <div className="w-full bg-white p-5 border-3 gap-y-2 flex flex-col rounded-b-lg">
+                {/* Resumen Final */}
+                <div className="w-full bg-white p-5 border-3 gap-y-2 flex flex-col rounded-b-lg">
                     <p className="textos-bold gris-elegancia flex justify-between">
                         <span>Cantidad de obras compradas ({totalLibros})</span>
                         <span className="verde-corporativo font-bold">${subtotal.toLocaleString()}</span>
@@ -111,10 +111,10 @@ const Resumen = () => {
                     </p>
                     <div className="flex textos-bold gris-elegancia justify-between items-center">
                         <span>Cupón de descuento</span>
-                        <input 
-                            type="text" 
-                            className="bg-gray-100 px-2 py-1 w-20 h-5 verde-corporativo rounded" 
-                            value={coupon} 
+                        <input
+                            type="text"
+                            className="bg-gray-100 px-2 py-1 w-20 h-5 verde-corporativo rounded"
+                            value={coupon}
                             onChange={(e) => setCoupon(e.target.value)}
                         />
                     </div>

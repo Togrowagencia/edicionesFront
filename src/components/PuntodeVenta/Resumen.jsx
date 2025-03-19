@@ -1,15 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import Data from '../Data/Cotizaciones/Data';
-import Calculadora from './Calculadora'
+import Calculadora from './Calculadora';
 
 const Resumen = () => {
     const [currentPage] = useState(1);
     const itemsPerPage = 10;
-
     const [selected, setSelected] = useState(null);
-
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [coupon, setCoupon] = useState('');
 
     const handleMethodClick = (methodId) => {
         setSelected(methodId);
@@ -18,7 +17,7 @@ const Resumen = () => {
         }
     };
 
-    // Lista de métodos de pago con identificadores únicos
+    // Métodos de pago
     const paymentMethods = [
         { id: "debit", img: "/svg/PuntodeVenta/visa.svg", imgSelected: "/svg/PuntodeVenta/visa-selected.svg", label: "Tarjeta débito" },
         { id: "credit", img: "/svg/PuntodeVenta/credito.svg", imgSelected: "/svg/PuntodeVenta/credito-selected.svg", label: "Tarjeta crédito" },
@@ -27,70 +26,63 @@ const Resumen = () => {
         { id: "more", img: "/svg/PuntodeVenta/opciones.svg", imgSelected: "/svg/PuntodeVenta/opciones-selected.svg", label: "Más opciones" },
     ];
 
-    // Calcular los índices para paginación
+    // Paginación
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const currentItems = Data.slice(startIndex, endIndex);
 
-    // Estado para manejar la cantidad de libros seleccionados por cada item
+    // Estado para cantidades
     const [quantities, setQuantities] = useState(
         currentItems.reduce((acc, item) => {
-            acc[item.id] = 1; // Inicializa cada libro con una cantidad de 1
+            acc[item.id] = 1;
             return acc;
         }, {})
     );
 
-    // Estado para el cupón
-    const [coupon, setCoupon] = useState('');
-
-    // Función para actualizar la cantidad de libros
     const handleQuantityChange = (id, change) => {
-        setQuantities(prev => ({
+        setQuantities((prev) => ({
             ...prev,
-            [id]: Math.max(1, prev[id] + change) // Evita cantidades menores a 1
+            [id]: Math.max(1, prev[id] + change),
         }));
     };
 
-    // Calcular el total de la compra
+    // Cálculos de compra
     const subtotal = currentItems.reduce((total, item) => {
-        return total + item.PreciodeVenta * quantities[item.id];
+        return total + (item.PreciodeVenta || 0) * (quantities[item.id] || 1);
     }, 0);
 
     const IVA = subtotal * 0.19;
     const descuento = coupon === 'cupon123' ? subtotal * 0.10 : 0;
     const total = subtotal + IVA - descuento;
-
-    // Calcular la cantidad total de libros seleccionados
     const totalLibros = Object.values(quantities).reduce((acc, val) => acc + val, 0);
 
     return (
         <div className="flex">
-            <div className="flex !max-h-[845px] flex-col mt-[4%] items-center rounded-[10px] bg-white w-[100%] h-[100%] flex-shrink-0 sombra border-2 border-[#5FB868]">
+            <div className="flex max-h-[845px] flex-col mt-[4%] items-center rounded-[10px] bg-white w-full h-full sombra border-2 border-[#5FB868]">
                 <div className='w-[83%] h-[10%] items-center gap-3 flex mb-[20px] relative mt-[5%]'>
                     <p className='h3 verde-corporativo'>Resumen de venta</p>
-                    <img src="/public/svg/ControldeVentas/CdV.svg" alt="Icono" />
+                    <img src="/svg/ControldeVentas/CdV.svg" alt="Icono" />
                 </div>
 
                 <div className='w-full h-full flex items-center justify-center'>
                     <div className='w-[83%] h-[10%] gap-2 flex flex-col'>
-                        <p className='gris-urbano w-[100%]'>Cliente</p>
-                        <p className='negro w-[100%]'>Juan Manuel</p>
-                        <p className='gris-urbano w-[100%]'>Items comprados</p>
+                        <p className='textos-bold gris-urbano'>Cliente</p>
+                        <p className='negro h4'>Juan Manuel</p>
+                        <p className='textos-bold gris-urbano'>Items comprados</p>
                     </div>
                 </div>
 
-                <div className='w-full px-9 h-[10%] justify-center max-h-[350px] overflow-y-auto scrollbar-thin scrollbar-thumb-green-200 scrollbar-track-gray-700'>
-                    {currentItems.map((item, index) => (
+                <div className='w-full px-9 h-[10%] justify-center min-h-[245px] overflow-y-auto scrollbar-thin scrollbar-thumb-green-200 scrollbar-track-gray-700'>
+                    {currentItems.map((item) => (
                         <div className='w-full flex mb-[20px] relative mt-[10px] border-b pb-2' key={item.id}>
                             <div className="gap-4 flex relative w-full">
-                                <img src={item.imagenlibro} alt="Libro" className="w-[32%] cursor-pointer" />
-                                <div className="flex flex-col w-full !gap-y-[3%] mt-[3%]">
-                                    <p className="w-full textos negro">{item.Nombredelaobra}</p>
-                                    <p className="h4 w-full verde-corporativo flex items-center gap-2">
+                                <img src={item.imagenlibro} alt={item.Nombredelaobra} className="w-[32%] cursor-pointer" />
+                                <div className="flex flex-col w-full gap-y-[3%] mt-[3%]">
+                                    <p className="textos negro">{item.Nombredelaobra}</p>
+                                    <p className="h4 verde-corporativo flex items-center gap-2">
                                         ${item.PreciodeVenta}
                                     </p>
 
-                                    {/* Controles de cantidad */}
                                     <div className="flex items-center gap-3 mt-2">
                                         <button
                                             onClick={() => handleQuantityChange(item.id, -1)}
@@ -106,11 +98,10 @@ const Resumen = () => {
                                             +
                                         </button>
                                     </div>
-
                                 </div>
                                 <div className='flex flex-col items-end py-2 justify-between'>
-                                    <img src='/public/svg/PuntodeVenta/eliminarr.svg' alt="Libro" className="cursor-pointer" />
-                                    <p className="textos-bold w-full verde-corporativo flex mt-2">
+                                    <img src='/svg/PuntodeVenta/eliminarr.svg' alt="Eliminar" className="cursor-pointer" />
+                                    <p className="textos-bold verde-corporativo flex mt-2">
                                         ${item.PreciodeVenta * quantities[item.id]}
                                     </p>
                                 </div>
@@ -119,7 +110,6 @@ const Resumen = () => {
                     ))}
                 </div>
 
-                {/* Resumen Final */}
                 <div className="w-full bg-white p-5 border-3 gap-y-2 flex flex-col rounded-b-lg">
                     <p className="textos-bold gris-elegancia flex justify-between">
                         <span>Cantidad de obras compradas ({totalLibros})</span>
@@ -145,13 +135,12 @@ const Resumen = () => {
                         </p>
                     )}
                     <hr className="my-2" />
-                    <p className=" flex justify-between h3">
+                    <p className="flex justify-between h3">
                         <span className='gris-elegancia'>Total</span>
                         <span className="negro">${total.toLocaleString()}</span>
                     </p>
-
-                    {/* botones de opciones de pago */}
-                    <div>
+                  {/* botones de opciones de pago */}
+                  <div>
                         <p className='gris-elegancia textos-bold mb-2'>Metodo de pago</p>
                         <div className="flex flex-wrap gap-2">
                             {paymentMethods.map((method) => (
@@ -170,14 +159,12 @@ const Resumen = () => {
                         </div>
 
                         {/* Calculadora */}
-                        
                         <Calculadora
                             isOpen={isDrawerOpen}
                             onClose={() => setIsDrawerOpen(false)}
                             total={total}
-                            subtotal={subtotal}
-                            IVA={IVA}  
-                            descuento={descuento}
+                            cupon={coupon}
+                            IVA={IVA}
                         />
                     </div>
 

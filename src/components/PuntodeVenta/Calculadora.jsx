@@ -11,7 +11,7 @@ const Calculadora = ({
 }) => {
 
     return (
-        <div className='drawer-calculadora'>
+
         <Drawer
             placement="left"
             onClose={onClose}
@@ -74,7 +74,6 @@ const Calculadora = ({
                 </div>
             </div>
         </Drawer>
-        </div>
     );
 };
 

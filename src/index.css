@@ -847,10 +847,3 @@ height: 125px;
   z-index: 2; /* Asegura que el texto esté por encima del pseudo-elemento */
 }
 
-.drawer-calculadora {
-  height: 370px !important;
-}
-
-.drawer-calculadora .ant-drawer-content-wrapper {
-  height: 370px !important;
-}
