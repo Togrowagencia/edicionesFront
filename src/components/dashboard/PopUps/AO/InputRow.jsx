@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
-import React from 'react';
 import PropTypes from 'prop-types';
 import InputField from './InputField';
+import classNames from 'classnames'; // Opcional, ayuda a fusionar clases sin sobrescribirlas
 
-const InputRow = ({ fields }) => {
+const InputRow = ({ fields, className }) => {
   return (
-    <div className='w-full h-[10%] flex items-center gap-2 justify-start px-4 -mb-[27px]'>
+    <div className={classNames("w-full h-[10%] flex items-center gap-2 justify-start px-4 -mb-[27px]", className)}>
       {fields.map((field, index) => (
         <InputField
           key={index}
@@ -17,6 +16,7 @@ const InputRow = ({ fields }) => {
     </div>
   );
 };
+
 InputRow.propTypes = {
   fields: PropTypes.arrayOf(
     PropTypes.shape({
@@ -25,6 +25,7 @@ InputRow.propTypes = {
       hasArrow: PropTypes.bool,
     })
   ).isRequired,
+  className: PropTypes.string, // Agregamos la validación de la nueva prop
 };
 
 export default InputRow;

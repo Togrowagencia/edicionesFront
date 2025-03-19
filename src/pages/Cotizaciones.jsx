@@ -12,7 +12,7 @@ const Cotizaciones = () => {
 
       <div className='w-[83%] ml-[1%] px-8 -mt-[0.6%]'>
         <div className='w-full h-[90%] flex -ml-[1%] mt-[0.6%] gestion-de-obras'>
-          <div className='w-[69.5%] h-full'>
+          <div className='w-[69.5%] h-[20%]'>
             <Header/>
             <Tabla/>
           </div>

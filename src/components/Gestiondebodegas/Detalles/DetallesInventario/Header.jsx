@@ -8,6 +8,7 @@ const Header = () => {
       };
   return (
     
+    
     <div className='w-full h-[10%] flex items-center gap-2 justify-start px-4 -ml-[1%]'>
           <div className='w-[15%] bg-white border border-[#000] rounded-[10px] px-4 flex gap-4 items-center h-[50%]'>
               <img src="/svg/header/codigo.svg" alt=""/>
@@ -41,6 +42,7 @@ const Header = () => {
               <img src="/svg/header/notification.svg" alt=""/>
           </div>
             </div>
+            
     </div>
     
   )

@@ -46,7 +46,7 @@ const Resumen = () => {
         <div className="flex">
             <div className="flex !min-h-[845px] flex-col mt-[4%] items-center rounded-[10px] bg-white w-[100%] h-[100%] flex-shrink-0 sombra border-2 border-[#5FB868]">
                 <div className='w-[83%] h-[10%] items-center gap-3 flex mb-[20px] relative mt-[5%]'>
-                    <p className='h3 verde-corporativo'>Resumen de la cotización</p>
+                    <p className='h3 verde-corporativo'>Resumen de venta</p>
                     <img src="/public/svg/Cotizaciones/Resumencotizacion.svg" alt="Icono" />
                 </div>
 

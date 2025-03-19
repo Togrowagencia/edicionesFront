@@ -2,7 +2,7 @@
 import React from 'react'
 import Sidebar from '../components/sidebar'
 import Header from '../components/Gestiondebodegas/Detalles/DetallesInventario/Header'
-import TablaGdO from '../components/Gestiondeobras/tablaGdO'
+import Tabla from '../components/Gestiondebodegas/Detalles/DetallesInventario/Tabla'
 
 const DetallesInventario = () => {
   return (
@@ -15,7 +15,7 @@ const DetallesInventario = () => {
         <div className='w-full h-[90%] flex -ml-[1%]'>
           <div className='w-[65%] h-full'>
             <div className='-mt-[2%]'>
-            <TablaGdO/>
+            <Tabla/>
             </div>
           </div>
         </div>

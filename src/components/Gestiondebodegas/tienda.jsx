@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import React from "react";
 import { useNavigate } from 'react-router-dom';
 
 function Tienda({ libro }) {
@@ -101,20 +101,5 @@ function Tienda({ libro }) {
     </div>
   );
 }
-
-Tienda.propTypes = {
-  libro: PropTypes.shape({
-    Nombredelatienda: PropTypes.string,
-    Local: PropTypes.string,
-    Inventario: PropTypes.number,
-    ID: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    isbn: PropTypes.string,
-    nombre: PropTypes.string,
-    editorial: PropTypes.string,
-    genero: PropTypes.string,
-    induccion: PropTypes.string,
-    cantidad: PropTypes.number,
-  }),
-};
 
 export default Tienda;

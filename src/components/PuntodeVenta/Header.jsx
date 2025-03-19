@@ -39,8 +39,13 @@ const Header = () => {
       <div className='flex'>
 
         <div className='flex flex-wrap items-center gap-4 mt-3 h-[70%] w-full'>
-          <div className='w-[52%] mr-[30%]'>
-          <BotonAgregar texto={"Agregar nuevo cliente"}/>
+          <div className='mr-[30%]'>
+          <button>
+            <p className='bg-green-700 rounded blanco textos py-1 px-2'>Pago credito</p>
+          </button>
+          <button>
+            <p className='bg-green-700 rounded blanco textos py-1 ml-2 px-2'>Agregar nuevo cliente</p>
+          </button>
           </div>
           <CheckboxWithLabel
             label="IVA"
