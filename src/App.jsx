@@ -12,6 +12,7 @@ import ControldeVentas from './pages/ControldeVentas.jsx';
 import ControldeRecursos from './pages/ControldeRecursos.jsx';
 import UsuariosyRoles from './pages/UsuariosyRoles.jsx';
 import Cotizaciones from './pages/Cotizaciones.jsx';
+import DetallesInventario from './pages/DetallesInventario.jsx';
 /*End::Rutas*/
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
         <Route path="/punto-de-venta" element={<Dashboard />} />
         <Route path="/usuarios-y-roles" element={<UsuariosyRoles />} />
         <Route path="/cotizaciones" element={<Cotizaciones />} />
+
+        <Route path="/detalles-inventario" element={<DetallesInventario />} />
       </Routes>
     </>
   )

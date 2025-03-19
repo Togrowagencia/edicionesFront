@@ -25,7 +25,7 @@ function Tienda({ libro }) {
         </p>
 
         <button
-          onClick={() => navigate('/detalles-obras')}
+          onClick={() => navigate('/detalles-inventario')}
           className="h3 textos-peques negro border-[4px] rounded-[4px] w-[10%] bg-[#A8D1BD] border-[#A8D1BD] mt-4 flex gap-4 justify-center cursor-pointer"
         >
           Ver detalle
