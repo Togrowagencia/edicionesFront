@@ -66,22 +66,6 @@ const Resumen = () => {
                                         ${item.PreciodeVenta}
                                     </p>
 
-                                    {/* Controles de cantidad */}
-                                    <div className="flex items-center gap-3 mt-2">
-                                        <button
-                                            onClick={() => handleQuantityChange(item.id, -1)}
-                                            className="bg-gray-100 h-[45%] pb-[12%] w-[10%] rounded"
-                                        >
-                                            -
-                                        </button>
-                                        <span className="font-bold">{quantities[item.id]}</span>
-                                        <button
-                                            onClick={() => handleQuantityChange(item.id, 1)}
-                                            className="bg-gray-100 h-[45%] w-[10%] rounded"
-                                        >
-                                            +
-                                        </button>
-                                    </div>
 
                                 </div>
                                 <div className='flex flex-col items-end py-2 justify-between'>

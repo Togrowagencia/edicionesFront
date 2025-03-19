@@ -19,16 +19,6 @@ const Resumen = () => {
         }, {})
     );
 
-    // Estado para el cupón
-    const [coupon, setCoupon] = useState('');
-
-    // Función para actualizar la cantidad de libros
-    const handleQuantityChange = (id, change) => {
-        setQuantities(prev => ({
-            ...prev,
-            [id]: Math.max(1, prev[id] + change) // Evita cantidades menores a 1
-        }));
-    };
 
     // Calcular el total de la compra
     const subtotal = currentItems.reduce((total, item) => {
@@ -44,14 +34,15 @@ const Resumen = () => {
         <div className="flex">
             <div className="flex !min-h-[845px] flex-col mt-[4%] items-center rounded-[10px] bg-white w-full h-full flex-shrink-0 sombra border-2 border-[#5FB868]">
                 <div className='w-[83%] h-[10%] items-center gap-3 flex mb-[20px] relative mt-[5%]'>
-                    <p className='h3 verde-corporativo'>Resumen del pedido</p>
+                    <p className='h3 verde-corporativo'>Devolucion</p>
                     <img src="/public/svg/Pedidos/pedidos (2).svg" alt="Icono" />
                 </div>
 
                 <div className='w-full h-full flex items-center justify-center'>
                     <div className='w-[83%] h-[10%] gap-2 flex flex-col'>
-                        <p className='gris-elegancia textos-bold w-full'>N° Orden</p>
-                        <p className='gris-elegancia textos-bold w-full'>Items de la orden</p>
+                        <p className='gris-elegancia textos-bold w-full'>Cliente</p>
+                        <p className='gris-elegancia textos-bold w-full'>N° de factura</p>
+                        <p className='gris-elegancia textos-bold w-full'>Fecha de venta</p>
                     </div>
                 </div>
 
@@ -65,23 +56,6 @@ const Resumen = () => {
                                     <p className="h4 w-full verde-corporativo flex items-center gap-2">
                                         ${item.PreciodeVenta}
                                     </p>
-
-                                    {/* Controles de cantidad */}
-                                    <div className="flex items-center gap-3 mt-2">
-                                        <button
-                                            onClick={() => handleQuantityChange(item.id, -1)}
-                                            className="bg-gray-100 h-[45%] pb-[12%] w-[10%] rounded"
-                                        >
-                                            -
-                                        </button>
-                                        <span className="font-bold">{quantities[item.id]}</span>
-                                        <button
-                                            onClick={() => handleQuantityChange(item.id, 1)}
-                                            className="bg-gray-100 h-[45%] w-[10%] rounded"
-                                        >
-                                            +
-                                        </button>
-                                    </div>
 
                                 </div>
                                 <div className='flex flex-col items-end py-2 justify-between'>

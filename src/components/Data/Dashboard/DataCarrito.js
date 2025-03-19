@@ -36,5 +36,6 @@ export const transferencias = [
         cantidad: 250, 
         estado: "Recibido" 
     },
+
   ];
   

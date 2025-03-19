@@ -17,19 +17,19 @@ const Ventas = () => {
 
     <div className="relative mt-[38px] flex flex-col gap-[14px]">
 
-          <div className="total-inventario relative !h-[155px]">
+          <div className="w-[532px] rounded-[10px] bg-[#00733C] bg-cover bg-center relative sombra h-[155px]" style={{ backgroundImage: "url('/images/totalingresos.png')" }}>
             <p className="absolute m-4 h3 mt-[52px]">654.541</p>
             <p className="absolute m-4 h3">Total Ingresos</p>
             <img src="/public/svg/vector(2).svg" alt="Icono" className='w-6 h-6 ml-[490px] absolute mt-[20px]'/>
           </div>
 
-          <div className="total-inventario relative !h-[155px]">
+          <div className="w-[532px] rounded-[10px] bg-[#D55665] bg-cover bg-center relative sombra h-[155px]" style={{ backgroundImage: "url('/images/totalegresos.png')" }}>
             <p className="absolute m-4 h3 mt-[52px]">654.541</p>
             <p className="absolute m-4 h3 ">Total Egresos</p>
             <img src="/public/svg/vector(2).svg" alt="Icono" className='w-6 h-6 ml-[490px] absolute mt-[20px]'/>
           </div>
 
-          <div className="total-inventario relative !h-[155px]">
+          <div className="w-[532px] rounded-[10px] bg-[#d9b030] bg-cover bg-center relative sombra h-[155px]" style={{ backgroundImage: "url('/images/balance.png')" }}>
             <p className="absolute m-4 h3 mt-[52px]">654.541</p>
             <p className="absolute m-4 h3">Balance</p>
             <img src="/public/svg/vector(2).svg" alt="Icono" className='w-6 h-6 ml-[490px] absolute mt-[20px]'/>

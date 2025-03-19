@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import Data from "../Data/Cotizaciones/Data";
-import BotonAgregar from "../inputs/BotonAgregar";
 
 const Tabla = () => {
   const [currentPage] = useState(1);
