@@ -9,10 +9,35 @@ const Data = [
       "Inducción": "30/05/1967",
       "Proveedor": "Distribuidora XYZ",
       "CantidadenStock": "50",
-      "Editar": "<img src='./public/images/libro.png' alt='Editar' />",
+      "imagenlibro": "./public/svg/Cotizaciones/libro1.svg",
       "cliente": "50",
     },
-    
+    {
+      "ID": "000001",
+      "ISBN": "9783161484100",
+      "Nombredelaobra": "Cien Años de Soledad",
+      "Editorial": "Sudamericana",
+      "Clasificacion": "Novela",
+      "PreciodeVenta": "20",
+      "Inducción": "30/05/1967",
+      "Proveedor": "Distribuidora XYZ",
+      "CantidadenStock": "50",
+      "imagenlibro": "./public/svg/Cotizaciones/libro2.svg",
+      "cliente": "50",
+    },
+    {
+      "ID": "000001",
+      "ISBN": "9783161484100",
+      "Nombredelaobra": "Cien Años de Soledad",
+      "Editorial": "Sudamericana",
+      "Clasificacion": "Novela",
+      "PreciodeVenta": "20",
+      "Inducción": "30/05/1967",
+      "Proveedor": "Distribuidora XYZ",
+      "CantidadenStock": "50",
+      "imagenlibro": "./public/svg/Cotizaciones/libro3.svg",
+      "cliente": "50",
+    },
   ];
   
   export default Data;

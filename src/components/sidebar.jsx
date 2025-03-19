@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 export const Sidebar = () => {
   const location = useLocation();
-  const isPuntoDeVenta = location.pathname === '/punto-de-venta';
+  const isPuntoDeVenta = location.pathname === '/punto-de-venta' || location.pathname === '/pedidos' || location.pathname === '/devoluciones';
 
   const getSelectedLink = (path) => {
     return location.pathname === path ? "selected-dashboard selected-logo" : "";
@@ -68,13 +68,13 @@ export const Sidebar = () => {
 
         {isPuntoDeVenta && (
           <>
-            <Link to="/dashboard" className={getSelectedLink("/dashboard")}>
+            <Link to="/pedidos" className={getSelectedLink("/pedidos")}>
               <img src="/svg/sidebar/pedidos.svg" className="noselected-img" />
               <img src="/svg/sidebar/pedidos-selected.svg" className="selected-img" />
               <p className='h4'>Pedidos</p>
             </Link>
 
-            <Link to="/dashboard" className={getSelectedLink("/dashboard")}>
+            <Link to="/devoluciones" className={getSelectedLink("/devoluciones")}>
               <img src="/svg/sidebar/devoluciones.svg" className="noselected-img" />
               <img src="/svg/sidebar/devoluciones-selected.svg" className="selected-img" />
               <p className='h4'>Devoluciones</p>

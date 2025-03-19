@@ -89,7 +89,7 @@ const Resumen = () => {
                                     
                                 </div>
                                 <div className='flex flex-col items-end py-2 justify-between'>
-                                <img src={item.imagenlibro} alt="Libro" className="w-[32%] cursor-pointer" />
+                                <img src='/public/svg/PuntodeVenta/eliminarr.svg' alt="Libro" className="cursor-pointer" />
                                 <p className="textos-bold w-full verde-corporativo flex mt-2">
                                     ${item.PreciodeVenta * quantities[item.id]}
                                 </p>

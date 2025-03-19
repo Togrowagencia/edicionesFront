@@ -14,6 +14,8 @@ import UsuariosyRoles from './pages/UsuariosyRoles.jsx';
 import Cotizaciones from './pages/Cotizaciones.jsx';
 import PuntodeVenta from './pages/PuntodeVenta.jsx';
 import DetallesInventario from './pages/DetallesInventario.jsx';
+import Pedidos from './pages/Pedidos.jsx';
+import Devoluciones from './pages/Devoluciones.jsx';
 /*End::Rutas*/
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
         <Route path="/punto-de-venta" element={<PuntodeVenta />} />
         <Route path="/usuarios-y-roles" element={<UsuariosyRoles />} />
         <Route path="/cotizaciones" element={<Cotizaciones />} />
+        <Route path="/pedidos" element={<Pedidos />} />
+        <Route path="/devoluciones" element={<Devoluciones />} />
 
         <Route path="/detalles-inventario" element={<DetallesInventario />} />
       </Routes>
