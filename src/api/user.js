@@ -62,7 +62,9 @@ export const getUserById = async (Id) => {
           'tgwr_token': token, 
         }
       };
-      const response = await axios.put(`${baseurl}/users/edit/${formData.id}`, {"blocked":formData.blocked},config);
+      const response = await axios.put(`${baseurl}/users/edit/${formData.id}`,formData.datos,config);
+      console.log("aaaaaaaaaaa")
+      console.log(formData.datos)
       console.log(response);    
       return response;
     } catch (error) {

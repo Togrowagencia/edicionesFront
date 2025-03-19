@@ -23,7 +23,7 @@ function Banner() {
       </div>
 
       {/* Primer Drawer (PopupAO) */}
-      <AgregarUsuario isPopupOpen={openDrawer1} handlePopupClose={onCloseDrawer1}/>
+      <AgregarUsuario isPopupOpen={openDrawer1} handlePopupClose={onCloseDrawer1} text={"Agregar usuario"}/>
     </div>
   );
 }

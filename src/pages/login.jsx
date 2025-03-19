@@ -44,9 +44,11 @@ export const Login = (user, pass) => {
       }
       const response = await login(username, password);
       if (response.response && response.response.status == 401) {
+        console.log("response");
+        console.log(response);
         return new Notify({
           title: "Acceso denegado",
-          text: "Credenciales incorrectas",
+          text: response.response.data.message,
           status: "error",
           autotimeout: 850,
           autoclose: true,

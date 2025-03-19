@@ -132,7 +132,17 @@ line-height: 64px; /* 100% */
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 16px; /* 100% */
+  line-height: 16px;/* 100% */
+}
+.textoss {
+  /* Textos Generales */
+  font-family: Afacad;
+  font-size: 16px;
+  font-style: normal;
+  padding-bottom: 10px !important;
+  padding-top: 10px !important;
+
+  font-weight: 400 !important;
 }
 
 .textos-bold {
@@ -836,3 +846,4 @@ height: 125px;
   position: relative;
   z-index: 2; /* Asegura que el texto esté por encima del pseudo-elemento */
 }
+
