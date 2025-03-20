@@ -12,7 +12,6 @@ function HeaderGdB() {
     const onCloseDrawer1 = () => {
       setOpenDrawer1(false);
     };
-
     return (
         <div className="flex-1 flex justify-end items-end pr-[50px] h-[6%] gap-3">
             <div onClick={showDrawer1}>
