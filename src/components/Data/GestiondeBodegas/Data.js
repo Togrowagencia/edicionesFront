@@ -14,6 +14,20 @@ const Datalibro = [
     "cantidad": "37"
   },
   {
+    "id": "d1d95aad-05cd-4140-974b-067a24d5fe8b",
+    "name": "La central ",
+    "address": "debajo de un puente ",
+    "email": "Anamaria123@gmail.com",
+    "city": "Medellin",
+    "file": "no image",
+    "capacity": 25,
+    "own_amount": 400,
+    "consignment_amount": 225,
+    "total": 100,
+    "books": [],
+    "user": []
+  },
+  {
     "ID": "000002",
     "imagenlibro": "/public/images/libromonterrey.png",
     "Nombredelatienda": "Tienda Viva Laureles",

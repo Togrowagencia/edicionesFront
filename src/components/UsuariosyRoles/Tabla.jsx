@@ -28,8 +28,7 @@ const Tabla = () => {
   };
 
   useEffect(() => {
-    if (selectedUser) {
-      console.log("Ahora sí está actualizado selectedUser:", selectedUser);
+    if (selectedUser) {;
       setOpenDrawer1(true);
     }
   }, [selectedUser]);
@@ -111,7 +110,7 @@ const Tabla = () => {
         <table className="w-full rounded-lg overflow-auto">
         <thead className="bg-white sticky top-0 z-10 shadow">
           <tr>
-            <th className="textoss gris-elegancia text-left px-2">ID</th>
+            <th className="textoss gris-elegancia text-left px-4">ID</th>
             <th className="textoss gris-elegancia text-left">
               Nombre / Usuario
             </th>
@@ -124,7 +123,7 @@ const Tabla = () => {
           <tbody>
             {datos.map((item) => (
               <tr key={item.id} className="odd:bg-white">
-                <td className="font-bold verde-eco px-2">{item.id}</td>
+                <td className="font-bold verde-eco px-4">{item.id}</td>
                 <td className="textos-bold px-2 py-2">{item.name}</td>
                 <td className="textos-bold px-2 py-2">{item.role}</td>
                 <td className="textos-bold px-2 py-2">{item.email}</td>

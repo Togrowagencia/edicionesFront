@@ -21,7 +21,6 @@ function HeaderGdB() {
             <div>
             <BotonEliminar texto="Eliminar tienda"/>
             </div>
-            {/* Drawer para agregar usuario */}
             <AgregarTienda isPopupOpen={openDrawer1} handlePopupClose={onCloseDrawer1} />
         </div>
     );
