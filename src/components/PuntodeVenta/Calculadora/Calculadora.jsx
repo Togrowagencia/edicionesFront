@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Drawer } from 'antd';
 import Carrusel from "./Carrusel.jsx"
+import { Column } from 'typeorm';
 
 
 const Calculadora = ({
@@ -35,8 +36,8 @@ const Calculadora = ({
 
     return (
         <Drawer
-            className="drawer-calculadora"
-            placement="left"
+            rootClassName="drawer-calculadora"
+            placement="right"
             onClose={onClose}
             open={isOpen}
             width={462}
@@ -49,9 +50,9 @@ const Calculadora = ({
                 <img src='/svg/PuntodeVenta/cerrarcal.svg' alt="" className="cursor-pointer" />
             </div>
 
-            <div className='grid grid-cols-2 gap-4 py-10'>
+            <div className='grid grid-cols-2 gap-4 py-3 h-[100%]'>
                 {/* Columna número 1 */}
-                <div className="flex flex-col gap-4 bg-[#EEE] py-10 px-6 rounded-[10px]">
+                <div className="flex flex-col gap-4 bg-[#EEE] py-10 px-6 rounded-[10px] h-[350px]">
                     <p className="textos-bold gris-elegancia">Subtotal</p>
                     <p className="h4 negro">${subtotal?.toLocaleString()}</p>
                     <p className="textos-bold gris-elegancia">IVA 19%</p>
@@ -65,7 +66,7 @@ const Calculadora = ({
                 </div>
 
                 {/* Columna número 2 */}
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 h-[350px]">
                     <div className='flex w-full justify-center'>
                         <div className='flex bg-[#00733C] w-auto py-1 px-2 gap-2 rounded-[3px]'>
                             <img src='/svg/PuntodeVenta/efectivo-selected.svg' alt="" />

@@ -783,8 +783,9 @@ height: 125px;
   height: 100%;
 }
 .drawer-calculadora .ant-drawer-content-wrapper {
-  height: 50% !important;
-  top: 25%; /* Para centrarlo en la pantalla */
+  height: 45% !important;
+  top: 50%;
+  right: 25%;
 }
 .slider-calculadora{
   width: 100%;
