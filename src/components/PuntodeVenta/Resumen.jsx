@@ -163,8 +163,9 @@ const Resumen = () => {
                             isOpen={isDrawerOpen}
                             onClose={() => setIsDrawerOpen(false)}
                             total={total}
-                            cupon={coupon}
                             IVA={IVA}
+                            descuento={descuento}
+                            subtotal={subtotal}
                         />
                     </div>
 
