@@ -51,7 +51,7 @@ function Libros({ setLibroSeleccionado }) {
       <div className="slider-container relative">
         <Slider {...settings}>
           {warehouse.map((item, index) => {
-            const isThirdVisible = index === (startIndex + 2) % warehouse.length; // Ajuste para el tercer ítem visible en 4 
+            const isThirdVisible = index === (startIndex + 2) % warehouse.length; // Ajuste para el tercer ítem visible en 3 
 
             console.log(`Índice: ${index} | Tercer visible: ${isThirdVisible}`);
 

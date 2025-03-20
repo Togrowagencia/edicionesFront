@@ -782,8 +782,26 @@ height: 125px;
   width: 100% !important;
   height: 100%;
 }
+.drawer-calculadora .ant-drawer-content-wrapper {
+  height: 50% !important;
+  top: 25%; /* Para centrarlo en la pantalla */
+}
+.slider-calculadora{
+  width: 100%;
+  margin-left: 4%;
+}
 
-.slider-container{
+.slider-calculadora .slick-next {
+  display: block !important;
+  left: 100% !important;
+  margin-top: -4% !important;
+}
+.slider-calculadora .slick-prev, .slick-next {
+  margin-left: -1%;
+  margin-top: -4% !important;
+}
+
+.slider-container {
   width: 90%;
   height: 100%;
   margin-left: 7%;
@@ -795,12 +813,12 @@ height: 125px;
 }
 
 .slick-prev {
-  left: -50px !important;
+  left: -3% !important;
 }
 
 .slick-next{
   left: 1190px !important;
-  display: none !important;
+  display: none;
 }
 
 .degradado-carrusel {

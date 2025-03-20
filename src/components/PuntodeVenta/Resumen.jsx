@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import Data from '../Data/Cotizaciones/Data';
-import Calculadora from './Calculadora';
+import Calculadora from './Calculadora/Calculadora.jsx';
 
 const Resumen = () => {
     const [currentPage] = useState(1);
