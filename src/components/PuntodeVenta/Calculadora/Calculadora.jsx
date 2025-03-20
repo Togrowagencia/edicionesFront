@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Drawer } from 'antd';
 import Carrusel from "./Carrusel.jsx"
-import { Column } from 'typeorm';
+
 
 
 const Calculadora = ({
