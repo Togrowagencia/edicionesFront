@@ -10,7 +10,7 @@ const DetallesInventario = () => {
       <div className='w-1553px h-883px flex'>
       <Sidebar/>
 
-      <div className='w-[83%] ml-[1%] px-8 gestion-de-obras'>
+      <div className='w-[83%] ml-[1%] px-8 gestion-de-obras ml-[17%]'>
         <Header/>
         <div className='w-full h-[90%] flex -ml-[1%]'>
           <div className='w-[65%] h-full'>
