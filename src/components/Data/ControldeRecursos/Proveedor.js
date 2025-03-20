@@ -5,9 +5,56 @@ const Proveedor = [
       "Telefono": "123-456-7890",
     },
     {
+      "Proveedor": "Librería Nacional",
+      "Email": "contacto@librerianacional.com",
+      "Telefono": "123-456-7890",
+    },
+    {
       "Proveedor": "Casa del Libro",
       "Email": "info@casadellibro.com",
       "Telefono": "098-765-4321",
+    },
+    {
+      "Proveedor": "Casa del Libro",
+      "Email": "info@casadellibro.com",
+      "Telefono": "098-765-4321",
+    },
+    {
+      "Proveedor": "Casa del Libro",
+      "Email": "info@casadellibro.com",
+      "Telefono": "098-765-4321",
+    },
+    {
+      "Proveedor": "Casa del Libro",
+      "Email": "info@casadellibro.com",
+      "Telefono": "098-765-4321",
+    },
+    {
+      "Proveedor": "Casa del Libro",
+      "Email": "info@casadellibro.com",
+      "Telefono": "098-765-4321",
+    },
+    
+    {
+      "Proveedor": "Casa del Libro",
+      "Email": "info@casadellibro.com",
+      "Telefono": "098-765-4321",
+    },
+    {
+      "Proveedor": "Casa del Libro",
+      "Email": "info@casadellibro.com",
+      "Telefono": "098-765-4321",
+    },
+    
+    {
+      "Proveedor": "Amazon Books",
+      "Email": "support@amazonbooks.com",
+      "Telefono": "555-123-4567",
+    },
+    {
+      "Proveedor": "Amazon Books",
+      "Email": "support@amazonbooks.com",
+      "Telefono": "555-123-4567",
     },
     {
       "Proveedor": "Amazon Books",
