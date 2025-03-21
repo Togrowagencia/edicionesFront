@@ -6,7 +6,7 @@ import Banner from "../components/ControldeRecursos/Banner";
 import Proveedores from "../components/ControldeRecursos/Recursos/Proveedores";
 import Editorial from "../components/ControldeRecursos/Recursos/Editorial";
 import Autor from "../components/ControldeRecursos/Recursos/Autor";
-import MediosdePago from "../components/ControldeRecursos/Recursos/MediosdePago";
+import {MediosdePago} from "../components/ControldeRecursos/Recursos/MediosdePago";
 import Genero from "../components/ControldeRecursos/Recursos/Genero";
 import Contenidos from "../components/ControldeRecursos/Recursos/Contenidos";
 import Promociones from "../components/ControldeRecursos/Recursos/Promociones";
