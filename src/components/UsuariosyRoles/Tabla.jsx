@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import AgregarUsuario from "./AgregarUsuario";
 import { getUsers, putUser } from "../../api/user";
 
-const Tabla = () => {
+const   Tabla = () => {
   const [datos, setDatos] = useState([]);
   const [openDrawer1, setOpenDrawer1] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null); // Estado para el usuario seleccionado
@@ -105,9 +105,9 @@ const Tabla = () => {
   };
 
   return (
-    <div className="mt-2">
-      <div className="overflow-auto max-h-[500px] border border-gray-100 rounded-lg">
-        <table className="w-full rounded-lg overflow-auto">
+    <div className="my-4">
+      <div className="overflow-auto max-h-[500px] border border-gray-100 rounded-lg ">
+        <table className="w-full rounded-lg overflow-auto mb-[5%]">
         <thead className="bg-white sticky top-0 z-10 shadow">
           <tr>
             <th className="textoss gris-elegancia text-left px-4">ID</th>
@@ -121,8 +121,10 @@ const Tabla = () => {
           </tr>
         </thead>
           <tbody>
-            {datos.map((item) => (
-              <tr key={item.id} className="odd:bg-white">
+            {datos.map((item,index) => (
+              <tr key={item.id}  className={` ${
+                index % 2 === 0 ? "bg-gray-100" : "bg-white"
+              }`}>
                 <td className="font-bold verde-eco px-4">{item.id}</td>
                 <td className="textos-bold px-2 py-2">{item.name}</td>
                 <td className="textos-bold px-2 py-2">{item.role}</td>

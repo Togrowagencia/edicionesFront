@@ -12,13 +12,13 @@ const Proveedores = () => {
   //const currentItems = Proveedor.slice(startIndex, endIndex);
 
   return (
-    <div className="w-[50.5%] h-[28.5%]  rounded-[10px] sombra flex-shrink-0 bg-white">
+    <div className="w-[50.5%] h-[25.5%]  rounded-[10px] sombra flex-shrink-0 bg-white">
       <div className="w-full h-[10%] flex items-center gap-2 mb-[20px] relative mt-[16px]">
         <p className="h3 negro w-[85%] ml-[5%]">Proveedores</p>
         <img src="/public/svg/header/buscar.svg" alt="Icono" />
       </div>
       <div className="w-full h-full justify-center">
-        <div className="overflow-auto max-h-[calc(100%-30%)] my-1">
+        <div className="overflow-auto max-h-[calc(100%-35%)] my-1">
           <table className="w-[95%] mx-auto">
             <thead className="bg-white sticky top-0 z-10 shadow">
               <tr className="border-b border-green-500 ">
@@ -32,7 +32,7 @@ const Proveedores = () => {
               {Proveedor.map((item, index) => (
                 <tr
                   key={index}
-                  className={`text-end ${
+                  className={`text-center ${
                     index % 2 === 0 ? "bg-gray-100" : "bg-white"
                   }`}
                 >
@@ -48,13 +48,10 @@ const Proveedores = () => {
             </tbody>
           </table>
         </div>
-        <div className="grid grid-cols-2">
-          <div className="col"></div>
-          <div className="w-[50%] ml-[47%] flex flex justify-end pr-3 py-2">
-            <button className=" text-[17px] h-[95%] bg-green-800 hover:bg-green-700 text-white font-bold  px-4 border-b-4 border-green-800 hover:border-green-700 rounded">
-              Agregar proveedor +
-            </button>
-          </div>
+        <div className="w-[85%] ml-[12%] flex flex justify-end py-3">
+          <button className=" text-[17px] h-[95%] bg-green-800 hover:bg-green-700 text-white font-bold  px-4 border-b-4 border-green-800 hover:border-green-700 rounded">
+            Agregar proveedor +
+          </button>
         </div>
       </div>
     </div>
