@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import Proveedor from '../../Data/ControldeRecursos/Proveedor';
-
+import AgregarRecurso from '../CrearRecurso';
 const Autor = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4; // Elementos por página
@@ -40,8 +40,9 @@ const Autor = () => {
                   </tbody>
               </table>
           </div>
+          
       </div>
-           
+      <AgregarRecurso  />
       </div>
 
   )
