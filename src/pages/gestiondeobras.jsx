@@ -11,7 +11,7 @@ const Gestiondeobras = () => {
       <div className='w-1553px h-883px flex'>
       <Sidebar/>
 
-      <div className='w-[83%] mt-[1%] px-8 gestion-de-obras ml-[21%]'>
+      <div className='w-[83%] px-8 gestion-de-obras ml-[21%]'>
         <HeaderGdO/>
         <div className='w-full h-[90%] flex -ml-[1%]'>
           <div className='w-[65%] h-full'>

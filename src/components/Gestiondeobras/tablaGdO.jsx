@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import DataTablaGdO from '../Data/DataTablaGdO';
 import Popup from './Popup';
+import Popup2 from './Popup2';
 
 const TablaGdO = () => {
     const [openDrawer1, setOpenDrawer1] = useState(false);
+    const [openDrawer2, setOpenDrawer2] = useState(false);
     const [currentPage] = useState(1);
     const itemsPerPage = 17; // Elementos por página
 
@@ -15,11 +17,19 @@ const TablaGdO = () => {
 
     const showDrawer1 = () => {
         setOpenDrawer1(true);
-      };
+    };
+    
+    const showDrawer2 = () => {
+        setOpenDrawer2(true); // Changed from setOpenDrawer1 to setOpenDrawer2
+    };
 
-      const onCloseDrawer1 = () => {
+    const onCloseDrawer1 = () => {
         setOpenDrawer1(false);
-      };
+    };
+    
+    const onCloseDrawer2 = () => {
+        setOpenDrawer2(false); // Changed from setOpenDrawer1 to setOpenDrawer2
+    };
 
 
     return (
@@ -57,13 +67,20 @@ const TablaGdO = () => {
                             <td className='textos-bold truncate py-2'>{item["Cantidad-en-consignacion"]}</td>
                             <td className='textos-bold truncate py-2'>{item["Cantidad-total"]}</td>
                             <td>
-                                <img onClick={showDrawer1} src="/public/svg/editar.svg" alt="Imagen" className='cursor-pointer'/>
+                                <img onClick={showDrawer1} src="/public/svg/editar.svg" alt="Imagen" className='cursor-pointer' />
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-                  <Popup isPopupOpen={openDrawer1} handlePopupClose={onCloseDrawer1}/>
+            <div className='flex justify-end py-4 mr-[-54%]'>
+                <button onClick={showDrawer2} className='flex bg-[#00733C] textos-bold blanco rounded-[3px] p-2 gap-2 mt-1'>
+                    Reubicar Masivamente
+                    <img src="/svg/agregarmasi.svg" alt="" />
+                </button>
+            </div>
+            <Popup isPopupOpen={openDrawer1} handlePopupClose={onCloseDrawer1} />
+            <Popup2 isPopupOpen={openDrawer2} handlePopupClose={onCloseDrawer2} />
         </div>
 
     );

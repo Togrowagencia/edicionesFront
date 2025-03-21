@@ -789,6 +789,10 @@ height: 125px;
   top: 50%;
   right: 25%;
 }
+.drawer-librosolo .ant-drawer-content-wrapper {
+  height: 45% !important;
+  top: 30%;
+}
 .slider-calculadora{
   width: 100%;
   margin-left: 4%;
@@ -893,4 +897,86 @@ height: 125px;
 ::-webkit-scrollbar-track {
   border-radius: 10px;  
 }
+.custom-checkbox .ant-checkbox-inner {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #7C7C7C;
+  border-radius: 100%;
+  background-color: white;
+  transition: all 0.3s;
+}
 
+.custom-checkbox .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: white;
+  border-color: #5FB868;
+}
+
+/* Remove focus outline and modify dot styling */
+.custom-checkbox .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.custom-checkbox .ant-checkbox:focus .ant-checkbox-inner {
+  border-color: #5FB868;
+  outline: none;
+}
+
+.custom-checkbox .ant-checkbox-checked .ant-checkbox-inner::after {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: #5FB868;
+  border-radius: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  transition: all 0.3s;
+  box-shadow: none;
+}
+.custom-checkbox .ant-checkbox:hover .ant-checkbox-inner {
+  border-color: #5FB868;
+}
+
+.custom-select .ant-select-selector {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  font-size: 16px !important;
+  font-family: inherit !important;
+}
+
+.custom-select .ant-select-selection-item {
+  color: #00733C !important;
+  font-weight: 600 !important;
+}
+
+.custom-select .ant-select-arrow {
+  color: #00733C !important;
+}
+
+.custom-select:hover .ant-select-selector,
+.custom-select.ant-select-focused .ant-select-selector {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Dropdown styles */
+.custom-select .ant-select-dropdown {
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.custom-select .ant-select-item {
+  padding: 8px 12px !important;
+  color: #4B4B4B !important;
+}
+
+.custom-select .ant-select-item-option-active {
+  background-color: #F5F5F5 !important;
+  color: #000000 !important;
+}
+
+.custom-select .ant-select-item-option-selected,
+.custom-select .ant-select-item-option-active {
+  background-color: #5FB868 !important; /* Un gris claro */
+  color: #ffffff !important;
+}
