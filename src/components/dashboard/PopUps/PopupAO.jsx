@@ -16,7 +16,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
   // Calcular los índices para paginación
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentItems = DataAO.slice(startIndex, endIndex);  
+  const currentItems = DataAO.slice(startIndex, endIndex);
 
   const [selectedCheckboxes, setSelectedCheckboxes] = useState({
     obraPropia: false,
@@ -118,45 +118,45 @@ const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
         {selectedCheckboxes.iva && <IVA />}
 
         <div className="flex flex-col items-center mt-[38px]">
-        <div className='w-full h-[10%] flex items-center gap-2 mb-[20px] relative mt-[16px] ml-[57px]'>
-          <p className='h4 verde-corporativo'>Compra de la obra</p>
-        </div>
-
-        <div className='w-full h-full justify-center'>
-{/* Encabezados de la tabla */}
-        <div className='w-[1385px] h-[10%] gap-2 border-b border-grey-500 flex items-end pb-2 mx-auto'>
-          <p className='gris-urbano w-[5%]'>ID</p> 
-          <p className='gris-urbano w-[10%] ml-[10px]'>ISBN</p> 
-          <p className='gris-urbano w-[20%] ml-[10px]'>Nombre de la obra</p> 
-          <p className='gris-urbano w-[10%] ml-[10px]'>Editorial</p> 
-          <p className='gris-urbano w-[10%] ml-[10px]'>Genero</p> 
-          <p className='gris-urbano w-[10%] ml-[10px]'>Costo</p> 
-          <p className='gris-urbano w-[10%] ml-[10px]'>Inducción</p> 
-          <p className='gris-urbano w-[10%] ml-[10px]'>Proveedor</p> 
-          <p className='gris-urbano w-[10%] ml-[10px]'>Cantidad total</p> 
-          <p className='gris-urbano w-[10%] ml-[10px]'>Costo total</p>
-          <p className='gris-urbano w-[10%] ml-[10px]'>Editar/Eliminar</p> 
-        </div>
-
-        {/* Filas de datos */}
-        {currentItems.map((item, index) => (
-          <div className='gap-2 flex mb-[20px] relative mt-[10px] ml-[22px]' key={index}>
-            <p className='textos-bold verde-eco w-[5.6%] truncate'>{item.ID}</p> 
-            <p className='textos-bold w-[9.4%] truncate'>{item.ISBN}</p> 
-            <p className='textos-bold w-[18%] truncate'>{item["Nombre de la obra"]}</p> 
-            <p className='textos-bold w-[10%] truncate'>{item["Editorial"]}</p> 
-            <p className='textos-bold w-[10%] truncate'>{item["Genero"]}</p> 
-            <p className='textos-bold w-[9%] truncate'>{item["Costo"]}</p> 
-            <p className='textos-bold w-[10%] truncate'>{item["Inducción"]}</p> 
-            <p className='textos-bold w-[10%] truncate'>{item["Proveedor"]}</p> 
-            <p className='textos-bold w-[10%] truncate'>{item["Cantidad Total"]}</p> 
-            <p className='textos-bold w-[10%] truncate'>{item["Costo total"]}</p>
-            <p className='textos-bold w-[10%] truncate'>{item["Editar/Eliminar"]}</p> 
+          <div className='w-full h-[10%] flex items-center gap-2 mb-[20px] relative mt-[16px] ml-[57px]'>
+            <p className='h4 verde-corporativo'>Compra de la obra</p>
           </div>
-        ))}
-      </div>
 
-      </div>
+          <div className='w-full h-full justify-center'>
+            {/* Encabezados de la tabla */}
+            <div className='w-[1385px] h-[10%] gap-2 border-b border-grey-500 flex items-end pb-2 mx-auto'>
+              <p className='gris-urbano w-[5%]'>ID</p>
+              <p className='gris-urbano w-[10%] ml-[10px]'>ISBN</p>
+              <p className='gris-urbano w-[20%] ml-[10px]'>Nombre de la obra</p>
+              <p className='gris-urbano w-[10%] ml-[10px]'>Editorial</p>
+              <p className='gris-urbano w-[10%] ml-[10px]'>Genero</p>
+              <p className='gris-urbano w-[10%] ml-[10px]'>Costo</p>
+              <p className='gris-urbano w-[10%] ml-[10px]'>Inducción</p>
+              <p className='gris-urbano w-[10%] ml-[10px]'>Proveedor</p>
+              <p className='gris-urbano w-[10%] ml-[10px]'>Cantidad total</p>
+              <p className='gris-urbano w-[10%] ml-[10px]'>Costo total</p>
+              <p className='gris-urbano w-[10%] ml-[10px]'>Editar/Eliminar</p>
+            </div>
+
+            {/* Filas de datos */}
+            {currentItems.map((item, index) => (
+              <div className='gap-2 flex mb-[20px] relative mt-[10px] ml-[22px]' key={index}>
+                <p className='textos-bold verde-eco w-[5.6%] truncate'>{item.ID}</p>
+                <p className='textos-bold w-[9.4%] truncate'>{item.ISBN}</p>
+                <p className='textos-bold w-[18%] truncate'>{item["Nombre de la obra"]}</p>
+                <p className='textos-bold w-[10%] truncate'>{item["Editorial"]}</p>
+                <p className='textos-bold w-[10%] truncate'>{item["Genero"]}</p>
+                <p className='textos-bold w-[9%] truncate'>{item["Costo"]}</p>
+                <p className='textos-bold w-[10%] truncate'>{item["Inducción"]}</p>
+                <p className='textos-bold w-[10%] truncate'>{item["Proveedor"]}</p>
+                <p className='textos-bold w-[10%] truncate'>{item["Cantidad Total"]}</p>
+                <p className='textos-bold w-[10%] truncate'>{item["Costo total"]}</p>
+                <p className='textos-bold w-[10%] truncate'>{item["Editar/Eliminar"]}</p>
+              </div>
+            ))}
+          </div>
+
+        </div>
 
       </Drawer>
     </div>

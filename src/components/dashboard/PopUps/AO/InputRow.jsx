@@ -4,7 +4,7 @@ import classNames from 'classnames'; // Opcional, ayuda a fusionar clases sin so
 
 const InputRow = ({ fields, className }) => {
   return (
-    <div className={classNames("w-full h-[10%] flex items-center gap-2 justify-start px-4 -mb-[27px]", className)}>
+    <div className={classNames("w-auto h-[10%] flex items-center gap-2 justify-start px-4 -mb-[27px]", className)}>
       {fields.map((field, index) => (
         <InputField
           key={index}

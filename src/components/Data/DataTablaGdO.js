@@ -12,7 +12,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "50",
       "Cantidad-en-consignacion": "50",
       "Cantidad-total": "100",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000002",
@@ -27,7 +26,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "30",
       "Cantidad-en-consignacion": "20",
       "Cantidad-total": "50",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000003",
@@ -42,7 +40,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "40",
       "Cantidad-en-consignacion": "10",
       "Cantidad-total": "50",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000004",
@@ -57,7 +54,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "60",
       "Cantidad-en-consignacion": "40",
       "Cantidad-total": "100",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000005",
@@ -72,7 +68,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "70",
       "Cantidad-en-consignacion": "30",
       "Cantidad-total": "100",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000006",
@@ -87,7 +82,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "80",
       "Cantidad-en-consignacion": "20",
       "Cantidad-total": "100",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000007",
@@ -102,7 +96,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "90",
       "Cantidad-en-consignacion": "10",
       "Cantidad-total": "100",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000008",
@@ -117,7 +110,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "50",
       "Cantidad-en-consignacion": "50",
       "Cantidad-total": "100",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000009",
@@ -132,7 +124,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "60",
       "Cantidad-en-consignacion": "40",
       "Cantidad-total": "100",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000010",
@@ -147,7 +138,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "70",
       "Cantidad-en-consignacion": "30",
       "Cantidad-total": "100",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000011",
@@ -162,7 +152,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "80",
       "Cantidad-en-consignacion": "20",
       "Cantidad-total": "100",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000012",
@@ -177,7 +166,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "90",
       "Cantidad-en-consignacion": "10",
       "Cantidad-total": "100",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000013",
@@ -192,7 +180,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "50",
       "Cantidad-en-consignacion": "50",
       "Cantidad-total": "100",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000014",
@@ -207,7 +194,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "60",
       "Cantidad-en-consignacion": "40",
       "Cantidad-total": "100",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000015",
@@ -222,7 +208,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "70",
       "Cantidad-en-consignacion": "30",
       "Cantidad-total": "100",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000016",
@@ -237,7 +222,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "80",
       "Cantidad-en-consignacion": "20",
       "Cantidad-total": "100",
-      "Imagen": "/public/svg/editar.svg"
     },
     {
       "ID": "000017",
@@ -252,7 +236,6 @@ const DataTablaGdO = [
       "Cantidad-Propia": "90",
       "Cantidad-en-consignacion": "10",
       "Cantidad-total": "100",
-      "Imagen": "/public/svg/editar.svg"
     }
   ];
   
