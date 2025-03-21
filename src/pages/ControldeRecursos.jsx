@@ -16,7 +16,7 @@ const ControldeRecursos = () => {
     <div className="w-full h-full px-4 pt-4 flex bg-[#F1F4FF]">
       <Sidebar />
       <div className='w-[83%] ml-[1%] px-8 mt-[0.6%] ml-[17%] '>
-        <div className="my-4"> <Header /></div>
+        <div className="mx-4 py-2"> <Header /></div>
         <div className="w-full h-[90%] flex">
           <div className="w-[100%] h-full">
             <Banner />
