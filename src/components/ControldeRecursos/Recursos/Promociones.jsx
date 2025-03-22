@@ -20,17 +20,17 @@ const Promociones = () => {
   return (
     <div className="w-[50.5%]  rounded-[10px] sombra flex-shrink-0 bg-white flex flex-col py-2 my-2">
   <div className="w-full h-[10%] flex items-center gap-2 mb-[20px] mt-[16px]">
-    <p className="h3 negro w-[85%] ml-[5%]">Medios de pago</p>
+    <p className="h3 negro w-[85%] ml-[5%]">Promociones</p>
     <img src="/public/svg/header/buscar.svg" alt="Icono" />
   </div>
 
   <div className="flex-1 overflow-auto max-h-[calc(100%-35%)] my-1">
     <table className="w-[95%] mx-auto">
-      <thead className="bg-white sticky top-0 z-10 shadow">
+      <thead className="bg-white sticky top-0 z-10">
         <tr className="border-b border-green-500">
-          <th className="gris-urbano ">Proveedor</th>
-          <th className="gris-urbano ">Email</th>
-          <th className="gris-urbano ">Teléfono</th>
+          <th className="gris-urbano ">Promocion</th>
+          <th className="gris-urbano ">tipo</th>
+          <th className="gris-urbano ">estado</th>
           <th className="gris-urbano ">Editar / Eliminar</th>
         </tr>
       </thead>
@@ -47,7 +47,7 @@ const Promociones = () => {
             <td className="textos-bold">{item.name}</td>
             <td className="flex items-center justify-center">
               <img src="/svg/editar.svg" alt="editar" className="p-2" />
-              <img src="/svg/editar.svg" alt="Eliminar" className="p-2" />
+              <img src="/svg/eliminar.svg" alt="Eliminar" className="p-2" />
             </td>
           </tr>
         ))}
@@ -56,7 +56,7 @@ const Promociones = () => {
   </div>
   <div className="w-full flex justify-end p-3 mt-auto">
     <button className="text-[17px] bg-green-800 hover:bg-green-700 text-white font-bold px-4 border-b-4 border-green-800 hover:border-green-700 rounded">
-      Agregar medio de pago +
+      Agregar promoción +
     </button>
   </div>
 </div>

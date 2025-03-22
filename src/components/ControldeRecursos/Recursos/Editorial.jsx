@@ -28,7 +28,7 @@ const Editorial = () => {
       {/* Contenedor de la tabla */}
       <div className="overflow-auto max-h-[200px]">
         <table className="w-[95%] mx-auto">
-          <thead className="bg-white sticky top-0 z-10 shadow">
+          <thead className="bg-white sticky top-0 z-10">
             <tr className="border-b sticky border-green-500 ">
               <th className="gris-urbano ">Editorial</th>
               <th className="gris-urbano ">Editar / Eliminar</th>
@@ -45,7 +45,8 @@ const Editorial = () => {
                 <td className="textos-bold py-1">{item.name}</td>
                 <td className="flex items-center justify-center">
                   <img src="/svg/editar.svg" alt="editar" className="p-2" />
-                  <img src="/svg/editar.svg" alt="Eliminar" className="p-2" />
+                  <img src="/svg/eliminar.svg" alt="Eliminar" className="p-2" />
+  
                 </td>
               </tr>
             ))}

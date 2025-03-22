@@ -27,7 +27,7 @@ const Autor = () => {
     {/* Contenedor de la tabla */}
     <div className="overflow-auto max-h-[200px]">
       <table className="w-[95%] mx-auto">
-        <thead className="bg-white sticky top-0 z-10 shadow">
+        <thead className="bg-white sticky top-0 z-10">
           <tr className="border-b sticky border-green-500 ">
             <th className="gris-urbano ">Autores</th>
             <th className="gris-urbano ">Editar / Eliminar</th>
@@ -44,7 +44,7 @@ const Autor = () => {
               <td className="textos-bold py-1">{item.name}</td>
               <td className="flex items-center justify-center">
                 <img src="/svg/editar.svg" alt="editar" className="p-2" />
-                <img src="/svg/editar.svg" alt="Eliminar" className="p-2" />
+              <img src="/svg/eliminar.svg" alt="Eliminar" className="p-2" />
               </td>
             </tr>
           ))}
@@ -55,7 +55,7 @@ const Autor = () => {
     {/* Contenedor del botón sin margin-top automático */}
     <div className="w-full flex justify-end px-4 mt-auto">
       <button className="text-[17px] bg-green-800 hover:bg-green-700 text-white font-bold px-4 border-b-4 border-green-800 hover:border-green-700 rounded">
-        Agregar Editorial +
+        Agregar Autor +
       </button>
     </div>
   </div>
