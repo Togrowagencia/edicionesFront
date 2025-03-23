@@ -1,36 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Drawer } from 'antd';
-import Carrusel from "./Carrusel.jsx"
+import Carrusel from "./Carrusel.jsx";
 
-const Calculadora = ({
-    isOpen,
-    onClose,
-    total,
-    subtotal,
-    IVA,
-    descuento,
-}) => {
+const Calculadora = ({ isOpen, onClose, total, subtotal, IVA, descuento }) => {
     const [input, setInput] = useState("");
     const [savedValue, setSavedValue] = useState(null);
-
+    
+    useEffect(() => {
+        setSavedValue(null); // Reiniciar el resultado al abrir
+        setInput(""); // Reiniciar el input
+    }, [isOpen]);
+    
     const handleClick = (value) => {
         setInput((prev) => prev + value);
     };
-
+    
     const handleDelete = () => {
         setInput((prev) => prev.slice(0, -1));
     };
-
+    
     const handleCalculate = () => {
-        try {
-            const result = eval(input);
-            setSavedValue(result);
-            setInput(result.toString());
-        } catch {
-            setInput("Error");
-        }
+        const inputValue = parseFloat(input) || 0;
+        const result = inputValue === 0 ? 0 : inputValue - (total || 0);
+        setSavedValue(result);
     };
-
+    
     return (
         <Drawer
             rootClassName="drawer-calculadora"
@@ -39,7 +33,7 @@ const Calculadora = ({
             open={isOpen}
             width={518}
             closable={false}
-            bodyStyle={{ paddingLeft: "40px", paddingRight: "40px", paddingTop: "13px"}}
+            bodyStyle={{ paddingLeft: "40px", paddingRight: "40px", paddingTop: "13px" }}
             drawerStyle={{ borderRadius: "10px 10px 10px 10px" }}
         >
             <div style={{ position: 'absolute', top: 20, right: 20, cursor: 'pointer' }} onClick={onClose}>
@@ -57,7 +51,7 @@ const Calculadora = ({
                     <p className="textos-bold gris-elegancia">Total</p>
                     <p className="h4 negro">${total?.toLocaleString()}</p>
                     <p className="h4 verde-corporativo">Devolver</p>
-                    {savedValue !== null && <p className="h4 verde-corporativo">${savedValue}</p>}
+                    {savedValue !== null && <p className="h4 verde-corporativo">${savedValue.toLocaleString()}</p>}
                 </div>
 
                 <div className="flex flex-col gap-2 h-[350px]">
@@ -72,7 +66,7 @@ const Calculadora = ({
                         type="text"
                         value={input}
                         readOnly
-                        placeholder='$1.000.000'
+                        placeholder='$0.000.000'
                         className="w-full text-center h3 gris-urbano"
                     />
 
@@ -88,8 +82,6 @@ const Calculadora = ({
                                 {num}
                             </button>
                         ))}
-                        <button onClick={() => handleClick("+")} className="negro p-4 h2">+</button>
-                        <button onClick={() => handleClick("-")} className="negro p-4 h2">-</button>
                         <button onClick={handleDelete} className="negro p-4">
                             <img src='/svg/PuntodeVenta/borrarcal.svg' alt="" className="cursor-pointer" />
                         </button>

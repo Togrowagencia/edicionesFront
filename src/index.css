@@ -533,9 +533,7 @@ input {
   color: var(--Gama-de-Grises-Gris-2, #6B6B6B);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 0px;
-  gap: 2px;
+  flex-direction: column;
   flex-shrink: 0;
 }
 
@@ -543,9 +541,8 @@ input {
   color: var(--Rojo-Principal, #CD001A);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 375px;
-  gap: 0px;
+  display: flex;
+  flex-direction: column;
   flex-shrink: 0;
 }
 
