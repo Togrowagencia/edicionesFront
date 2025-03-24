@@ -1,47 +1,22 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import Notify from "simple-notify";
 import PropTypes from "prop-types";
 import { Drawer } from "antd";
 import BotonAgregar from "../inputs/BotonAgregar";
 import Roles from "../Data/UsuariosyRoles/Roles";
-import Tiendas from "../Data/UsuariosyRoles/Tienda";
-import { createUsers, getUsers } from "../../api/user";
 import { getWarehouses } from "../../api/warehouse";
 
-const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text,data }) => {
-  console.log("dataa")
-  console.log(data)
+const AgregarUsuario = ({
+  isPopupOpen,
+  handlePopupClose,
+  text,
+  data,
+  opcion,
+  reload,
+}) => {
+  const [texto, setText] = useState(text);
+  const [opcionn, setOpcion] = useState(opcion);
   const [warehouse, setwarehouse] = useState([]);
-
-  useEffect(() => {
-    const fetchwarehouse = async () => {
-      try {
-        const response = await getWarehouses();
-        setwarehouse(response.data); // Esto actualiza el estado de `warehouse`
-      } catch (error) {
-        console.error("Error al obtener los usuarios:", error);
-      }
-    };
-
-    fetchwarehouse();
-  }, []);
-  useEffect(() => {
-    if (data) {
-      setFormData({
-        telefono: data.telefono || "",
-        nombre: data.name || "",
-        correo: data.email || "",
-        cargo: data.charge || "",
-        tienda: data.warehouse || "",
-        documento: data.id || "",
-        password: data.password || "",
-        rol: data.role ? (data.role === "admin" ? "Administrador" : "Vendedor") : "",
-        descuento: data.descuento || "",
-      });
-    }
-  }, [data]);
-  // Add state for form values
   const [formData, setFormData] = useState({
     telefono: "",
     nombre: "",
@@ -53,13 +28,74 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text,data }) => {
     rol: "",
     descuento: "",
   });
+
+  useEffect(() => {
+    const fetchwarehouse = async () => {
+      try {
+        const response = await getWarehouses();
+        setwarehouse(response.data);
+      } catch (error) {
+        console.error("Error al obtener los usuarios:", error);
+      }
+    };
+
+    fetchwarehouse();
+  }, []);
   
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        telefono: data.telefono || "",
+        nombre: data.name || "",
+        correo: data.email || "",
+        cargo: data.charge || "",
+        tienda: data.warehouse || "",
+        documento: data.id || "",
+        password: data.password || "",
+        rol: data.role
+          ? data.role === "admin"
+            ? "Administrador"
+            : "Vendedor"
+          : "",
+        descuento: data.descuento || "",
+      });
+    }
+  }, [data]);
+  // Add state for form values
+
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
     });
+  };
+
+  const isFormValid = () => {
+    let requiredFields = [];
+    if (texto == "Agregar usuario") {
+      requiredFields = [
+        formData.nombre,
+        formData.correo,
+        formData.cargo,
+        formData.tienda,
+        formData.documento,
+        formData.password,
+        formData.rol,
+      ];
+    } else if (texto == "Editar usuario") {
+      requiredFields = [
+        formData.nombre,
+        formData.correo,
+        formData.cargo,
+        formData.tienda,
+        formData.documento,
+        formData.rol,
+      ];
+    }
+
+    return requiredFields.every((field) => field !== ""); // Verifica que todos los campos no estén vacíos
   };
 
   return (
@@ -73,7 +109,6 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text,data }) => {
         bodyStyle={{ padding: "16px" }}
         drawerStyle={{ borderRadius: "10px 10px 10px 10px", height: "100%" }}
       >
-        {/* Botón de cierre personalizado */}
         <div
           style={{
             position: "absolute",
@@ -100,8 +135,6 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text,data }) => {
             className="m-auto"
           />
         </div>
-
-        {/* Imagen del usuario */}
 
         <div className="w-full h-[6%] flex ">
           <div className="flex flex-col ml-[10px] gap-2 justify-center w-[80%]">
@@ -193,7 +226,7 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text,data }) => {
                   value={formData[field.name] || ""}
                   onChange={handleInputChange}
                   placeholder={field.placeholder}
-                  className="pl-[10px] focus:outline-none bg-transparent dark textos text-end"
+                  className="w-full max-w-full focus:outline-none bg-transparent dark:textos text-end p-2" // p-2 para padding controlado
                 />
               )}
             </div>
@@ -201,9 +234,10 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text,data }) => {
         </div>
         <div className="flex-1 flex justify-end pr-[10px] pt-[20px]">
           <BotonAgregar
-            texto={data ? "Editar usuario" : "Crear usuario"}
-            opcion={"crear"}
+            texto={texto}
+            opcion={opcionn}
             datos={{
+              id: data.id,
               name: formData.nombre,
               charge: formData.cargo,
               email: formData.correo,
@@ -215,7 +249,6 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text,data }) => {
               resetPasswordToken: null,
             }}
             onUpdate={() => {
-              getUsers(); 
               setFormData({
                 telefono: "",
                 nombre: "",
@@ -226,8 +259,11 @@ const AgregarUsuario = ({ isPopupOpen, handlePopupClose, text,data }) => {
                 password: "",
                 rol: "",
                 descuento: "",
-              }); 
+              });
+              reload();
+              handlePopupClose();
             }}
+            disabled={!isFormValid()}
           />
         </div>
       </Drawer>

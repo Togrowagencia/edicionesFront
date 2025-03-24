@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 /*Rutas*/
-import Login from './pages/login.jsx'
+import {Login} from './pages/login.jsx'
 import Envio from './pages/envio.jsx'
 import Reset from './pages/restablecer.jsx'
 import Dashboard from './pages/dashboard.jsx';
@@ -26,7 +26,6 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/envio-restablecimiento" element={<Envio />} />
         <Route path="/restablecimiento" element={<Reset />} />
-
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/gestion-de-obras" element={<Gestiondeobras />} />
         <Route path="/gestion-de-bodegas" element={<GestiondeBodegas />} />
@@ -37,7 +36,6 @@ function App() {
         <Route path="/cotizaciones" element={<Cotizaciones />} />
         <Route path="/pedidos" element={<Pedidos />} />
         <Route path="/devoluciones" element={<Devoluciones />} />
-
         <Route path="/detalles-inventario" element={<DetallesInventario />} />
       </Routes>
     </>
