@@ -4,26 +4,18 @@ import Swal from "sweetalert2";
 import AgregarUsuario from "./AgregarUsuario";
 import { getUsers, putUser } from "../../api/user";
 
-const Tabla = () => {
+const Tabla = ({ usuarios,onUpdate}) => {
+  console.log("AAAAAAA")
+  console.log("aaaa",usuarios)
   const [datos, setDatos] = useState([]);
   const [openDrawer1, setOpenDrawer1] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null); // Estado para el usuario seleccionado
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await getUsers();
-        setDatos(response.data);
-      } catch (error) {
-        console.error("Error al obtener los usuarios:", error);
-      }
-    };
-
-    fetchUsers();
-  }, []);
+    setDatos(usuarios)
+  }, [usuarios]);
 
   const showDrawer1 = (user) => {
-    console.log("Usuario seleccionado antes de actualizar el estado:", user);
     setSelectedUser(user);
   };
 
@@ -161,6 +153,7 @@ const Tabla = () => {
         <AgregarUsuario
           isPopupOpen={openDrawer1}
           handlePopupClose={onCloseDrawer1}
+          opcion={"editar"}
           text={"Editar usuario"}
           data={
             selectedUser || {
@@ -174,7 +167,9 @@ const Tabla = () => {
               rol: "",
               descuento: "",
             }
+            
           }
+          reload={onUpdate}
         />
       </div>
     </div>

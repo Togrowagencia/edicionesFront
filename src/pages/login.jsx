@@ -163,5 +163,3 @@ export const Login = (user, pass) => {
     </div>
   );
 };
-
-export default Login;

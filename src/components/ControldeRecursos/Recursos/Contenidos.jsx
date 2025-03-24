@@ -3,19 +3,25 @@ import React, { useState, useEffect } from "react";
 import { getContent } from "../../../api/content"; 
 import AgregarRecurso from "../CrearRecurso";
 const Contenidos = () => {
-  const [datos, setDatos] = useState([]);
-  useEffect(() => {
-    const fetchContent = async () => {
-      try {
-        const response = await getContent();
-        setDatos(response.data);
-      } catch (error) {
-        console.error("Error al obtener los usuarios:", error);
-      }
-    };
-
-    fetchContent();
-  }, []);
+    const [sinDatos, setSinDatos] = useState(false);
+      const [datos, setDatos] = useState([]);
+      useEffect(() => {
+        const fetch = async () => {
+          try {
+            const response = await getContent();
+            if (response.data.message === "BAD_REQUEST::No se encontró resultado") {
+              setSinDatos(true);
+            } else {
+              setDatos(response.data);
+              setSinDatos(false);
+            }
+          } catch (error) {
+            console.error("Error al obtener los usuarios:", error);
+          }
+        };
+    
+        fetch();
+      }, []);
   return (
     <div className="w-[23.3%] h-auto rounded-[10px] sombra flex-shrink-0 bg-white flex flex-col py-4 my-2">
       <div className="w-full flex items-center mb-4">
@@ -33,7 +39,15 @@ const Contenidos = () => {
             </tr>
           </thead>
           <tbody>
-            {datos.map((item, index) => (
+          {sinDatos ? (
+              // Si no hay datos, mostramos una fila con "Sin datos"
+              <tr>
+                <td colSpan="4" className="text-center py-2 text-gray-500">
+                  Sin datos
+                </td>
+              </tr>
+            ) :
+            datos.map((item, index) => (
               <tr
                 key={index}
                 className={`text-center ${

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import BotonAgregar from "../inputs/BotonAgregar";
 import AgregarUsuario from "./AgregarUsuario";
 import { getUsers } from "../../api/user";
-function Banner() {
+function Banner({onUpdate}) {
   const [openDrawer1, setOpenDrawer1] = useState(false);
 
   const showDrawer1 = () => {
@@ -30,6 +30,7 @@ function Banner() {
         isPopupOpen={openDrawer1}
         handlePopupClose={onCloseDrawer1}
         text={"Agregar usuario"}
+        opcion={"crear"}
         data={{
           telefono: "",
           nombre: "",
@@ -41,6 +42,7 @@ function Banner() {
           rol: "",
           descuento: "",
         }}
+        reload={onUpdate}
       />
     </div>
   );
