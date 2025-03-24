@@ -132,7 +132,7 @@ export const Sidebar = () => {
         <div className="cerrar-sesion">
           <Link
             to="/"
-            className={`${getSelectedLink("/")} flex items-center gap-1`}
+            className={`${getSelectedLink("/")} flex items-center gap-1 mt-[20%]`}
           >
             <img src="/svg/sidebar/cerrar.svg" className="noselected-img" />
             <img

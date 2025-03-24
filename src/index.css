@@ -198,14 +198,12 @@ input {
 
 .fondo-imagen {
   background-image: url('/images/fondo-login-izq.png');
-  background-size: 180%;
-  background-position: center;
-  position: absolute; /* Cambiado a absolute */
-  top: -80px;
-  left: -100px;
+  background-size: 50%;
+  background-position: left 60% center;
+  position: absolute; 
   width: 100%;
   height: 100%;
-  z-index: -1; /* Asegura que el fondo esté detrás del contenido */
+  z-index: -1; 
 }
 
 .fondo-imagen img {
@@ -533,7 +531,6 @@ input {
   color: var(--Gama-de-Grises-Gris-2, #6B6B6B);
   display: flex;
   justify-content: center;
-  flex-direction: column;
   flex-shrink: 0;
 }
 

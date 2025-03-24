@@ -14,7 +14,7 @@ import Clasificacion from "../components/ControldeRecursos/Recursos/Clasificatio
 
 const ControldeRecursos = () => {
   return (
-    <div className="w-full h-full  pt-2 flex bg-[#F1F4FF]">
+    <div className="w-full h-full px-4 pt-4 flex bg-[#F1F4FF]">
       <Sidebar />
       <div className='w-[83%] px-8 ml-[16%] '>
         <div className="ml-3"><Header /></div>
