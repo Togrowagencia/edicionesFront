@@ -143,7 +143,7 @@ export const Sidebar = () => {
           </Link>
         </div>
 
-        <div className="marca-agua">
+        <div className="marca-agua w-[82%]">
           <div className="flex gap-1">
           <img src="/svg/sidebar/togrow.svg" className="" />
           <p className="h4">Desarrollo por ToGrow</p>
