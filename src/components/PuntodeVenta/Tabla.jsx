@@ -33,7 +33,7 @@ const Tabla = () => {
         <tbody>
           {currentItems.map((item, index) => (
             <tr key={index} className=" rounded bg ">
-              <td className="px-2 py-2 textos-bold verde-eco">{item.ID}</td>
+              <td className="px-2 py-2 textos-bold verde-eco">{item.id}</td>
               <td className="px-2 py-2 textos-bold negro">{item.ISBN}</td>
               <td className="px-2 py-2 textos-bold negro">
                 {item.Nombredelaobra}
