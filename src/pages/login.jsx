@@ -1,7 +1,7 @@
 
 import { React, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "./../api/authUsers";
+import login  from "./../api/authUsers";
 import Notify from "simple-notify";
 
 export const Login = (user, pass) => {
