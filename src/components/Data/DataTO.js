@@ -9,8 +9,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Viva Laureles",
     "Llegada-a-punto-de-venta": "Viva Laureles",
     "Cantidad-Total": "50",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000002",
@@ -22,8 +20,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial Andino",
     "Llegada-a-punto-de-venta": "Centro Comercial Andino",
     "Cantidad-Total": "30",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000003",
@@ -35,8 +31,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial Santa Fe",
     "Llegada-a-punto-de-venta": "Centro Comercial Santa Fe",
     "Cantidad-Total": "20",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000004",
@@ -48,8 +42,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial Unicentro",
     "Llegada-a-punto-de-venta": "Centro Comercial Unicentro",
     "Cantidad-Total": "40",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000005",
@@ -61,8 +53,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial Oviedo",
     "Llegada-a-punto-de-venta": "Centro Comercial Oviedo",
     "Cantidad-Total": "25",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000006",
@@ -74,8 +64,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial El Tesoro",
     "Llegada-a-punto-de-venta": "Centro Comercial El Tesoro",
     "Cantidad-Total": "35",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000007",
@@ -87,8 +75,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial Los Molinos",
     "Llegada-a-punto-de-venta": "Centro Comercial Los Molinos",
     "Cantidad-Total": "45",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000008",
@@ -100,8 +86,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial Premium Plaza",
     "Llegada-a-punto-de-venta": "Centro Comercial Premium Plaza",
     "Cantidad-Total": "15",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000009",
@@ -113,8 +97,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial San Diego",
     "Llegada-a-punto-de-venta": "Centro Comercial San Diego",
     "Cantidad-Total": "50",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000010",
@@ -126,8 +108,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial Mayorca",
     "Llegada-a-punto-de-venta": "Centro Comercial Mayorca",
     "Cantidad-Total": "60",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000011",
@@ -139,8 +119,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial San Fernando Plaza",
     "Llegada-a-punto-de-venta": "Centro Comercial San Fernando Plaza",
     "Cantidad-Total": "40",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000012",
@@ -152,8 +130,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial Monterrey",
     "Llegada-a-punto-de-venta": "Centro Comercial Monterrey",
     "Cantidad-Total": "30",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000013",
@@ -165,8 +141,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial Puerta del Norte",
     "Llegada-a-punto-de-venta": "Centro Comercial Puerta del Norte",
     "Cantidad-Total": "35",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000014",
@@ -178,8 +152,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial Florida",
     "Llegada-a-punto-de-venta": "Centro Comercial Florida",
     "Cantidad-Total": "45",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000015",
@@ -191,8 +163,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial La Central",
     "Llegada-a-punto-de-venta": "Centro Comercial La Central",
     "Cantidad-Total": "50",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000016",
@@ -204,8 +174,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial San Nicolás",
     "Llegada-a-punto-de-venta": "Centro Comercial San Nicolás",
     "Cantidad-Total": "20",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   },
   {
     "ID": "000017",
@@ -217,8 +185,6 @@ const DataAO = [
     "Salida-desde-punto-de-venta": "Centro Comercial Los Colores",
     "Llegada-a-punto-de-venta": "Centro Comercial Los Colores",
     "Cantidad-Total": "25",
-    "Editar": "<img src='./public/svg/flecha.svg' alt='Editar' />",
-    "Eliminar": "<img src='./public/svg/eliminar.svg' alt='Eliminar' />"
   }
 ];
 

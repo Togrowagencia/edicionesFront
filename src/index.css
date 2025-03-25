@@ -554,6 +554,9 @@ input {
   border-right: 3px solid #00733C;
 }
 
+.ant-upload-wrapper {
+  width: 50%;
+}
 
 .selected-dashboard > img {
   padding-left: 47px;

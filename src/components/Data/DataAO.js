@@ -13,6 +13,9 @@ const DataAO = [
     "Cantidad-en-consignacion": "20",
     "Cantidad-total": "50",
     "Tipo-de-movimiento": "Ingreso",
+    "Genero":"Terror",
+    "Costo":"20$",
+    "Costo-total":"30$",
     "Cantidad-en-inventario": "50"
   },
   {
@@ -29,6 +32,9 @@ const DataAO = [
     "Cantidad-en-consignacion": "10",
     "Cantidad-total": "30",
     "Tipo-de-movimiento": "Ingreso",
+    "Genero":"Terror",
+    "Costo":"20$",
+    "Costo-total":"30$",
     "Cantidad-en-inventario": "30"
   },
   {
@@ -45,6 +51,9 @@ const DataAO = [
     "Cantidad-en-consignacion": "15",
     "Cantidad-total": "40",
     "Tipo-de-movimiento": "Ingreso",
+    "Genero":"Terror",
+    "Costo":"20$",
+    "Costo-total":"30$",
     "Cantidad-en-inventario": "40"
   },
   {
@@ -61,6 +70,9 @@ const DataAO = [
     "Cantidad-en-consignacion": "25",
     "Cantidad-total": "60",
     "Tipo-de-movimiento": "Ingreso",
+    "Genero":"Terror",
+    "Costo":"20$",
+    "Costo-total":"30$",
     "Cantidad-en-inventario": "60"
   },
   {
@@ -77,6 +89,9 @@ const DataAO = [
     "Cantidad-en-consignacion": "15",
     "Cantidad-total": "35",
     "Tipo-de-movimiento": "Ingreso",
+    "Genero":"Terror",
+    "Costo":"20$",
+    "Costo-total":"30$",
     "Cantidad-en-inventario": "35"
   }
 ];
