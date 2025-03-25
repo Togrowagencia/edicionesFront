@@ -2,24 +2,118 @@ import React, { useState, useEffect } from "react";
 import Proveedor from "../../Data/ControldeRecursos/Proveedor";
 import BotonAgregar from "../../inputs/BotonAgregar";
 import { getProviders } from "../../../api/providers";
+import AgregarRecurso from "../CrearRecurso";
 
-const Proveedores = () => {
+const Proveedores = (onUpdate) => {
   const [datos, setDatos] = useState([]);
-  const [sinDatos, setSinDatos] = useState(false); 
+  const [texto ,setTexto] = useState("");
+  const [opcion,setOpcion] = useState("");
+  const [apiFunc,setApiFunc] = useState("");
+  const [successMessage,setSuccessMessage] = useState("");
+  const [errorMessage,setErrorMessage] = useState("");
+  const [sinDatos, setSinDatos] = useState(false);
+  const [openDrawer1, setOpenDrawer1] = useState(false);
+  const fields = [
+    {
+      label: "Nombre de la empresa",
+      name: "corporate_name",
+      type: "text",
+      placeholder: "",
+    },
+    {
+      label: "Nombre del proveedor",
+      name: "name_provider",
+      type: "text",
+      placeholder: "",
+    },
+    {
+      label: "Tipo de identificación",
+      name: "type_id",
+      type: "text",
+      placeholder: "",
+    },
+    {
+      label: "Identificación",
+      name: "identification",
+      type: "text",
+      placeholder: "0.000.000",
+    },
+    {
+      label: "Teléfono",
+      name: "phone",
+      type: "text",
+      placeholder: "000000000",
+    },
+    {
+      label: "Celular",
+      name: "cell_phone",
+      type: "text",
+      placeholder: "000000000",
+    },
+    {
+      label: "Departamento",
+      name: "department",
+      type: "text",
+      placeholder: "Antioquia",
+    },
+    {
+      label: "Municipio",
+      name: "municipality",
+      type: "text",
+      placeholder: "Medellín",
+    },
+    {
+      label: "Dirección",
+      name: "address",
+      type: "text",
+      placeholder: "Calle 54",
+    },
+    {
+      label: "Página web",
+      name: "web",
+      type: "text",
+      placeholder: "happyBooks.com",
+    },
+    {
+      label: "Gran contrubuyente",
+      name: "large_contributor",
+      type: "checkbox",
+      placeholder: "",
+      options: [true, false],
+    },
+    {
+      label: "Correo electrónico",
+      name: "email",
+      type: "email",
+      placeholder: "example@example.com",
+    },
+    {
+      label: "Porcentaje",
+      name: "percentage",
+      type: "number",
+      placeholder: "Ej. 10",
+    },
+  ];
+  const showDrawer1 = () => {
+    setOpenDrawer1(true);
+  };
+  const onCloseDrawer1 = () => {
+    setOpenDrawer1(false);
+  };
 
   useEffect(() => {
     const fetchProviders = async () => {
       try {
         const response = await getProviders();
         if (response.data.message === "BAD_REQUEST::No se encontró resultado") {
-          setSinDatos(true); 
+          setSinDatos(true);
         } else {
-          setDatos(response.data); 
-          setSinDatos(false);  
+          setDatos(response.data);
+          setSinDatos(false);
         }
       } catch (error) {
         console.error("Error al obtener los proveedores:", error);
-        setSinDatos(true); 
+        setSinDatos(true);
       }
     };
 
@@ -45,25 +139,29 @@ const Proveedores = () => {
           </thead>
           <tbody>
             {sinDatos ? (
-              // Si no hay datos, mostramos una fila con "Sin datos"
               <tr>
                 <td colSpan="4" className="text-center py-2 text-gray-500">
                   Sin datos
                 </td>
               </tr>
             ) : (
-              // Si hay datos, los mostramos normalmente
               datos.map((item, index) => (
                 <tr
                   key={index}
-                  className={`text-center ${index % 2 === 0 ? "bg-[#f5f5f5]" : "bg-white"}`}
+                  className={`text-center ${
+                    index % 2 === 0 ? "bg-[#f5f5f5]" : "bg-white"
+                  }`}
                 >
                   <td className="textos-bold py-1">{item.corporate_name}</td>
                   <td className="textos-bold">{item.email}</td>
                   <td className="textos-bold">{item.cell_phone}</td>
                   <td className="flex items-center justify-center">
                     <img src="/svg/editar.svg" alt="editar" className="p-2" />
-                    <img src="/svg/eliminar.svg" alt="Eliminar" className="p-2" />
+                    <img
+                      src="/svg/eliminar.svg"
+                      alt="Eliminar"
+                      className="p-2"
+                    />
                   </td>
                 </tr>
               ))
@@ -72,10 +170,16 @@ const Proveedores = () => {
         </table>
       </div>
       <div className="w-full flex justify-end px-4 mt-auto">
-        <button className="text-[17px] bg-green-800 hover:bg-green-700 text-white font-bold px-4 border-b-4 border-green-800 hover:border-green-700 rounded">
+        <button className="text-[17px] bg-green-800 hover:bg-green-700 text-white font-bold px-4 border-b-4 border-green-800 hover:border-green-700 rounded" onClick={showDrawer1}>
           Agregar Proveedor +
         </button>
       </div>
+      <AgregarRecurso
+        handlePopupClose={onCloseDrawer1}
+        isPopupOpen={openDrawer1}
+        fields={fields}
+        title={"Agregar Proveedor"}
+      />
     </div>
   );
 };

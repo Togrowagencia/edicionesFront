@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Drawer } from "antd";
@@ -179,7 +178,7 @@ const AgregarUsuario = ({
               label: "Contraseña",
               name: "password",
               type: "password",
-              placeholder: "****",
+              placeholder: "**",
             },
             {
               label: "Seleccione un rol",

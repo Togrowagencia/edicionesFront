@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import Notify from "simple-notify";
 import Swal from "sweetalert2";
 import AgregarUsuario from "./AgregarUsuario";
-import { getUsers, putUser } from "../../api/user";
+import {putUser } from "../../api/user";
+
 
 const Tabla = ({ usuarios,onUpdate}) => {
-  console.log("AAAAAAA")
-  console.log("aaaa",usuarios)
   const [datos, setDatos] = useState([]);
   const [openDrawer1, setOpenDrawer1] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null); // Estado para el usuario seleccionado
@@ -16,7 +15,15 @@ const Tabla = ({ usuarios,onUpdate}) => {
   }, [usuarios]);
 
   const showDrawer1 = (user) => {
-    setSelectedUser(user);
+
+    setSelectedUser({
+      "id":user.id,
+      "warehouse":user.warehouse,
+      "name": user.name,
+      "charge": user.charge,
+      "email": user.email,
+      "role": user.role,
+  });
   };
 
   useEffect(() => {
@@ -143,13 +150,14 @@ const Tabla = ({ usuarios,onUpdate}) => {
                     src="/svg/editar.svg"
                     alt="Editar"
                     className="cursor-pointer"
-                    onClick={() => showDrawer1(item)}
+                    onClick={() =>showDrawer1(item)}
                   />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+
         <AgregarUsuario
           isPopupOpen={openDrawer1}
           handlePopupClose={onCloseDrawer1}

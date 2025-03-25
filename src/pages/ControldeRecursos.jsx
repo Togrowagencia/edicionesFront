@@ -22,7 +22,7 @@ const ControldeRecursos = () => {
           <div className="w-[100%] h-full">
             <Banner />
             <div className='w-[100%] h-full px-5 flex flex-wrap relative mt-[-2%] gap-x-[0.8%] '>
-              <Proveedores />
+              <Proveedores  />
               <Editorial />
               <Autor />
               <MediosdePago />
@@ -31,6 +31,7 @@ const ControldeRecursos = () => {
               <Promociones />
               <Clasificacion />
             </div>
+          
           </div>
         </div>
       </div>

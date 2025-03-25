@@ -7,7 +7,6 @@ import Tienda from '../components/Gestiondebodegas/tienda';
 
 const GestiondeBodegas = () => {
   const [libroSeleccionado, setLibroSeleccionado] = useState(null);
-   // Manejamos el estado aquí
 
   return (
     <div className='w-full h-full px-4 pt-4 flex'>
