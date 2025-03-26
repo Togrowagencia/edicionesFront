@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
-import Proveedor from "../../Data/ControldeRecursos/Proveedor";
-import BotonAgregar from "../../inputs/BotonAgregar";
-import { getProviders } from "../../../api/providers";
 import AgregarRecurso from "../CrearRecurso";
-
-const Proveedores = (onUpdate) => {
+import { createProvider } from "../../../api/providers";
+const Proveedores = ({datoss,update,sinDatos}) => {
   const [datos, setDatos] = useState([]);
-  const [texto ,setTexto] = useState("");
-  const [opcion,setOpcion] = useState("");
-  const [apiFunc,setApiFunc] = useState("");
-  const [successMessage,setSuccessMessage] = useState("");
-  const [errorMessage,setErrorMessage] = useState("");
-  const [sinDatos, setSinDatos] = useState(false);
+  const [texto, setTexto] = useState("");
+  const [opcion, setOpcion] = useState("");
+  const [apiFunc, setApiFunc] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [openDrawer1, setOpenDrawer1] = useState(false);
+
+
   const fields = [
     {
       label: "Nombre de la empresa",
@@ -77,9 +75,12 @@ const Proveedores = (onUpdate) => {
     {
       label: "Gran contrubuyente",
       name: "large_contributor",
-      type: "checkbox",
+      isSelect: true,
       placeholder: "",
-      options: [true, false],
+      options: [
+        { label: "Sí", value: true },
+        { label: "No", value: false }
+      ],
     },
     {
       label: "Correo electrónico",
@@ -101,24 +102,7 @@ const Proveedores = (onUpdate) => {
     setOpenDrawer1(false);
   };
 
-  useEffect(() => {
-    const fetchProviders = async () => {
-      try {
-        const response = await getProviders();
-        if (response.data.message === "BAD_REQUEST::No se encontró resultado") {
-          setSinDatos(true);
-        } else {
-          setDatos(response.data);
-          setSinDatos(false);
-        }
-      } catch (error) {
-        console.error("Error al obtener los proveedores:", error);
-        setSinDatos(true);
-      }
-    };
-
-    fetchProviders();
-  }, []);
+  
 
   return (
     <div className="w-[50.5%] h-auto rounded-[10px] sombra flex-shrink-0 bg-white flex flex-col py-2 my-2">
@@ -145,7 +129,7 @@ const Proveedores = (onUpdate) => {
                 </td>
               </tr>
             ) : (
-              datos.map((item, index) => (
+              datoss.map((item, index) => (
                 <tr
                   key={index}
                   className={`text-center ${
@@ -170,7 +154,15 @@ const Proveedores = (onUpdate) => {
         </table>
       </div>
       <div className="w-full flex justify-end px-4 mt-auto">
-        <button className="text-[17px] bg-green-800 hover:bg-green-700 text-white font-bold px-4 border-b-4 border-green-800 hover:border-green-700 rounded" onClick={showDrawer1}>
+        <button
+          className="text-[17px] bg-green-800 hover:bg-green-700 text-white font-bold px-4 border-b-4 border-green-800 hover:border-green-700 rounded"
+          onClick={() => {
+            showDrawer1();
+            setTexto("Agregar proveedor");
+            setOpcion("crear");
+            setApiFunc({create : createProvider});
+          }}
+        >
           Agregar Proveedor +
         </button>
       </div>
@@ -178,7 +170,10 @@ const Proveedores = (onUpdate) => {
         handlePopupClose={onCloseDrawer1}
         isPopupOpen={openDrawer1}
         fields={fields}
-        title={"Agregar Proveedor"}
+        title={texto}
+        opciones={opcion}
+        apifunc={apiFunc}
+        reload={update}
       />
     </div>
   );

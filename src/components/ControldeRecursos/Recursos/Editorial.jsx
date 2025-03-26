@@ -1,27 +1,53 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import Proveedor from "../../Data/ControldeRecursos/Proveedor";
-import { getPublishing } from "../../../api/editorial";
-const Editorial = () => {
+import { createPublishing, putPublishing } from "../../../api/editorial";
+import AgregarRecurso from "../CrearRecurso";
+const Editorial = ({ datoss, update, sinDatos, providers }) => {
   const [datos, setDatos] = useState([]);
- const [sinDatos, setSinDatos] = useState(false);
-  useEffect(() => {
-    const fetch= async () => {
-      try {
-        const response = await getPublishing();
-        if (response.data.message === "BAD_REQUEST::No se encontró resultado") {
-          setSinDatos(true);
-        } else {
-          setDatos(response.data);
-          setSinDatos(false);
-        }
-      } catch (error) {
-        console.error("Error al obtener los usuarios:", error);
-      }
-    };
+  const [texto, setTexto] = useState("");
+  const [opcion, setOpcion] = useState("");
+  const [apiFunc, setApiFunc] = useState({
+    create: [],
+    update: [],
+  });
+  const [editar, SetEditar] = useState([]);
+  const [openDrawer1, setOpenDrawer1] = useState(false);
+  const showDrawer2 = (editorial) => {
+    SetEditar(editorial);
+    setOpenDrawer1(true);
+  };
 
-    fetch();
-  }, []);
+  const showDrawer1 = () => {
+    setOpenDrawer1(true);
+  };
+  const onCloseDrawer1 = () => {
+    setOpenDrawer1(false);
+  };
+
+  const fields = [
+    {
+      label: "Nombre de la editorial",
+      name: "name",
+      type: "text",
+      placeholder: "",
+    },
+    ...(opcion !== "editar"
+      ? [
+          {
+            label: "Seleccione un proveedor",
+            name: "id_provider",
+            isSelect: true,
+            options: providers.map((provider) => ({
+              value: provider.id,
+              label: provider.corporate_name,
+            })),
+          },
+        ]
+      : []),
+  ];
+  useEffect(() => {
+    setDatos(datoss);
+  }, [datoss]);
 
   return (
     <div className="w-[23.3%] h-auto rounded-[10px] sombra flex-shrink-0 bg-white flex flex-col py-4 my-2">
@@ -30,7 +56,6 @@ const Editorial = () => {
         <img src="/public/svg/header/buscar.svg" alt="Icono" />
       </div>
 
-      {/* Contenedor de la tabla */}
       <div className="overflow-auto max-h-[200px]">
         <table className="w-[95%] mx-auto">
           <thead className="bg-white sticky top-0 z-10">
@@ -40,8 +65,7 @@ const Editorial = () => {
             </tr>
           </thead>
           <tbody>
-          {sinDatos ? (
-              // Si no hay datos, mostramos una fila con "Sin datos"
+            {sinDatos ? (
               <tr>
                 <td colSpan="4" className="text-center py-2 text-gray-500">
                   Sin datos
@@ -50,15 +74,35 @@ const Editorial = () => {
             ) : (
               datos.map((item, index) => (
                 <tr
-                  key={index}
+                  key={item.id}
                   className={`text-center ${
                     index % 2 === 0 ? "bg-gray-100" : "bg-white"
                   }`}
                 >
                   <td className="textos-bold py-1">{item.name}</td>
                   <td className="flex items-center justify-center">
-                    <img src="/svg/editar.svg" alt="editar" className="p-2" />
-                    <img src="/svg/eliminar.svg" alt="Eliminar" className="p-2" />
+                    <img
+                      src="/svg/editar.svg"
+                      alt="editar"
+                      className="p-2 cursor-pointer"
+                      onClick={() => {
+                        showDrawer2({
+                          id: item.id,
+                          name: item.name,
+                        });
+                        setTexto("Editar Editorial");
+                        setOpcion("editar");
+                        setApiFunc((prev) => ({
+                          ...prev,
+                          update: putPublishing,
+                        }));
+                      }}
+                    />
+                    <img
+                      src="/svg/eliminar.svg"
+                      alt="Eliminar"
+                      className="p-2 cursor-pointer"
+                    />
                   </td>
                 </tr>
               ))
@@ -67,12 +111,29 @@ const Editorial = () => {
         </table>
       </div>
 
-      {/* Contenedor del botón sin margin-top automático */}
       <div className="w-full flex justify-end px-4 mt-auto">
-        <button className="text-[17px] bg-green-800 hover:bg-green-700 text-white font-bold px-4 border-b-4 border-green-800 hover:border-green-700 rounded">
+        <button
+          className="text-[17px] bg-green-800 hover:bg-green-700 text-white font-bold px-4 border-b-4 border-green-800 hover:border-green-700 rounded"
+          onClick={() => {
+            showDrawer1();
+            setTexto("Agregar Editorial");
+            setOpcion("crear");
+            setApiFunc((prev) => ({ ...prev, create: createPublishing }));
+          }}
+        >
           Agregar Editorial +
         </button>
       </div>
+      <AgregarRecurso
+        handlePopupClose={onCloseDrawer1}
+        dataedit={editar}
+        isPopupOpen={openDrawer1}
+        fields={fields}
+        title={texto}
+        opciones={opcion}
+        apifunc={apiFunc}
+        reload={update}
+      />
     </div>
   );
 };

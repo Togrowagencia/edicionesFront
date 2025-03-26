@@ -1,15 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Drawer } from "antd";
-import BotonAgregar from "../inputs/BotonAgregar";
+import BotonAgregarRecurso from "../inputs/BotonAgregarRecurso";
 
-const AgregarRecurso = ({ isPopupOpen, handlePopupClose, fields, title }) => {
-  const [formData, setFormData] = useState(
-    fields.reduce((acc, field) => {
-      acc[field.name] = "";
-      return acc;
-    }, {})
-  );
+const AgregarRecurso = ({
+  isPopupOpen,
+  dataedit,
+  handlePopupClose,
+  fields,
+  title,
+  opciones,
+  apifunc,
+  reload,
+}) => {
+  const [formData, setFormData] = useState({});
+
+  useEffect(() => {
+    if (dataedit && opciones == "editar") {
+      setFormData({
+        id: dataedit.id || "",
+        ...fields.reduce((acc, field) => {
+          if (field.isSelect) {
+            const foundOption = field.options.find(
+              (option) =>
+                (typeof option === "object" ? option.value : option) ===
+                dataedit[field.name]
+            );
+            acc[field.name] = foundOption ? foundOption.value : "";
+          } else {
+            acc[field.name] = dataedit[field.name] || "";
+          }
+          return acc;
+        }, {}),
+      });
+    } else {
+      setFormData(
+        fields.reduce((acc, field) => {
+          acc[field.name] = "";
+          return acc;
+        }, {})
+      );
+    }
+  }, [dataedit, fields]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -52,8 +84,6 @@ const AgregarRecurso = ({ isPopupOpen, handlePopupClose, fields, title }) => {
           className="w-6 h-6"
         />
       </div>
-
-      {/* Título del Drawer */}
       <div className="flex items-center space-x-2 px-4 mb-4">
         <h2 className="h3 text-[#00733C]">{title}</h2>
       </div>
@@ -84,35 +114,59 @@ const AgregarRecurso = ({ isPopupOpen, handlePopupClose, fields, title }) => {
           </div>
           <div className="flex flex-col ml-[10px] gap-2 w-[80%]">
             <p className="text-lg font-semibold">{formData[fields[0].name]}</p>
-            <p className="text-sm text-gray-500">{formData[fields[1].name]}</p>
+            {fields.length > 1 && (
+              <p className="text-sm text-gray-500">
+                {formData[fields[1].name]}
+              </p>
+            )}
           </div>
         </div>
       ) : (
         <div className="flex flex-col ml-[10px] gap-2 w-[80%]">
           <p className="text-lg font-semibold">{formData[fields[0].name]}</p>
-          <p className="text-sm text-gray-500">{formData[fields[1].name]}</p>
+
+          {fields.length > 1 && (
+            <p className="text-sm text-gray-500">{formData[fields[1].name]}</p>
+          )}
         </div>
       )}
 
-      {/* Formulario */}
-      <div className="grid grid-cols-2 gap-4 bg-white rounded-lg w-full px-2 overflow-hidden my-5 py-2">
+      <div
+        className={`grid ${
+          fields.length === 1 ? "grid-cols-1 px-4" : "grid-cols-2 px-2"
+        } gap-4 bg-white rounded-lg w-full  overflow-hidden my-5 py-2`}
+      >
         {fields.map((field, index) => (
           <div
             key={index}
             className="flex items-center justify-between border-b border-gray-300"
           >
-            <label className="block gris-perla ">{field.label}</label>
+            <label className={` ${
+          fields.length === 1 ? "w-full full gris-perla" : "block gris-perla"
+        }`}>{field.label}</label>
             {field.isSelect ? (
               <select
                 name={field.name}
-                value={formData[field.name]}
-                onChange={handleInputChange}
-                className="w-full focus:outline-none bg-transparent"
+                value={formData[field.name] || ""}
+                onChange={(e) => {
+                  const { name, value } = e.target;
+                  // Convertir "true" y "false" de string a booleano
+                  const parsedValue =
+                    value === "true" ? true : value === "false" ? false : value;
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    [name]: parsedValue,
+                  }));
+                }}
+                className="w-full focus:outline-none bg-transparent text-end"
               >
                 <option value="">Seleccione</option>
                 {field.options.map((option, i) => (
-                  <option key={i} value={option}>
-                    {option}
+                  <option
+                    key={i}
+                    value={typeof option === "object" ? option.value : option}
+                  >
+                    {typeof option === "object" ? option.label : option}
                   </option>
                 ))}
               </select>
@@ -123,16 +177,33 @@ const AgregarRecurso = ({ isPopupOpen, handlePopupClose, fields, title }) => {
                 value={formData[field.name] || ""}
                 onChange={handleInputChange}
                 placeholder={field.placeholder}
-                className="w-full focus:outline-none bg-transparent text-end"
+                className={` ${
+                  fields.length === 1 ? "w-full focus:outline-none bg-transparent text-center" : "w-full focus:outline-none bg-transparent text-end"
+                }`}
               />
             )}
           </div>
         ))}
       </div>
 
-      {/* Botón de acción */}
       <div className="flex justify-end pr-4 pt-5">
-        <BotonAgregar texto={title} />
+        <BotonAgregarRecurso
+          texto={title}
+          datos={formData}
+          opcion={opciones}
+          apiFunc={apifunc}
+          onUpdate={() => {
+            setFormData(
+              fields.reduce((acc, field) => {
+                acc[field.name] = "";
+                return acc;
+              }, {})
+            );
+            reload();
+            handlePopupClose();
+          }}
+          close={handlePopupClose}
+        />
       </div>
     </Drawer>
   );
@@ -151,6 +222,7 @@ AgregarRecurso.propTypes = {
       options: PropTypes.array,
     })
   ).isRequired,
+  dataedit: PropTypes.object, // Permitir que `dataedit` sea opcional
 };
 
 export default AgregarRecurso;

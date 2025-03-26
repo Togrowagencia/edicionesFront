@@ -22,3 +22,18 @@ export const getProviders = async () => {
       return error;
     }
   };
+
+
+  export const createProvider = async (formData) => {
+    try {
+      const response = await axios.post(`${baseurl}/providers/register`, formData);
+      console.log(response);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  };
+  
+
+
+  

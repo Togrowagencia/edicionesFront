@@ -7,13 +7,7 @@ import Popup2 from './Popup2';
 const TablaGdO = () => {
     const [openDrawer1, setOpenDrawer1] = useState(false);
     const [openDrawer2, setOpenDrawer2] = useState(false);
-    const [currentPage] = useState(1);
-    const itemsPerPage = 17; // Elementos por página
 
-    // Calcular los índices para paginación
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const currentItems = DataTablaGdO.slice(startIndex, endIndex);
 
     const showDrawer1 = () => {
         setOpenDrawer1(true);
@@ -53,7 +47,7 @@ const TablaGdO = () => {
                 </thead>
                 {/* Filas de datos */}
                 <tbody>
-                    {currentItems.map((item, index) => (
+                    {DataTablaGdO.map((item, index) => (
                         <tr className='mb-[20px] relative mt-[10px]' key={index}>
                             <td className='textos-bold verde-eco truncate py-2'>{item["ID"]}</td>
                             <td className='textos-bold truncate py-2'>{item["ISBN"]}</td>
