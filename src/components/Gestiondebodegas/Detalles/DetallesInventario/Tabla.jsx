@@ -36,16 +36,16 @@ const Tabla = () => {
           className="h3 flex px-4 py-3 items-center"
         >
           {selectedStore}
-          <span className="ml-1">▼</span>
+          <span className="ml-2 textos-peques">▼</span>
         </button>
 
         {isOpen && (
-          <div className="absolute left-0 mt-5 w-48 bg-white border rounded shadow-lg z-50">
+          <div className="absolute left-0 mt-5 w-48 bg-white border rounded-[10px] shadow-lg z-50">
             {stores.map((store, index) => (
               <button
                 key={index}
                 onClick={() => handleSelect(store)}
-                className="block w-full text-left px-4 py-2 hover:bg-green-400"
+                className="block w-full text-left px-4 py-2 hover:bg-green-700 hover:text-white hover:rounded-[10px]"
               >
                 {store}
               </button>

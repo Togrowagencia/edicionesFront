@@ -8,9 +8,9 @@ function IconReportes() {
     const stores = [
         { name: "Informe global de ventas", path: "/informe-global" },
         { name: "Inventario por punto de venta", path: "/detalles-inventario" },
-        { name: "Ventas especificas por punto de venta", path: "/ventas-especificas" },
+        { name: "Ventas especificas por punto de venta", path: "/detalles-venta" },
         { name: "Egresos por tienda", path: "/egresos" },
-        { name: "Informe de consignacion", path: "/consignacion" },
+        { name: "Informe de consignacion", path: "/informe-consignacion" },
         { name: "Ingresos por tienda", path: "/ingresos" },
         { name: "Rentabilidad por producto", path: "/rentabilidad" },
         { name: "Ventas por obra", path: "/ventas-obra" },
