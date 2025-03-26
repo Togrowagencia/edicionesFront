@@ -6,7 +6,7 @@ const { useToken } = theme;
 
 const CustomUploadIcon = () => (
   <div className="flex w-full justify-center">
-  <img src="/svg/editar.svg" alt="Upload"/>
+  <img src="/svg/popup-ao/drag.svg" alt="Upload"/>
   </div>
 );
 

@@ -2,6 +2,7 @@
 import React from "react";
 import { DatePicker } from "antd";
 import { useState } from "react";
+import IconNotificacion from "../inputs/IconNotificacion";
 
 const HeaderGdO = () => {
   const [codigo, setCodigo] = useState("");
@@ -172,7 +173,7 @@ const HeaderGdO = () => {
         <div className="w-[50%] px-4 flex gap-4 items-center h-[50%] ml-[22%]">
           <img src="/svg/header/stads.svg" alt="" />
           <img src="/svg/header/descarga.svg" alt="" />
-          <img src="/svg/header/notification.svg" alt="" />
+          <IconNotificacion />
         </div>
       </div>
     </div>

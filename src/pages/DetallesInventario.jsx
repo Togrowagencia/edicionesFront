@@ -8,18 +8,14 @@ const DetallesInventario = () => {
   return (
     <div className='w-full h-full px-4 pt-4 flex'>
       <div className='w-1553px h-883px flex'>
-      <Sidebar/>
+        <Sidebar />
 
-      <div className='w-[83%] ml-[1%] px-8 gestion-de-obras ml-[17%]'>
-        <Header/>
-        <div className='w-full h-[90%] flex -ml-[1%]'>
-          <div className='w-[65%] h-full'>
-            <div className='-mt-[2%]'>
-            <Tabla/>
-            </div>
+        <div className='w-[83%] ml-[21%] px-8 gestion-de-obras ml-[17%]'>
+          <Header />
+          <div className='w-full h-[90%] flex'>
+            <Tabla />
           </div>
         </div>
-      </div>
       </div>
     </div>
   )

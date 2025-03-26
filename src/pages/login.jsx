@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {login}  from "./../api/authUsers";
+import { login } from "./../api/authUsers";
 import Notify from "simple-notify";
 import IniciarSesion from "../components/login/IniciarSesion";
 import OlvidoContraseña from "../components/login/OlvidoContraseña";
@@ -101,26 +101,31 @@ export const Login = () => {
           {/* Botones de selección */}
           <div className="flex justify-start items-start w-[60%] gap-4 py-4">
             <button
-              className={`group flex flex-col justify-center items-center rounded-[10px] border py-[9px] px-1 w-[24%] h-full gap-1.5 transition-colors ${
-                activeComponent === "login"
+              className={`group flex flex-col justify-center items-center rounded-[10px] border py-[9px] px-1 w-[24%] h-full gap-1.5 transition-colors ${activeComponent === "login"
                   ? "border-[#32938C] text-[#32938C]"
                   : "border-[#222] text-[#222]"
-              }`}
+                }`}
               onClick={() => setActiveComponent("login")}
             >
-              <img src="/svg/sidebar/togrow.svg" className="w-4" />
+
+              <img src={` ${activeComponent === "login"
+                  ? "/svg/login/iniciosesion-selected.svg"
+                  : "/svg/login/iniciosesion-unselected.svg"
+                }`} className="w-4" />
               <p className="w-[80%] textos-peques">Iniciar Sesión</p>
             </button>
 
             <button
-              className={`group flex flex-col justify-center items-center rounded-[10px] border py-[9px] w-[24%] h-full gap-1.5 transition-colors ${
-                activeComponent === "forgot"
+              className={`group flex flex-col justify-center items-center rounded-[10px] border py-[9px] w-[24%] h-full gap-1.5 transition-colors ${activeComponent === "forgot"
                   ? "border-[#32938C] text-[#32938C]"
                   : "border-[#222] text-[#222]"
-              }`}
+                }`}
               onClick={() => setActiveComponent("forgot")}
             >
-              <img src="/svg/sidebar/togrow.svg" className="w-4" />
+              <img src={` ${activeComponent === "forgot"
+                  ? "/svg/login/olvido-selected.svg"
+                  : "/svg/login/olvido-unselected.svg"
+                }`} className="w-4" />
               <p className="w-[90%] textos-peques">¿Olvidó la contraseña?</p>
             </button>
           </div>

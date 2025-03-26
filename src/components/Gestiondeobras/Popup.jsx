@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import InputRow from '../dashboard/PopUps/AO/InputRow';
+
+import { InputRow } from '../inputs/InputRow';
 import DataAO from '../Data/DataAO';
 import { Checkbox, Drawer } from 'antd';
 

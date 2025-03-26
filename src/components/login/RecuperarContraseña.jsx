@@ -54,8 +54,8 @@ const RecuperarContraseña = ({ setActiveComponent }) => {
                   <img
                     src={
                       req.valido
-                        ? "/svg/sidebar/togrow.svg"
-                        : "/svg/sidebar/cerrar.svg"
+                        ? "/svg/login/cumple.svg"
+                        : "/svg/login/nocumple.svg"
                     }
                     alt=""
                   />

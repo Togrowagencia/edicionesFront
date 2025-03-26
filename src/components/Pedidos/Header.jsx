@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import InputRow from '../dashboard/PopUps/AO/InputRow';
+import { InputRow } from '../inputs/InputRow';
 
 const Header = () => {
 

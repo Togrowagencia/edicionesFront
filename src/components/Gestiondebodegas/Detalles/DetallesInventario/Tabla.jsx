@@ -15,7 +15,7 @@ const Tabla = () => {
   const [selectedStore, setSelectedStore] = useState(
     "Tienda florida parque comercial"
   );
-
+ 
   const stores = [
     "Tienda florida parque comercial",
     "Tienda centro",
@@ -29,7 +29,7 @@ const Tabla = () => {
   };
 
   return (
-    <>
+    <div>
       <div className="relative inline-block text-left">
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -112,7 +112,7 @@ const Tabla = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

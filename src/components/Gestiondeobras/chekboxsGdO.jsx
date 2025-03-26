@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import CheckboxWithLabel from '../dashboard/PopUps/AO/CheckboxWithLabel';
+import { CheckboxWithLabel } from '../inputs/CheckboxWithLabel';
 
 function ChekboxsGdO() {
   const [selectedCheckboxes, setSelectedCheckboxes] = useState({

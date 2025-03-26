@@ -26,7 +26,6 @@ const Ventas = () => {
             <p className='gris-urbano w-[40%] ml-[62px]'>Libros vendidos</p>
             <p className='gris-urbano w-[30%] ml-[12px]'>Total vendido</p>
         </div>
-
     {
       currentItems.map((item, index) => (
         <div className='gap-2 flex mb-[20px] relative mt-[10px] ml-[32px]' key={index}>  

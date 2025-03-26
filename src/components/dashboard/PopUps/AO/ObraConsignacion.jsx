@@ -51,9 +51,9 @@ const ObraPropia = () => {
           htmlFor="retefuente"
           className={`absolute negro h4 cursor-text bg-white px-1 transition-all transform origin-left ${
             retefuente
-              ? "-top-2 left-3 text-xs text-green-600 scale-75"
+              ? "-top-2 left-3 textos-bold text-green-600"
               : "top-3 left-10 text-sm text-slate-400"
-          } peer-focus:-top-2 peer-focus:left-3 peer-focus:text-xs peer-focus:text-green-600 peer-focus:scale-75`}
+          } peer-focus:-top-2 peer-focus:left-3 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75 `}
         >
           Retefuente
         </label>

@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { Drawer } from "antd";
 import ObraPropia from "./AO/ObraPropia";
 import ObraConsignacion from "./AO/ObraConsignacion";
-import InputRow from "./AO/InputRow";
-import CheckboxWithLabel from "./AO/CheckboxWithLabel";
+import { InputRow } from "../../inputs/InputRow";
+import { CheckboxWithLabel } from "../../inputs/CheckboxWithLabel";
 import DataAO from "../../Data/DataAO";
 import Drop from "./AO/Drop";
 

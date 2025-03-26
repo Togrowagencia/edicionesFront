@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import InputRow from '../dashboard/PopUps/AO/InputRow';
-import CheckboxWithLabel from '../dashboard/PopUps/AO/CheckboxWithLabel';
+import { InputRow } from '../inputs/InputRow';
+import { CheckboxWithLabel } from '../inputs/CheckboxWithLabel';
 import BotonAgregar from '../inputs/BotonAgregar'
 
 const Header = () => {

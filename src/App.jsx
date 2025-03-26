@@ -14,8 +14,12 @@ import UsuariosyRoles from './pages/UsuariosyRoles.jsx';
 import Cotizaciones from './pages/Cotizaciones.jsx';
 import PuntodeVenta from './pages/PuntodeVenta.jsx';
 import DetallesInventario from './pages/DetallesInventario.jsx';
+import DetallesVentas from './pages/DetallesVentas.jsx';
 import Pedidos from './pages/Pedidos.jsx';
 import Devoluciones from './pages/Devoluciones.jsx';
+import EgresosporTienda from './pages/EgresosporTienda.jsx';
+import IngresosporTienda from './pages/IngresosporTienda.jsx';
+import InformeGlobal from './pages/InformeGlobal.jsx';
 /*End::Rutas*/
 
 function App() {
@@ -37,6 +41,10 @@ function App() {
         <Route path="/pedidos" element={<Pedidos />} />
         <Route path="/devoluciones" element={<Devoluciones />} />
         <Route path="/detalles-inventario" element={<DetallesInventario />} />
+        <Route path="/detalles-venta" element={<DetallesVentas />} />
+        <Route path="/egresos" element={<EgresosporTienda />} />
+        <Route path="/ingresos" element={<IngresosporTienda />} />
+        <Route path="/informe-global" element={<InformeGlobal />} />
       </Routes>
     </>
   )
