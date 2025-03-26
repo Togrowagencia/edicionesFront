@@ -21,6 +21,7 @@ import EgresosporTienda from './pages/EgresosporTienda.jsx';
 import IngresosporTienda from './pages/IngresosporTienda.jsx';
 import InformeGlobal from './pages/InformeGlobal.jsx';
 import InformedeConsignacion from './pages/InformedeConsignacion.jsx';
+import Rentabilidad from './pages/Rentabilidad.jsx';
 /*End::Rutas*/
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
         <Route path="/ingresos" element={<IngresosporTienda />} />
         <Route path="/informe-global" element={<InformeGlobal />} />
         <Route path="/informe-consignacion" element={<InformedeConsignacion />} />
+        <Route path="/rentabilidad" element={<Rentabilidad />} />
       </Routes>
     </>
   )
