@@ -1,0 +1,102 @@
+const Data = [
+    {
+      "N-Factura": "FAC-001",
+      "Fecha-venta": "15/03/2024",
+      "Nombre": "Juan",
+      "Apellidos": "Pérez González",
+      "Identificacion": "1234567890",
+      "Retefuente": "No",
+      "Total": "$150.000",
+      "Subtotal": "$126.050",
+      "Vendedor": "Ana María López",
+      "Punto-de-Venta": "Sucursal Centro",
+      "Anulada": "No",
+      "Estado": "Activa"
+    },
+    {
+      "N-Factura": "FAC-002",
+      "Fecha-venta": "16/03/2024",
+      "Nombre": "María",
+      "Apellidos": "Rodríguez Silva",
+      "Identificacion": "0987654321",
+      "Retefuente": "Si",
+      "Total": "$280.000",
+      "Subtotal": "$235.294",
+      "Vendedor": "Carlos Ramírez",
+      "Punto-de-Venta": "Sucursal Norte",
+      "Anulada": "No",
+      "Estado": "Activa"
+    },
+    {
+      "N-Factura": "FAC-003",
+      "Fecha-venta": "17/03/2024",
+      "Nombre": "Pedro",
+      "Apellidos": "García Martinez",
+      "Identificacion": "2345678901",
+      "Retefuente": "No",
+      "Total": "$95.000",
+      "Subtotal": "$79.832",
+      "Vendedor": "Laura Sánchez",
+      "Punto-de-Venta": "Sucursal Sur",
+      "Anulada": "Si",
+      "Estado": "Anulada"
+    },
+    {
+      "N-Factura": "FAC-004",
+      "Fecha-venta": "18/03/2024",
+      "Nombre": "Ana",
+      "Apellidos": "López Torres",
+      "Identificacion": "3456789012",
+      "Retefuente": "Si",
+      "Total": "$320.000",
+      "Subtotal": "$268.907",
+      "Vendedor": "Diego Morales",
+      "Punto-de-Venta": "Sucursal Este",
+      "Anulada": "No",
+      "Estado": "Activa"
+    },
+    {
+      "N-Factura": "FAC-005",
+      "Fecha-venta": "19/03/2024",
+      "Nombre": "Luis",
+      "Apellidos": "Martinez Ruiz",
+      "Identificacion": "4567890123",
+      "Retefuente": "No",
+      "Total": "$175.000",
+      "Subtotal": "$147.059",
+      "Vendedor": "Sofia Herrera",
+      "Punto-de-Venta": "Sucursal Oeste",
+      "Anulada": "No",
+      "Estado": "Activa"
+    },
+    {
+      "N-Factura": "FAC-006",
+      "Fecha-venta": "20/03/2024",
+      "Nombre": "Carmen",
+      "Apellidos": "Díaz Flores",
+      "Identificacion": "5678901234",
+      "Retefuente": "Si",
+      "Total": "$250.000",
+      "Subtotal": "$210.084",
+      "Vendedor": "Juan Pablo Reyes",
+      "Punto-de-Venta": "Sucursal Centro",
+      "Anulada": "No",
+      "Estado": "Activa"
+    },
+    {
+      "N-Factura": "FAC-007",
+      "Fecha-venta": "21/03/2024",
+      "Nombre": "Roberto",
+      "Apellidos": "Sánchez Vargas",
+      "Identificacion": "6789012345",
+      "Retefuente": "No",
+      "Total": "$130.000",
+      "Subtotal": "$109.244",
+      "Vendedor": "María José Castro",
+      "Punto-de-Venta": "Sucursal Norte",
+      "Anulada": "Si",
+      "Estado": "Anulada"
+    }
+  ];
+  
+  export default Data;

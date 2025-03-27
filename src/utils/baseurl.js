@@ -1,2 +1,2 @@
-export const baseurl = 'http://localhost:8000/api';
-export const baseurl2 = 'http://localhost:8000/';
+export const baseurl = 'https://backediciones.com/api';
+export const baseurl2 = 'https://backediciones.com/';

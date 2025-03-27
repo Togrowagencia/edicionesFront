@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import Sidebar from '../components/sidebar'
-import Header from '../components/Rentabilidad/header'
-import Tabla from '../components/Rentabilidad/tabla'
+import Header from '../components/Facturacion/header'
+import Tabla from '../components/Facturacion/tabla'
 
-const Rentabilidad = () => {
+const Facturacion = () => {
   return (
     <div className='w-full h-full px-4 pt-4 flex'>
       <div className='w-1553px h-883px flex'>
@@ -25,4 +25,4 @@ const Rentabilidad = () => {
   )
 }
 
-export default Rentabilidad
+export default Facturacion

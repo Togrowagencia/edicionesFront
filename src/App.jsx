@@ -22,6 +22,12 @@ import IngresosporTienda from './pages/IngresosporTienda.jsx';
 import InformeGlobal from './pages/InformeGlobal.jsx';
 import InformedeConsignacion from './pages/InformedeConsignacion.jsx';
 import Rentabilidad from './pages/Rentabilidad.jsx';
+import Facturacion from './pages/Facturacion.jsx';
+import VentasObra from './pages/VentasObra.jsx';
+import Movimientos from './pages/Movimientos.jsx';
+import Historico from './pages/Historico.jsx';
+import CuotasCredito from './pages/CuotasCredito.jsx';
+import DetalleVentaLibro from './pages/DetalleVentaLibro.jsx';
 /*End::Rutas*/
 
 function App() {
@@ -49,6 +55,12 @@ function App() {
         <Route path="/informe-global" element={<InformeGlobal />} />
         <Route path="/informe-consignacion" element={<InformedeConsignacion />} />
         <Route path="/rentabilidad" element={<Rentabilidad />} />
+        <Route path="/facturacion" element={<Facturacion />} />
+        <Route path="/ventas-obra" element={<VentasObra />} />
+        <Route path="/movimientos" element={<Movimientos />} />
+        <Route path="/historico" element={<Historico />} />
+        <Route path="/cuotas-credito" element={<CuotasCredito />} />
+        <Route path="/detalle-venta-libro" element={<DetalleVentaLibro />} />
       </Routes>
     </>
   )
