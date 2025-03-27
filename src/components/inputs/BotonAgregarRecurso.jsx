@@ -7,14 +7,15 @@ const BotonAgregarRecurso = ({
   datos,
   opcion,
   onUpdate,
-  close,
   disabled,
   apiFunc, // Función que maneja el endpoint de la API (por ejemplo, createUsers, createWarehouse)
-  successMessage, 
-  errorMessage,
-// Mensaje de error (generalizado)
+  successMessage, // Mensaje de éxito (generalizado)
+  errorMessage, // Mensaje de error (generalizado)
 }) => {
   const handleAction = async (datos) => {
+    console.log("llega al boton");
+    console.log(opcion);
+    console.log(datos);
     let respuesta = null;
 
     if (disabled) {
@@ -47,14 +48,12 @@ const BotonAgregarRecurso = ({
         background: "#ffff",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          // Dependiendo de la opción (crear o editar) se ejecuta la función correspondiente
           switch (opcion) {
             case "crear":
               respuesta = await apiFunc.create(datos); // Usar la función de creación del endpoint
               break;
             case "editar":
               respuesta = await apiFunc.update(datos);
-              console.log("sillega al endpoint") // Usar la función de edición del endpoint
               console.log("sillega al endpoint") // Usar la función de edición del endpoint
               console.log(respuesta) // Usar la función de edición del endpoint
               break;
@@ -65,7 +64,7 @@ const BotonAgregarRecurso = ({
           // Verificar la respuesta y mostrar la notificación correspondiente
           if (
             respuesta &&
-            respuesta.status === (opcion === "crear" ? 201 : 200)
+            respuesta.status ==(opcion === "crear" ? 201 : 200)
           ) {
             new Notify({
               title: successMessage || "Operación exitosa",

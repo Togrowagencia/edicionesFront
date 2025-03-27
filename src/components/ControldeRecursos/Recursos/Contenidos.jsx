@@ -34,7 +34,7 @@ const Contenidos = () => {
         <table className="w-[95%] mx-auto">
           <thead className="bg-white sticky top-0 z-10">
             <tr className="border-b sticky border-green-500 ">
-              <th className="gris-urbano ">Contenidos</th>
+              <th className="gris-urbano text-start ">Contenidos</th>
               <th className="gris-urbano ">Editar / Eliminar</th>
             </tr>
           </thead>
@@ -50,7 +50,7 @@ const Contenidos = () => {
             datos.map((item, index) => (
               <tr
                 key={index}
-                className={`text-center ${
+                className={`text-start ${
                   index % 2 === 0 ? "bg-gray-100" : "bg-white"
                 }`}
               >
@@ -65,7 +65,6 @@ const Contenidos = () => {
         </table>
       </div>
 
-      {/* Contenedor del botón sin margin-top automático */}
       <div className="w-full flex justify-end px-4 mt-auto">
         <button className="text-[17px] bg-green-800 hover:bg-green-700 text-white font-bold px-4 border-b-4 border-green-800 hover:border-green-700 rounded">
           Agregar contenido +

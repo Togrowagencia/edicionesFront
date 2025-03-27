@@ -24,3 +24,34 @@ export const getGenders = async () => {
       return error;
     }
   };
+
+
+  export const createGender = async (formData) => {
+    try {
+      const response = await axios.post(`${baseurl}/genders/register`, formData);
+      console.log(response);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  };
+
+
+  export const  putGender = async (formData) => {
+    try {
+        const token = localStorage.getItem('authResponse'); 
+      if (!token) {
+        throw new Error('Token no encontrado');
+      }
+
+      const config = {
+        headers: {
+          'tgwr_token': token, 
+        }
+      };
+      const response = await axios.put(`${baseurl}/genders/edit/${formData.id}`,formData,config);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  };

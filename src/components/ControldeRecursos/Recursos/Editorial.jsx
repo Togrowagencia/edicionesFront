@@ -60,8 +60,8 @@ const Editorial = ({ datoss, update, sinDatos, providers }) => {
         <table className="w-[95%] mx-auto">
           <thead className="bg-white sticky top-0 z-10">
             <tr className="border-b sticky border-green-500 ">
-              <th className="gris-urbano ">Editorial</th>
-              <th className="gris-urbano ">Editar / Eliminar</th>
+              <th className="gris-urbano text-start px-2">Editorial</th>
+              <th className="gris-urbano text-end px-2">Editar / Eliminar</th>
             </tr>
           </thead>
           <tbody>
@@ -75,16 +75,16 @@ const Editorial = ({ datoss, update, sinDatos, providers }) => {
               datos.map((item, index) => (
                 <tr
                   key={item.id}
-                  className={`text-center ${
+                  className={`text-start ${
                     index % 2 === 0 ? "bg-gray-100" : "bg-white"
                   }`}
                 >
-                  <td className="textos-bold py-1">{item.name}</td>
-                  <td className="flex items-center justify-center">
+                  <td className="textos-bold py-1 px-2">{item.name}</td>
+                  <td className="flex items-center justify-end">
                     <img
                       src="/svg/editar.svg"
                       alt="editar"
-                      className="p-2 cursor-pointer"
+                      className="px-3 py-2 cursor-pointer"
                       onClick={() => {
                         showDrawer2({
                           id: item.id,
@@ -101,7 +101,7 @@ const Editorial = ({ datoss, update, sinDatos, providers }) => {
                     <img
                       src="/svg/eliminar.svg"
                       alt="Eliminar"
-                      className="p-2 cursor-pointer"
+                      className="px-5 py-2 cursor-pointer"
                     />
                   </td>
                 </tr>

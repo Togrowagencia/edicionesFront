@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from "react";
 import AgregarRecurso from "../CrearRecurso";
-import { createProvider } from "../../../api/providers";
-const Proveedores = ({datoss,update,sinDatos}) => {
-  const [datos, setDatos] = useState([]);
+import { createProvider, putProvider } from "../../../api/providers";
+const Proveedores = ({ datoss, update, sinDatos }) => {
   const [texto, setTexto] = useState("");
   const [opcion, setOpcion] = useState("");
-  const [apiFunc, setApiFunc] = useState("");
+  const [editar, SetEditar] = useState([]);
+
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [openDrawer1, setOpenDrawer1] = useState(false);
 
+  const [apiFunc, setApiFunc] = useState({
+    create: [],
+    update: [],
+  });
+  const showDrawer2 = (editorial) => {
+    SetEditar(editorial);
+    setOpenDrawer1(true);
+  };
 
   const fields = [
     {
@@ -79,7 +87,7 @@ const Proveedores = ({datoss,update,sinDatos}) => {
       placeholder: "",
       options: [
         { label: "Sí", value: true },
-        { label: "No", value: false }
+        { label: "No", value: false },
       ],
     },
     {
@@ -102,12 +110,10 @@ const Proveedores = ({datoss,update,sinDatos}) => {
     setOpenDrawer1(false);
   };
 
-  
-
   return (
     <div className="w-[50.5%] h-auto rounded-[10px] sombra flex-shrink-0 bg-white flex flex-col py-2 my-2">
       <div className="w-full flex items-center mb-4">
-        <p className="h3 negro w-[85%] ml-[5%]">Proveedores</p>
+        <p className="h3 negro w-[85%]  mx-[3%] mt-2">Proveedores</p>
         <img src="/public/svg/header/buscar.svg" alt="Icono" />
       </div>
 
@@ -115,10 +121,10 @@ const Proveedores = ({datoss,update,sinDatos}) => {
         <table className="w-[95%] mx-auto">
           <thead className="bg-white sticky top-0 z-10">
             <tr className="border-b border-green-500">
-              <th className="gris-urbano">Proveedor</th>
-              <th className="gris-urbano">Email</th>
-              <th className="gris-urbano">Teléfono</th>
-              <th className="gris-urbano">Editar / Eliminar</th>
+              <th className="gris-urbano text-start px-2">Proveedor</th>
+              <th className="gris-urbano text-start">Email</th>
+              <th className="gris-urbano text-start">Teléfono</th>
+              <th className="gris-urbano text-end">Editar / Eliminar</th>
             </tr>
           </thead>
           <tbody>
@@ -132,19 +138,32 @@ const Proveedores = ({datoss,update,sinDatos}) => {
               datoss.map((item, index) => (
                 <tr
                   key={index}
-                  className={`text-center ${
+                  className={`text-start ${
                     index % 2 === 0 ? "bg-[#f5f5f5]" : "bg-white"
                   }`}
                 >
-                  <td className="textos-bold py-1">{item.corporate_name}</td>
+                  <td className="textos-bold py-1 px-2">{item.corporate_name}</td>
                   <td className="textos-bold">{item.email}</td>
                   <td className="textos-bold">{item.cell_phone}</td>
-                  <td className="flex items-center justify-center">
-                    <img src="/svg/editar.svg" alt="editar" className="p-2" />
+                  <td className="flex items-center justify-end">
+                    <img
+                      src="/svg/editar.svg"
+                      alt="editar"
+                      className="px-3 py-2 cursor-pointer"
+                      onClick={() => {
+                        showDrawer2(item);
+                        setTexto("Editar proveedor");
+                        setOpcion("editar");
+                        setApiFunc((prev) => ({
+                          ...prev,
+                          update: putProvider,
+                        }));
+                      }}
+                    />
                     <img
                       src="/svg/eliminar.svg"
                       alt="Eliminar"
-                      className="p-2"
+                      className="px-5 py-2"
                     />
                   </td>
                 </tr>
@@ -160,7 +179,10 @@ const Proveedores = ({datoss,update,sinDatos}) => {
             showDrawer1();
             setTexto("Agregar proveedor");
             setOpcion("crear");
-            setApiFunc({create : createProvider});
+            setApiFunc((prev) => ({
+              ...prev,
+              create: createProvider,
+            }));
           }}
         >
           Agregar Proveedor +
@@ -169,6 +191,7 @@ const Proveedores = ({datoss,update,sinDatos}) => {
       <AgregarRecurso
         handlePopupClose={onCloseDrawer1}
         isPopupOpen={openDrawer1}
+        dataedit={editar}
         fields={fields}
         title={texto}
         opciones={opcion}
