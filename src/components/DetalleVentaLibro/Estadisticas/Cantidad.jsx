@@ -79,6 +79,10 @@ const Cantidad = () => {
                 show: false // Oculta la cuadrícula
             },
             tooltip: {
+                style: {
+                    color: '#FFF',
+                    fontFamily: fontFamily,
+                },
                 enabled: true
             },
             legend: {
@@ -97,7 +101,6 @@ const Cantidad = () => {
                 fontFamily: fontFamily,
                 onItemClick: { toggleDataSeries: false },
                 color: '#9E9E9E',
-                fontSize: '20px',
                 fontWeight: '600',
             },
             fill: {
@@ -107,7 +110,7 @@ const Cantidad = () => {
     });
 
     return (
-        <div id="chart" style={{ width: '100%', marginTop: '38%' }}>
+        <div id="chart" style={{ width: '100%', marginTop: '50%' }}>
             <ReactApexChart
                 options={state.options}
                 series={state.series}
