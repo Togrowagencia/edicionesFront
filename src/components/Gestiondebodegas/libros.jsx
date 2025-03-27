@@ -3,8 +3,7 @@ import Slider from "react-slick";
 import { baseurl2 } from "../../utils/baseurl";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Datalibro from "../Data/GestiondeBodegas/Data";
-import { getWarehouses } from "../../api/warehouse"; 
+
 function SampleArrow(props) {
   
   const { className, style, onClick } = props;
@@ -15,23 +14,10 @@ function SampleArrow(props) {
   );
 }
 
-function Libros({ setLibroSeleccionado }) {
+function Libros({ setLibroSeleccionado,datos,load }) {
   const [startIndex, setStartIndex] = useState(0); 
   const [warehouse, setwarehouse] = useState([]);
-  useEffect(() => {
-    const fetchwarehouse = async () => {
-      
-      try {
-        const response = await getWarehouses();
-        setwarehouse(response.data); 
-        console.log(warehouse)// Esto actualiza el estado de `warehouse`
-      } catch (error) {
-        console.error("Error al obtener los usuarios:", error);
-      }
-    };
-
-    fetchwarehouse();
-  }, []);
+ 
   const settings = {
     dots: false,
     infinite: true,
@@ -50,7 +36,7 @@ function Libros({ setLibroSeleccionado }) {
     <div className="relative">
       <div className="slider-container relative">
         <Slider {...settings}>
-          {warehouse.map((item, index) => {
+          {datos.map((item, index) => {
             const isThirdVisible = index === (startIndex + 2) % warehouse.length; // Ajuste para el tercer ítem visible en 3 
 
             console.log(`Índice: ${index} | Tercer visible: ${isThirdVisible}`);

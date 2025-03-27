@@ -104,7 +104,7 @@ const ControldeRecursos = () => {
 
               <Contenidos
                 update={() => fetchData(getContent, "Content")}
-                datoss={datos.Gender}
+                datoss={datos.Content}
                 sinDatos={sinData.Gender}
               />
               <Promociones

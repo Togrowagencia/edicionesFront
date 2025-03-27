@@ -44,8 +44,8 @@ const Genero = ({ datoss, update, sinDatos }) => {
         <table className="w-[95%] mx-auto">
           <thead className="bg-white sticky top-0 z-10 ">
             <tr className="border-b sticky border-green-500 ">
-              <th className="gris-urbano ">Genero</th>
-              <th className="gris-urbano ">Editar / Eliminar</th>
+              <th className="gris-urbano text-start px-2">Genero</th>
+              <th className="gris-urbano text-end ">Editar / Eliminar</th>
             </tr>
           </thead>
           <tbody>
@@ -59,11 +59,11 @@ const Genero = ({ datoss, update, sinDatos }) => {
               datoss.map((item, index) => (
                 <tr
                   key={index}
-                  className={`text-center ${
+                  className={`text-start ${
                     index % 2 === 0 ? "bg-gray-100" : "bg-white"
                   }`}
                 >
-                  <td className="textos-bold py-1">{item.name}</td>
+                  <td className="textos-bold py-1 px-2">{item.name}</td>
                   <td className="flex items-center justify-end">
                     <img
                       src="/svg/editar.svg"
@@ -83,7 +83,7 @@ const Genero = ({ datoss, update, sinDatos }) => {
                     <img
                       src="/svg/eliminar.svg"
                       alt="Eliminar"
-                      className="px-3 py-2 cursor-pointer"
+                      className="px-5 py-2 cursor-pointer"
                     />
                   </td>
                 </tr>

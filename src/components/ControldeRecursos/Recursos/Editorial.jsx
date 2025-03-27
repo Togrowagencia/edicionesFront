@@ -61,7 +61,7 @@ const Editorial = ({ datoss, update, sinDatos, providers }) => {
           <thead className="bg-white sticky top-0 z-10">
             <tr className="border-b sticky border-green-500 ">
               <th className="gris-urbano text-start px-2">Editorial</th>
-              <th className="gris-urbano text-end px-2">Editar / Eliminar</th>
+              <th className="gris-urbano text-end ">Editar / Eliminar</th>
             </tr>
           </thead>
           <tbody>

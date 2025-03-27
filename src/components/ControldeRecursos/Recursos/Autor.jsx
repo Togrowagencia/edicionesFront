@@ -45,7 +45,7 @@ const Autor = ({ datoss, update, sinDatos }) => {
           <thead className="bg-white sticky top-0 z-10">
             <tr className="border-b sticky border-green-500 ">
               <th className="gris-urbano  text-start px-2">Autores</th>
-              <th className="gris-urbano ">Editar / Eliminar</th>
+              <th className="gris-urbano text-end">Editar / Eliminar</th>
             </tr>
           </thead>
           <tbody>
@@ -68,7 +68,7 @@ const Autor = ({ datoss, update, sinDatos }) => {
                     <img
                       src="/svg/editar.svg"
                       alt="editar"
-                      className=" px-3 py-2 cursor-point"
+                      className=" px-3 py-2 cursor-pointer"
                       onClick={() => {
                         showDrawer2(item);
                         setTexto("Editar proveedor");
@@ -82,7 +82,7 @@ const Autor = ({ datoss, update, sinDatos }) => {
                     <img
                       src="/svg/eliminar.svg"
                       alt="Eliminar"
-                      className="px-5 py-2"
+                      className="px-5 py-2 cursor-pointer"
                     />
                   </td>
                 </tr>
