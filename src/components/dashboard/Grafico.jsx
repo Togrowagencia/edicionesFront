@@ -30,9 +30,9 @@ const Grafico = () => {
 
       // Degradado para el área debajo de la línea
       const gradientFill = ctx.createLinearGradient(0, 0, 0, 260);
-      gradientFill.addColorStop(0.27, "rgba(95, 184, 104, 0.9)"); // Verde oscuro con opacidad
-      gradientFill.addColorStop(0.5, "rgba(39, 183, 255, 0.5)"); // Azul con opacidad media
-      gradientFill.addColorStop(1, "rgba(95, 184, 104, 0)"); // Transparente
+      gradientFill.addColorStop(1, "rgba(39, 183, 255, 0.00)"); 
+      gradientFill.addColorStop(0.7, "rgba(39, 183, 255, 0.17)"); 
+      gradientFill.addColorStop(0, "#5FB868"); 
       setFillGradient(gradientFill);
     }
   }, []);

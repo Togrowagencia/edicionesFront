@@ -274,7 +274,7 @@ const PopupTO = ({ isPopupOpen, handlePopupClose }) => {
             <p className="h4 blanco">Confirmar traslado</p>
             <img src="/svg/gestiondeobras/agregar(2).svg" alt="" />
           </button>
-          <button className="bg-[#222] flex px-2 py-1 rounded-[3px] gap-2">
+          <button onClick={handlePopupClose} className="bg-[#222] flex px-2 py-1 rounded-[3px] gap-2">
             <p className="h4 blanco">Cancelar</p>
             <img src="/svg/gestiondeobras/cancelar.svg" alt="" />
           </button>

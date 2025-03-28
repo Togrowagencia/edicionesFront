@@ -304,12 +304,12 @@ const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
           </div>
           <div className="flex items-center p-4 justify-end w-full">
             <div className="flex items-center gap-2 bg-[#EEE] p-2 rounded-[3px] justify-end w-auto">
-              <img src="/public/svg/popup-ao/NDLO.svg" alt="" />
+              <img src="/svg/popup-ao/NDLO.svg" alt="" />
               <p className="textos negro">
                 Cantidad total <span className="textos-bold mx-3">450</span>
               </p>
               <img
-                src="/public/svg/popup-ao/NDLO.svg"
+                src="/svg/total (2).svg"
                 alt=""
                 className="ml-6"
               />
@@ -323,7 +323,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
               <p className="h4 blanco">Confirmar carga de obras</p>
               <img src="/svg/gestiondeobras/agregar(2).svg" alt="" />
             </button>
-            <button className="bg-[#222] flex px-2 py-1 rounded-[3px] gap-2">
+            <button onClick={handlePopupClose} className="bg-[#222] flex px-2 py-1 rounded-[3px] gap-2">
               <p className="h4 blanco">Cancelar</p>
               <img src="/svg/gestiondeobras/cancelar.svg" alt="" />
             </button>
