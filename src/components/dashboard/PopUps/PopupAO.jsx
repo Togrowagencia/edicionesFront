@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Drawer } from "antd";
 import ObraPropia from "./AO/ObraPropia";
 import ObraConsignacion from "./AO/ObraConsignacion";
 import { InputRow } from "../../inputs/InputRow";
+import { getGoogleBook } from "../../../api/googleBooks";
 import { CheckboxWithLabel } from "../../inputs/CheckboxWithLabel";
 import DataAO from "../../Data/DataAO";
 import Drop from "./AO/Drop";
@@ -14,8 +15,8 @@ const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentItems = DataAO.slice(startIndex, endIndex);
+  const [book, setBook] = useState([]);
 
-  // Estado para los checkboxes
   const [selectedCheckboxes, setSelectedCheckboxes] = useState({
     obraPropia: true,
     obraConsignacion: false,
@@ -37,6 +38,30 @@ const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
     cantidad: "",
   });
 
+  const handleBook = async () => {
+    try {
+      const respuesta = await getGoogleBook(inputValues.isbn);
+
+      if (respuesta.data.volumeInfo) {
+        setBook(respuesta.data.CheckboxWithLabelvolumeInfo);
+
+        setInputValues((prevData) => {
+          const newData = {
+            ...prevData,
+            nombreObra: respuesta.data.volumeInfo.title || "pepe",
+          };
+          console.log("Nuevo inputValues:", newData);
+          return newData;
+        });
+        
+      } else {
+        console.log(respuesta);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleCheckboxChange = (checkbox) => {
     if (checkbox === "obraPropia" || checkbox === "obraConsignacion") {
       setSelectedCheckboxes((prevState) => ({
@@ -55,6 +80,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
 
   // Manejador para cambios en los inputs
   const handleInputChange = (name, value) => {
+    console.log(name,value)
     setInputValues((prev) => ({
       ...prev,
       [name]: value,
@@ -127,6 +153,11 @@ const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
       },
     ],
   ];
+  useEffect(() => {
+    if (inputValues.isbn.trim() !== "") {
+      handleBook();
+    }
+  }, [inputValues.isbn]);
 
   return (
     <div style={{ position: "relative" }}>
@@ -181,6 +212,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
                 values={inputValues}
                 onChange={handleInputChange}
               />
+              
             ))}
             {/* Checkboxes y textos */}
             <div className="w-full h-[37%] flex flex-col gap-2 justify-start px-4 py-9">
@@ -210,7 +242,9 @@ const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
             {selectedCheckboxes.obraPropia && <ObraPropia />}
             {selectedCheckboxes.obraConsignacion && <ObraConsignacion />}
             <div className="flex justify-end py-6 px-10">
-              <button className="flex bg-[#00733C] px-2 py-1 rounded-[3px] gap-2">
+              <button className="flex bg-[#00733C] px-2 py-1 rounded-[3px] gap-2" onClick={()=>{
+                  console.log(inputValues)
+                }}>
                 <p className="blanco h4">Agregar obra</p>
                 <img src="/svg/agregar.svg" alt="" />
               </button>

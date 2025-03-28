@@ -13,7 +13,11 @@ const CustomUploadIcon = () => (
 const props = {
   name: "file",
   multiple: true,
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 66071bb0ac862b7c2e181f450c766808d6862d42
   onChange(info) {
     const { status } = info.file;
     if (status !== "uploading") {
