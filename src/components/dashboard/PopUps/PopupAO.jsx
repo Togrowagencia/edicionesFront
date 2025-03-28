@@ -9,13 +9,22 @@ import { CheckboxWithLabel } from "../../inputs/CheckboxWithLabel";
 import DataAO from "../../Data/DataAO";
 import Drop from "./AO/Drop";
 
-const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
+const PopupAO = ({ isPopupOpen, handlePopupClose,}) => {
   const [currentPage] = useState(1);
   const itemsPerPage = 10;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentItems = DataAO.slice(startIndex, endIndex);
   const [book, setBook] = useState([]);
+
+  const [options] = useState({
+    proveedores: ["Proveedor A", "Proveedor B", "Proveedor C"],
+    editoriales: ["Editorial X", "Editorial Y", "Editorial Z"],
+    autores: ["Autor 1", "Autor 2", "Autor 3"],
+    contenidos: ["Contenido A", "Contenido B"],
+    clasificaciones: ["Clasificación 1", "Clasificación 2"],
+    generos: ["Género A", "Género B", "Género C"],
+  });
 
   const [selectedCheckboxes, setSelectedCheckboxes] = useState({
     obraPropia: true,
@@ -90,69 +99,22 @@ const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
   // Definir las filas de campos con nombres únicos
   const rows = [
     [
-      {
-        name: "isbn",
-        iconSrc: "/public/svg/popup-ao/ISBN.svg",
-        placeholder: "ISBN",
-      },
-      {
-        name: "nombreObra",
-        iconSrc: "/public/svg/popup-ao/NDLO.svg",
-        placeholder: "Nombre de la obra",
-      },
-      {
-        name: "proveedor",
-        placeholder: "Proveedor",
-        hasArrow: true,
-      },
+      { name: "isbn", iconSrc: "/public/svg/popup-ao/ISBN.svg", placeholder: "ISBN" },
+      { name: "nombreObra", iconSrc: "/public/svg/popup-ao/NDLO.svg", placeholder: "Nombre de la obra" },
+      { name: "proveedor", placeholder: "Proveedor", hasArrow: true, options: options.proveedores },
     ],
     [
-      {
-        name: "editorial",
-        placeholder: "Editorial",
-        hasArrow: true,
-      },
-      {
-        name: "autor",
-        placeholder: "Autor",
-        hasArrow: true,
-      },
-      {
-        name: "contenido",
-        placeholder: "Contenido",
-        hasArrow: true,
-      },
+      { name: "editorial", placeholder: "Editorial", hasArrow: true, options: options.editoriales },
+      { name: "autor", placeholder: "Autor", hasArrow: true, options: options.autores },
+      { name: "contenido", placeholder: "Contenido", hasArrow: true, options: options.contenidos },
     ],
     [
-      {
-        name: "clasificacion",
-        placeholder: "Clasificación",
-        hasArrow: true,
-      },
-      {
-        name: "genero",
-        placeholder: "Genero",
-        hasArrow: true,
-      },
-      {
-        name: "costoLibro",
-        iconSrc: "/public/svg/popup-ao/costo.svg",
-        placeholder: "Costo del libro",
-      },
-    ],
-    [
-      {
-        name: "precioVenta",
-        iconSrc: "/public/svg/popup-ao/precio.svg",
-        placeholder: "Precio de venta",
-      },
-      {
-        name: "cantidad",
-        iconSrc: "/public/svg/popup-ao/cantidad.svg",
-        placeholder: "Cantidad",
-      },
+      { name: "clasificacion", placeholder: "Clasificación", hasArrow: true, options: options.clasificaciones },
+      { name: "genero", placeholder: "Género", hasArrow: true, options: options.generos },
+      { name: "costoLibro", iconSrc: "/public/svg/popup-ao/costo.svg", placeholder: "Costo del libro" },
     ],
   ];
+
   useEffect(() => {
     if (inputValues.isbn.trim() !== "") {
       handleBook();
@@ -204,7 +166,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose }) => {
         <div className="grid grid-flow-col grid-cols-2 h-[45%]">
           <div className="h-full w-[145%]">
             {/* Renderizar las filas de campos con valores y manejadores */}
-            {rows.map((fields, index) => (
+            {rows.map((fields, index, row, rowIndex) => (
               <InputRow
                 key={index}
                 fields={fields}

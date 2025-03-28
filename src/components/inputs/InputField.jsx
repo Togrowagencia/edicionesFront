@@ -7,23 +7,40 @@ const InputField = ({
   className, 
   hasArrow, 
   value, 
-  onChange = () => {} 
+  onChange = () => {}, 
+  options = [] 
 }) => {
   const inputId = `input-${Math.random().toString(36).substr(2, 9)}`;
-  
+
   return (
     <div className={`relative w-[316px] ml-[5px] ${className}`}>
-      <input
-        id={inputId}
-        className={`p-2 peer w-full bg-white border border-[#000] rounded-[10px] h4 transition-all duration-300 ease focus:outline-none focus:border-green-600 shadow-sm focus:shadow ${
-          iconSrc ? 'pl-2' : 'pl-4'
-        } ${hasArrow ? 'pr-10' : ''}`}
-        type="text"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder=" "
-      />
-      
+      {hasArrow ? (
+        <select
+          id={inputId}
+          className="p-2 peer w-full bg-white border border-[#000] rounded-[10px] h4 transition-all duration-300 ease focus:outline-none focus:border-green-600 shadow-sm focus:shadow appearance-none pr-10"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+        >
+          <option value="" disabled hidden></option> {/* Primera opción en blanco */}
+          {(options || []).map((option, index) => (
+            <option key={index} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      ) : (
+        <input
+          id={inputId}
+          className={`p-2 peer w-full bg-white border border-[#000] rounded-[10px] h4 transition-all duration-300 ease focus:outline-none focus:border-green-600 shadow-sm focus:shadow ${
+            iconSrc ? 'pl-3' : 'pl-4'
+          } ${hasArrow ? 'pr-10' : ''}`}
+          type="text"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder=" "
+        />
+      )}
+
       <label
         htmlFor={inputId}
         className={`absolute negro h4 cursor-text bg-white px-1 transition-all transform origin-left ${
@@ -34,24 +51,24 @@ const InputField = ({
       >
         {placeholder}
       </label>
-      
+
       {iconSrc && (
         <img 
           src={iconSrc} 
           alt="" 
-          className={`absolute bg-white px-1 py-1 left-4 top-2 transition-all transform ${
-            value ? "left-[calc(100%-40px)] " : "left-5"
+          className={`absolute bg-white px-1 py-1 left-1 top-2 rounded-[5px] transition-all transform ${
+            value ? "left-[calc(100%+(-40px))] " : "left-5"
           } peer-focus:left-[calc(100%-40px)]`}
         />
       )}
-      
+
       {hasArrow && (
         <img 
           src="/svg/popup-ao/flechaA.svg" 
-          alt="" 
+          alt="Arrow icon" 
           className={`absolute right-4 top-4 transition-transform duration-300 ${
             value ? 'rotate-180' : ''
-          } peer-focus:rotate-180`} 
+          } peer-focus:rotate-180 pointer-events-none`} 
         />
       )}
     </div>
@@ -65,6 +82,12 @@ InputField.propTypes = {
   hasArrow: PropTypes.bool,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    })
+  ), 
 };
 
 export default InputField;

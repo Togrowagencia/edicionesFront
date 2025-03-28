@@ -975,3 +975,7 @@ height: 125px;
   background-color: #5FB868 !important; /* Un gris claro */
   color: #ffffff !important;
 }
+
+.ant-upload-list, .ant-upload-list-text {
+  display: none;
+}
