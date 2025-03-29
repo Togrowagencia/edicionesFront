@@ -993,3 +993,20 @@ height: 125px;
 .ant-upload-list, .ant-upload-list-text {
   display: none;
 }
+
+
+.ant-select .ant-select-arrow svg {
+  color: #00733C;
+  font-size: medium;
+  font-weight: bolder !important;
+
+}
+.ant-select-selector {
+
+  border-color: #000 !important;
+}
+
+.ant-select-selector :hover{
+
+  border-color: #2e5f35 !important;
+}

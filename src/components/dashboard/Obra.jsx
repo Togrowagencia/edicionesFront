@@ -4,7 +4,7 @@ import DataObra from '../Data/DataObra.js';
 import PopupTO from './PopUps/PopupTO.jsx';
 import PopupAO from './PopUps/PopupAO.jsx';
 
-const Obra = () => {
+const Obra = ({datos, sindatos,reload}) => {
   const [openDrawer1, setOpenDrawer1] = useState(false); // Estado para el primer Drawer (PopupAO)
   const [openDrawer2, setOpenDrawer2] = useState(false); // Estado para el segundo Drawer (PopUpTO)
   const [currentPage] = useState(1);
@@ -58,7 +58,7 @@ const Obra = () => {
       </div>
 
       {/* Primer Drawer (PopupAO) */}
-      <PopupAO isPopupOpen={openDrawer1} handlePopupClose={onCloseDrawer1}/>
+      <PopupAO isPopupOpen={openDrawer1} handlePopupClose={onCloseDrawer1} datos={datos} sindatos={sindatos} reload ={reload}/>
 
       {/* Segundo Drawer (PopUpTO) */}
       <PopupTO isPopupOpen={openDrawer2} handlePopupClose={onCloseDrawer2} />

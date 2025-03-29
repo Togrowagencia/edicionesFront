@@ -1,19 +1,9 @@
 import axios from "axios";
-import { baseurl } from "../utils/baseurl";
+import { baseurl, token } from "../utils/baseurl";
 
 export const getWarehouses = async () => {
   try {
-    const token = localStorage.getItem("authResponse");
-
-    if (!token) {
-      throw new Error("Token no encontrado");
-    }
-
-    const config = {
-      headers: {
-        tgwr_token: token,
-      },
-    };
+    const config = token();
 
     const response = await axios.get(`${baseurl}/warehouse/all`, config);
     console.log(response);
@@ -26,13 +16,17 @@ export const getWarehouses = async () => {
 
 export const createWarehouse = async (formData) => {
   try {
-    console.log(formData);
+    const tokenn = localStorage.getItem("authResponse");
+    if (!token) {
+      return Error("Token no encontrado");
+    }
     const response = await axios.post(
       `${baseurl}/warehouse/register`,
       formData,
       {
         headers: {
-          "Content-Type": "multipart/form-data", // Asegurarse de que el contenido se envíe como multipart
+          "Content-Type": "multipart/form-data", 
+          "tgwr_token": tokenn,// Asegurarse de que el contenido se envíe como multipart
         },
       }
     );
@@ -45,7 +39,9 @@ export const createWarehouse = async (formData) => {
 
 export const getUserById = async (Id) => {
   try {
-    const response = await axios.post(`${baseurl}/users/register`, formData);
+    const config = token();
+
+    const response = await axios.post(`${baseurl}/users/register`, formData,config);
     console.log(response);
     return response;
   } catch (error) {
@@ -55,7 +51,9 @@ export const getUserById = async (Id) => {
 
 export const putUser = async (formData) => {
   try {
-    const response = await axios.post(`${baseurl}/users/register`, formData);
+    const config = token();
+
+    const response = await axios.post(`${baseurl}/users/register`, formData,config);
     console.log(response);
     return response;
   } catch (error) {
@@ -65,7 +63,7 @@ export const putUser = async (formData) => {
 
 export const deleteUser = async (formData) => {
   try {
-    const response = await axios.post(`${baseurl}/users/register`, formData);
+    const response = await axios.post(`${baseurl}/users/register`, formData,config);
     console.log(response);
     return response;
   } catch (error) {

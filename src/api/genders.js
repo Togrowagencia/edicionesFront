@@ -1,57 +1,46 @@
 import axios from "axios";
-import { baseurl } from "../utils/baseurl";
-
+import { baseurl, token } from "../utils/baseurl";
 
 export const getGenders = async () => {
-    try {
-      const token = localStorage.getItem('authResponse');
-      
-      if (!token) {
-        throw new Error('Token no encontrado');
-      }
+  try {
+    const config = token();
 
-      const config = {
-        headers: {
-          'tgwr_token': token, 
-        }
-      };
-  
-      const response = await axios.get(`${baseurl}/genders/all`, config); 
-      console.log(response);
-      return response;
-    } catch (error) {
-      console.error("Error al obtener generos:", error);
-      return error;
-    }
-  };
+    const response = await axios.get(`${baseurl}/genders/all`, config);
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error("Error al obtener generos:", error);
+    return error;
+  }
+};
 
+export const createGender = async (formData) => {
+  try {
+    const config = token();
 
-  export const createGender = async (formData) => {
-    try {
-      const response = await axios.post(`${baseurl}/genders/register`, formData);
-      console.log(response);
-      return response;
-    } catch (error) {
-      return error;
-    }
-  };
+    const response = await axios.post(
+      `${baseurl}/genders/register`,
+      formData,
+      config
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
 
+export const putGender = async (formData) => {
+  try {
+    const config = token();
 
-  export const  putGender = async (formData) => {
-    try {
-        const token = localStorage.getItem('authResponse'); 
-      if (!token) {
-        throw new Error('Token no encontrado');
-      }
-
-      const config = {
-        headers: {
-          'tgwr_token': token, 
-        }
-      };
-      const response = await axios.put(`${baseurl}/genders/edit/${formData.id}`,formData,config);
-      return response;
-    } catch (error) {
-      return error;
-    }
-  };
+    const response = await axios.put(
+      `${baseurl}/genders/edit/${formData.id}`,
+      formData,
+      config
+    );
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

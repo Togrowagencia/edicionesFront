@@ -1,19 +1,9 @@
 import axios from "axios";
-import { baseurl } from "../utils/baseurl";
+import { baseurl, token } from "../utils/baseurl";
 
 export const getPayment = async () => {
   try {
-    const token = localStorage.getItem("authResponse");
-
-    if (!token) {
-      throw new Error("Token no encontrado");
-    }
-
-    const config = {
-      headers: {
-        tgwr_token: token,
-      },
-    };
+    const config = token();
 
     const response = await axios.get(`${baseurl}/payment_methods/all`, config);
     console.log(response);
@@ -26,13 +16,17 @@ export const getPayment = async () => {
 
 export const createPayment = async (formData) => {
   try {
-    console.log(formData);
+    const tokenn = localStorage.getItem("authResponse");
+    if (!token) {
+      return Error("Token no encontrado");
+    }
     const response = await axios.post(
       `${baseurl}/payment_methods/register`,
       formData,
       {
         headers: {
-          "Content-Type": "multipart/form-data", // Asegurarse de que el contenido se envíe como multipart
+          "Content-Type": "multipart/form-data",
+          "tgwr_token": tokenn,
         },
       }
     );
@@ -46,23 +40,14 @@ export const createPayment = async (formData) => {
 export const putPayment = async (formData) => {
   console.log(formData);
   try {
-    const token = localStorage.getItem("authResponse");
-    if (!token) {
-      throw new Error("Token no encontrado");
-    }
-
-    const config = {
-      headers: {
-        tgwr_token: token,
-      },
-    };
+    const tokenn = localStorage.getItem("authResponse");
     const response = await axios.put(
       `${baseurl}/payment_methods/edit/${formData.id}`,
       formData,
-      config,
       {
         headers: {
-          "Content-Type": "multipart/form-data", // Asegurarse de que el contenido se envíe como multipart
+          "Content-Type": "multipart/form-data",
+          "tgwr_token": tokenn,
         },
       }
     );
@@ -70,4 +55,5 @@ export const putPayment = async (formData) => {
     return response;
   } catch (error) {
     return error;
-  }}
+  }
+};

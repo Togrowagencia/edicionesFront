@@ -1,20 +1,9 @@
 import axios from "axios";
-import { baseurl } from "../utils/baseurl";
+import { baseurl, token } from "../utils/baseurl";
 
-export const getClassification = async () => {
+export const getClassification = async ({ config }) => {
   try {
-    const token = localStorage.getItem("authResponse");
-
-    if (!token) {
-      throw new Error("Token no encontrado");
-    }
-
-    const config = {
-      headers: {
-        tgwr_token: token,
-      },
-    };
-
+    const config = token();
     const response = await axios.get(`${baseurl}/classification/all`, config);
     console.log(response);
     return response;
@@ -25,10 +14,12 @@ export const getClassification = async () => {
 };
 
 export const createClasification = async (formData) => {
+  const config = token();
   try {
     const response = await axios.post(
       `${baseurl}/classification/register`,
-      formData
+      formData,
+      config
     );
     console.log(response);
     return response;
@@ -39,16 +30,7 @@ export const createClasification = async (formData) => {
 
 export const putClassification = async (formData) => {
   try {
-    const token = localStorage.getItem("authResponse");
-    if (!token) {
-      throw new Error("Token no encontrado");
-    }
-
-    const config = {
-      headers: {
-        tgwr_token: token,
-      },
-    };
+    const config = token();
     const response = await axios.put(
       `${baseurl}/classification/edit/${formData.id}`,
       formData,

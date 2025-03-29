@@ -1,9 +1,10 @@
 import axios from "axios";
-import { baseurl } from "../utils/baseurl";
+import { baseurl,token } from "../utils/baseurl";
 
 export const createUsers = async (formData) => {
   try {
-    const response = await axios.post(`${baseurl}/users/register`, formData);
+    const config = token();
+    const response = await axios.post(`${baseurl}/users/register`,config,formData);
     console.log(response);
     return response;
   } catch (error) {
