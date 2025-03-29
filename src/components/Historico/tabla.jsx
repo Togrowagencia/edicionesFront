@@ -1,9 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react'; 
 import Data from '../Data/Historico/Data';
 import Chekboxs from './chekboxs'
+import Detalle from './Detalle'
 
 const Tabla = () => {
+    const [openDrawer1, setOpenDrawer1] = useState(false);
+
+    const showDrawer1 = () => {
+        setOpenDrawer1(true);
+    };
+
+    const onCloseDrawer1 = () => {
+        setOpenDrawer1(false);
+    };
 
     return (
         <div className='w-full h-full justify-center py-5'>
@@ -27,7 +37,7 @@ const Tabla = () => {
                 </thead>
                 {/* Filas de datos */}
                 <tbody>
-                    {Data.map((item, index) => ( 
+                    {Data.map((item, index) => (
                         <tr className='mb-[20px] relative mt-[10px]' key={index}>
                             <td className='textos-bold truncate py-2'>{item["N-Factura"]}</td>
                             <td className='textos-bold truncate py-2'>{item["Fecha-venta"]}</td>
@@ -39,12 +49,13 @@ const Tabla = () => {
                             <td className='textos-bold truncate py-2'>{item["Subtotal"]}</td>
                             <td className='textos-bold truncate py-2'>{item["Vendedor"]}</td>
                             <td className='textos-bold truncate py-2'>{item["Punto-de-Venta"]}</td>
-                            <td className='py-2'><Chekboxs/></td>
-                            <td className='py-2'><img src="/svg/editar.svg" alt="" /></td>
+                            <td className='py-2'><Chekboxs /></td>
+                            <td onClick={showDrawer1} className='py-2 cursor-pointer'><img src="/svg/editar.svg" alt="" /></td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+            <Detalle isOpen={openDrawer1} OnClose={onCloseDrawer1} />
         </div>
 
     );

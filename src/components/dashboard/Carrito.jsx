@@ -1,10 +1,19 @@
 import { Drawer } from "antd";
 import { transferencias } from "../Data/Dashboard/DataCarrito";
+import Estado from "./PopUps/Estado";
 
-const Carrito = ({ visible, onClose }) => {
-  // Filtrar transferencias por estado
+const Carrito = ({ visible, onClose, onOpenNextPopup }) => {  // Nueva prop: onOpenNextPopup
+  // Filtrado de transferencias
   const pendientes = transferencias.filter((t) => t.estado === "Pendiente");
   const recibidas = transferencias.filter((t) => t.estado === "Recibido");
+
+  // Abrir segundo popup con delay
+  const showSecondDrawer = () => {
+    onClose(); // Cierra el carrito
+    setTimeout(() => {
+      onOpenNextPopup(); // Notifica al padre para abrir el siguiente popup
+    }, 300);
+  };
 
   return (
     <Drawer
@@ -21,12 +30,12 @@ const Carrito = ({ visible, onClose }) => {
         style={{ position: "absolute", top: 35, right: 45, cursor: "pointer" }}
         onClick={onClose}
       >
-        <img src="/public/svg/popup-ao/cerrar (2).svg" alt="Cerrar" className="w-6 h-6" />
+        <img src="/svg/popup-ao/cerrar (2).svg" alt="Cerrar" className="w-6 h-6" />
       </div>
 
       {/* Título */}
       <div className="flex items-center space-x-4 p-4 mb-[5%]">
-        <h2 className="text-2xl font-semibold verde-corporativo">Confirmaciones de llegada</h2>
+        <p className="h3 verde-corporativo">Confirmaciones de llegada</p>
         <img src="/svg/header/carrito.svg" alt="Icono" />
       </div>
 
@@ -56,7 +65,12 @@ const Carrito = ({ visible, onClose }) => {
                   <span className="bg-yellow-400 negro py-0.5 rounded-[3px] textos-peques px-3">
                     {estado}
                   </span>
-                  <img src="/public/svg/vector(2).svg" alt="Flecha" />
+                  <img
+                    onClick={showSecondDrawer}
+                    src="/public/svg/vector(2).svg"
+                    alt="Flecha"
+                    className="cursor-pointer"
+                  />
                 </div>
               </div>
             </div>
@@ -90,7 +104,12 @@ const Carrito = ({ visible, onClose }) => {
                   <span className="bg-green-700 blanco py-0.5 rounded-[3px] textos-peques px-3">
                     {estado}
                   </span>
-                  <img src="/public/svg/vector(2).svg" alt="Flecha" />
+                  <img
+                    onClick={showSecondDrawer}
+                    src="/public/svg/vector(2).svg"
+                    alt="Flecha"
+                    className="cursor-pointer"
+                  />
                 </div>
               </div>
             </div>

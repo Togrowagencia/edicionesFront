@@ -18,7 +18,13 @@ const Ventas = () => {
     <div className="venta-tienda flex flex-col items-center mt-[38px]">
       <div className='w-full h-[10%] items-center gap-2 flex mb-[20px] relative mt-[16px] ml-[57px]'>
         <p className='h3 negro'>Top venta de tiendas</p>
-        <img src="/public/svg/vector.svg" alt="Icono" className="w-6 h-6 ml-[105px]" />
+        <img 
+          src="/public/svg/vector.svg" 
+          alt="Icono" 
+          className="w-6 h-6 ml-[105px]" 
+          onClick={() => window.location.href = '/gestion-de-obras'} 
+          style={{ cursor: 'pointer' }}
+        />
       </div>
         <div className='w-full h-full justify-center'>
           <div className='w-[382px] h-[10%] gap-2 border-b border-green-500 flex items-end pb-2 -mt-[15] mx-auto'>
@@ -40,13 +46,23 @@ const Ventas = () => {
       <div className="total-ingresos relative mt-[38px] ml-[44px]">
         
         <p className="absolute top-0 left-0 m-4 h3 blanco">Total ingresos</p>
-        <img src="/public/svg/vector(1).svg" alt="Icono" className="w-6 h-6 ml-[207px] mt-[20px]" />
+        <img 
+          src="/public/svg/vector(1).svg" 
+          alt="Icono" 
+          className="w-6 h-6 ml-[207px] mt-[20px]" 
+        />
         <Grafico/>
 
           <div className="total-inventario relative mt-[9%] ">
             <p className="absolute top-0 left-0 m-4 h3 mt-[52px]">Inventario Total</p>
             <p className="absolute top-0 left-0 m-4 h3 mt-[87px]">654.541</p>
-            <img src="/public/svg/vector(2).svg" alt="Icono" className='w-6 h-6 ml-[490px] absolute mt-[20px]'/>
+            <img 
+              src="/public/svg/vector(2).svg" 
+              alt="Icono" 
+              className='w-6 h-6 ml-[490px] absolute mt-[20px]' 
+              onClick={() => window.location.href = '/gestion-de-obras'} 
+              style={{ cursor: 'pointer' }}
+            />
           </div>
       </div>
       

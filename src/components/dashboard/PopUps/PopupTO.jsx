@@ -72,11 +72,10 @@ const PopupTO = ({ isPopupOpen, handlePopupClose }) => {
             />
             <label
               htmlFor="punto-venta-1"
-              className={`absolute negro h4 cursor-text bg-white px-1 transition-all transform origin-left ${
-                puntoVenta1
+              className={`absolute negro h4 cursor-text bg-white px-1 transition-all transform origin-left ${puntoVenta1
                   ? "-top-2 left-2.5 text-xs text-green-600 scale-75"
                   : "top-3 left-4 text-sm text-slate-400"
-              } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
+                } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
             >
               Punto de venta
             </label>
@@ -101,11 +100,10 @@ const PopupTO = ({ isPopupOpen, handlePopupClose }) => {
             />
             <label
               htmlFor="punto-venta-2"
-              className={`absolute negro h4 cursor-text bg-white px-1 transition-all transform origin-left ${
-                puntoVenta2
+              className={`absolute negro h4 cursor-text bg-white px-1 transition-all transform origin-left ${puntoVenta2
                   ? "-top-2 left-2.5 text-xs text-green-600 scale-75"
                   : "top-3 left-4 text-sm text-slate-400"
-              } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
+                } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
             >
               Punto de venta
             </label>
@@ -127,20 +125,18 @@ const PopupTO = ({ isPopupOpen, handlePopupClose }) => {
             />
             <label
               htmlFor="buscar"
-              className={`absolute negro h4 cursor-text bg-white px-1 transition-all transform origin-left ${
-                buscar
+              className={`absolute negro h4 cursor-text bg-white px-1 transition-all transform origin-left ${buscar
                   ? "-top-2 left-2.5 text-xs text-green-600 scale-75"
                   : "top-3 left-10 text-sm text-slate-400"
-              } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
+                } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
             >
               Buscar
             </label>
             <img
               src="/svg/header/buscar.svg"
               alt=""
-              className={`absolute bg-white px-1 py-2 left-4 top-1 transition-all transform ${
-                buscar ? "left-[85%]" : "left-2"
-              } peer-focus:left-[85%]`}
+              className={`absolute bg-white px-1 py-2 left-4 top-1 transition-all transform ${buscar ? "left-[85%]" : "left-2"
+                } peer-focus:left-[85%]`}
             />
           </div>
 
@@ -155,20 +151,18 @@ const PopupTO = ({ isPopupOpen, handlePopupClose }) => {
             />
             <label
               htmlFor="cantidad"
-              className={`absolute negro h4 cursor-text bg-[#fff] px-1 transition-all transform origin-left ${
-                cantidad
+              className={`absolute negro h4 cursor-text bg-[#fff] px-1 transition-all transform origin-left ${cantidad
                   ? "-top-2 left-2.5 text-xs text-green-600 scale-75"
                   : "top-3 left-9 text-sm text-slate-400"
-              } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
+                } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
             >
               Cantidad
             </label>
             <img
               src="/svg/popup-ao/cantidad.svg"
               alt=""
-              className={`absolute bg-white px-1 py-2 left-4 top-1 transition-all transform ${
-                cantidad ? "left-[80%]" : "left-2"
-              } peer-focus:left-[80%]`}
+              className={`absolute bg-white px-1 py-2 left-4 top-1 transition-all transform ${cantidad ? "left-[80%]" : "left-2"
+                } peer-focus:left-[80%]`}
             />
           </div>
           <div className="flex justify-end items-center mt-[2%] w-[15%]">

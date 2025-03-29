@@ -4,13 +4,6 @@ import Data from "../Data/Cotizaciones/Data";
 import BotonAgregar from "../inputs/BotonAgregar";
 
 const Tabla = () => {
-  const [currentPage] = useState(1);
-  const itemsPerPage = 17; // Elementos por página
-
-  // Calcular los índices para paginación
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentItems = Data.slice(startIndex, endIndex);
 
   return (
     <table className="w-[98%] ml-3 border-collapse">
@@ -31,7 +24,7 @@ const Tabla = () => {
 
       {/* Filas de datos */}
       <tbody>
-        {currentItems.map((item, index) => (
+        {Data.map((item, index) => (
           <tr key={index} className=" rounded bg ">
             <td className="px-2 py-2 textos-bold verde-eco">{item.id}</td>
             <td className="px-2 py-2 textos-bold negro">{item.ISBN}</td>
