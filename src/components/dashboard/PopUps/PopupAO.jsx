@@ -3,24 +3,26 @@ import PropTypes from "prop-types";
 import { Drawer } from "antd";
 import ObraPropia from "./AO/ObraPropia";
 import ObraConsignacion from "./AO/ObraConsignacion";
-import { InputRow } from "../../inputs/InputRow";
 import { getGoogleBook } from "../../../api/googleBooks";
 import { CheckboxWithLabel } from "../../inputs/CheckboxWithLabel";
+import { InputRow } from "../../inputs/InputRow";
 import DataAO from "../../Data/DataAO";
 import Drop from "./AO/Drop";
 import Swal from "sweetalert2";
-import DemoAutoCompleteWithAdd from "../../inputs/Prueba";
-// Se asume que existe esta función en el API para crear editoriales
-import { createPublishing, getPublishing } from "../../../api/editorial";
 
-const PopupAO = ({ isPopupOpen, handlePopupClose, datos, sindatos, reload }) => {
+const PopupAO = ({
+  isPopupOpen,
+  handlePopupClose,
+  datos,
+  sindatos,
+  reload,
+}) => {
   const [currentPage] = useState(1);
   const itemsPerPage = 10;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentItems = DataAO.slice(startIndex, endIndex);
   const [book, setBook] = useState([]);
-  // Estado que guarda el nombre de la editorial obtenida de la respuesta de Google Books
   const [editorial, setEditorial] = useState("");
 
   const [options] = useState({
@@ -29,10 +31,19 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, sindatos, reload }) => 
       { value: "Proveedor B", label: "Proveedor B" },
       { value: "Proveedor C", label: "Proveedor C" },
     ],
-    autores: ["Autor 1", "Autor 2", "Autor 3"],
-    contenidos: ["Contenido A", "Contenido B"],
-    clasificaciones: ["Clasificación 1", "Clasificación 2"],
-    generos: ["Género A", "Género B", "Género C"],
+    contenidos: [
+      { value: "Contenido A", label: "Contenido A" },
+      { value: "Contenido B", label: "Contenido B" },
+    ],
+    clasificaciones: [
+      { value: "Clasificación 1", label: "Clasificación 1" },
+      { value: "Clasificación 2", label: "Clasificación 2" },
+    ],
+    generos: [
+      { value: "Género A", label: "Género A" },
+      { value: "Género B", label: "Género B" },
+      { value: "Género C", label: "Género C" },
+    ],
   });
 
   const [selectedCheckboxes, setSelectedCheckboxes] = useState({
@@ -41,11 +52,10 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, sindatos, reload }) => 
     iva: false,
   });
 
-  // Estado para los valores de los inputs
   const [inputValues, setInputValues] = useState({
     isbn: "",
     nombreObra: "",
-    proveedor: "", // El usuario debe seleccionar un proveedor antes de crear la editorial
+    proveedor: "",
     editorial: "",
     autor: "",
     contenido: "",
@@ -54,57 +64,10 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, sindatos, reload }) => 
     costoLibro: "",
     precioVenta: "",
     cantidad: "",
+    image: "",
   });
 
-    // Función que se encarga de verificar la editorial
-    const verifyEditorial = async (editorialName) => {
-      const found = datos.Publishing.find(
-        (item) => item.name.toLowerCase() ==editorialName.toLowerCase()
-      );
-      if (found) {
-        // Si se encuentra, actualizamos el inputValues para que el select muestre esa opción
-        setInputValues((prev) => ({ ...prev, editorial: found.name }));
-      } else {
-        Swal.fire({
-          title: "¿Crear editorial?",
-          text: "Esta editorial no está registrada, al seleccionar el proveedor se va a generar un registro nuevo",
-          iconHtml:
-            '<img src="svg/sidebar/uyr.svg" style="width:50px; height:50px;"/>',
-          width: 600,
-          showCancelButton: true,
-          confirmButtonColor: "#5fb868",
-          cancelButtonColor: "black",
-          confirmButtonText: "Confirmar",
-          cancelButtonText: "Cancelar",
-          color: "black",
-          background: "#ffff",
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            // Se verifica que se haya seleccionado un proveedor
-            if (inputValues.proveedor && inputValues.proveedor.trim() !== "") {
-              try {
-                const response = await createPublishing({
-                  name: editorialName,
-                  id_provider: inputValues.proveedor,
-                });
-                if (response.data && response.data.success) {
-                  // Se recargan los datos para obtener la nueva editorial
-                  await reload(getPublishing, "Publishing");
-                  // Se actualiza el input para seleccionar la editorial recién creada
-                  setInputValues((prev) => ({ ...prev, editorial: editorialName }));
-                }
-              } catch (error) {
-                console.error("Error al crear la nueva editorial:", error);
-              }
-            } else {
-              console.error("Debe seleccionar un proveedor antes de crear la editorial.");
-              // Aquí podrías mostrar una notificación o alerta para que el usuario sepa que debe seleccionar un proveedor.
-            }
-          }
-        });
-      }
-    };
-
+  // Función que se encarga de verificar la editorial
 
   const handleBook = async () => {
     try {
@@ -116,11 +79,21 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, sindatos, reload }) => 
           const newData = {
             ...prevData,
             nombreObra: respuesta.data.volumeInfo.title || "",
+            editorial: respuesta.data.volumeInfo.publisher || "",
+            autor: respuesta.data.volumeInfo.authors || "",
+            contenido: respuesta.data.volumeInfo.contentVersion || "",
+            clasificacion: respuesta.data.volumeInfo.categories || "",
+            image: respuesta.data.volumeInfo.imageLinks
+              ? respuesta.data.volumeInfo.imageLinks.thumbnail
+              : "",
           };
+          console.log("newData");
+          console.log(newData);
           return newData;
         });
-        verifyEditorial();
         setEditorial(respuesta.data.volumeInfo.publisher || "");
+        console.log("editorial");
+        console.log(editorial);
       } else {
         console.log(respuesta);
       }
@@ -145,7 +118,6 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, sindatos, reload }) => 
     }
   };
 
-  // Manejador para cambios en los inputs
   const handleInputChange = (name, value) => {
     console.log(name, value);
     setInputValues((prev) => ({
@@ -172,11 +144,11 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, sindatos, reload }) => 
         placeholder: "Proveedor",
         hasArrow: true,
         options: datos.Providers
-        ? datos.Providers.map((item) => ({
-            value: item.id,
-            label: item.corporate_name,
-          }))
-        : [],
+          ? datos.Providers.map((item) => ({
+              value: item.id,
+              label: item.corporate_name,
+            }))
+          : [],
       },
     ],
     [
@@ -186,7 +158,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, sindatos, reload }) => 
         hasArrow: true,
         options: datos.Publishing
           ? datos.Publishing.map((item) => ({
-              value: item.name,
+              value: item.id,
               label: item.name,
             }))
           : [],
@@ -195,7 +167,12 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, sindatos, reload }) => 
         name: "autor",
         placeholder: "Autor",
         hasArrow: true,
-        options: options.autores,
+        options: datos.Publishing
+          ? datos.Author.map((item) => ({
+              value: item.id,
+              label: item.name,
+            }))
+          : [],
       },
       {
         name: "contenido",
@@ -221,6 +198,18 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, sindatos, reload }) => 
         name: "costoLibro",
         iconSrc: "/public/svg/popup-ao/costo.svg",
         placeholder: "Costo del libro",
+      },
+    ],
+    [
+      {
+        name: "Precio de venta",
+        iconSrc: "/public/svg/popup-ao/costo.svg",
+        placeholder: "Precio de venta",
+      },
+      {
+        name: "Cantidad",
+        placeholder: "Cantidad",
+        iconSrc: "/public/svg/popup-ao/costo.svg",
       },
     ],
   ];
@@ -275,7 +264,6 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, sindatos, reload }) => 
         </div>
         <div className="grid grid-flow-col grid-cols-2 h-[45%]">
           <div className="h-full w-[145%]">
-            <DemoAutoCompleteWithAdd/>
             {/* Renderizar las filas de campos con valores y manejadores */}
             {rows.map((fields, index) => (
               <InputRow
@@ -309,8 +297,6 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, sindatos, reload }) => 
                 />
               </div>
             </div>
-
-            {/* Renderizar PopupObraPropia si el checkbox está seleccionado */}
             {selectedCheckboxes.obraPropia && <ObraPropia />}
             {selectedCheckboxes.obraConsignacion && <ObraConsignacion />}
             <div className="flex justify-end py-6 px-10">
@@ -326,7 +312,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, sindatos, reload }) => 
             </div>
           </div>
           <div className="h-full w-[100%] justify-end flex">
-            <Drop />
+            <Drop initialImageUrl={inputValues.image} />
           </div>
         </div>
 

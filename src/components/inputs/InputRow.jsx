@@ -1,20 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import InputField from './InputField';
-import classNames from 'classnames';
+import React from "react";
+import PropTypes from "prop-types";
+import DemoAutoCompleteWithAdd from "../../components/inputs/Prueba";
 
-export const InputRow = ({ fields, className, values = {}, onChange = () => {} }) => {
+import classNames from "classnames";
+
+export const InputRow = ({
+  fields,
+  className,
+  values = {},
+  onChange = () => {},
+}) => {
   return (
-    <div className={classNames("w-auto h-[10%] flex items-center gap-2 justify-start px-4 -mb-[27px]", className)}>
+    <div
+      className={classNames(
+        "w-auto h-[10%] flex items-center gap-2 justify-start px-4 -mb-[27px]",
+        className
+      )}
+    >
       {fields.map((field, index) => (
-        <InputField
+        <DemoAutoCompleteWithAdd
           key={`${field.placeholder}-${index}`}
           iconSrc={field.iconSrc}
           placeholder={field.placeholder}
           hasArrow={field.hasArrow}
-          value={values[field.name] || ''}
+          value={values[field.name] || ""}
           onChange={(value) => onChange(field.name, value)}
-          options={field.options || []} // Pasamos opciones si es un select
+          options={Array.isArray(field.options) ? field.options : []} // Asegura que sea un array
         />
       ))}
     </div>
@@ -31,9 +42,9 @@ InputRow.propTypes = {
       options: PropTypes.arrayOf(
         PropTypes.shape({
           label: PropTypes.string.isRequired,
-          value: PropTypes.string.isRequired
+          value: PropTypes.string.isRequired,
         })
-      ) // Opciones para el select
+      ), // Opciones para el select
     })
   ).isRequired,
   className: PropTypes.string,

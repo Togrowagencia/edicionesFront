@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-const InputField = ({ 
-  iconSrc, 
-  placeholder, 
-  className, 
-  hasArrow, 
-  value, 
-  onChange = () => {}, 
-  options = [] 
+const InputField = ({
+  iconSrc,
+  placeholder,
+  className,
+  hasArrow,
+  value,
+  onChange = () => {},
+  options = [],
 }) => {
   const inputId = `input-${Math.random().toString(36).substr(2, 9)}`;
 
@@ -21,7 +21,8 @@ const InputField = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
         >
-          <option value="" disabled hidden></option> {/* Primera opción en blanco */}
+          <option value="" disabled hidden></option>{" "}
+          {/* Primera opción en blanco */}
           {(options || []).map((option, index) => (
             <option key={index} value={option.value}>
               {option.label}
@@ -32,8 +33,8 @@ const InputField = ({
         <input
           id={inputId}
           className={`p-2 peer w-full bg-white border border-[#000] rounded-[10px] h4 transition-all duration-300 ease focus:outline-none focus:border-green-600 shadow-sm focus:shadow ${
-            iconSrc ? 'pl-3' : 'pl-4'
-          } ${hasArrow ? 'pr-10' : ''}`}
+            iconSrc ? "pl-3" : "pl-4"
+          } ${hasArrow ? "pr-10" : ""}`}
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
@@ -53,9 +54,9 @@ const InputField = ({
       </label>
 
       {iconSrc && (
-        <img 
-          src={iconSrc} 
-          alt="" 
+        <img
+          src={iconSrc}
+          alt=""
           className={`absolute bg-white px-1 py-1 left-1 top-2 rounded-[5px] transition-all transform ${
             value ? "left-[calc(100%+(-40px))] " : "left-5"
           } peer-focus:left-[calc(100%-40px)]`}
@@ -63,12 +64,12 @@ const InputField = ({
       )}
 
       {hasArrow && (
-        <img 
-          src="/svg/popup-ao/flechaA.svg" 
-          alt="Arrow icon" 
+        <img
+          src="/svg/popup-ao/flechaA.svg"
+          alt="Arrow icon"
           className={`absolute right-4 top-4 transition-transform duration-300 ${
-            value ? 'rotate-180' : ''
-          } peer-focus:rotate-180 pointer-events-none`} 
+            value ? "rotate-180" : ""
+          } peer-focus:rotate-180 pointer-events-none`}
         />
       )}
     </div>
@@ -85,9 +86,9 @@ InputField.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
+      value: PropTypes.string.isRequired,
     })
-  ), 
+  ),
 };
 
 export default InputField;

@@ -990,9 +990,7 @@ height: 125px;
   color: #ffffff !important;
 }
 
-.ant-upload-list, .ant-upload-list-text {
-  display: none;
-}
+
 
 
 .ant-select .ant-select-arrow svg {
@@ -1001,12 +999,13 @@ height: 125px;
   font-weight: bolder !important;
 
 }
-.ant-select-selector {
-
-  border-color: #000 !important;
+.ant-select-focused .ant-select-selector {
+  border-color: #5fb868 !important;
+  box-shadow: 0 0 0 2px rgba(95,184,104,0.2) !important;
 }
 
-.ant-select-selector :hover{
-
-  border-color: #2e5f35 !important;
+.ant-select:hover .ant-select-selector {
+  border-color: #5fb8683c !important;
+  box-shadow: 0 0 0 2px rgba(95, 184, 104, 0.032) !important;
 }
+

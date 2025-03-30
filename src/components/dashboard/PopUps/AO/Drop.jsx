@@ -1,13 +1,22 @@
-import React, { useState } from "react";
-import { message, Upload, ConfigProvider, theme } from "antd";
+import React, { useState, useEffect, useRef } from "react";
+import { Button, Divider, Input, Select, Space, message, Upload, ConfigProvider, theme } from "antd";
+import PropTypes from "prop-types";
 
 const { Dragger } = Upload;
 const { useToken } = theme;
 
-const CustomDragger = () => {
+const CustomDragger = ({ initialImageUrl }) => {
   const { token } = useToken();
   const [fileList, setFileList] = useState([]);
   const [previewImage, setPreviewImage] = useState(null);
+  const inputRef = useRef(null);
+
+  // Si se pasa una URL inicial y no hay archivos cargados, mostrarla
+  useEffect(() => {
+    if (!fileList.length && initialImageUrl) {
+      setPreviewImage(initialImageUrl);
+    }
+  }, [initialImageUrl, fileList]);
 
   const handleChange = (info) => {
     let newFileList = [...info.fileList];
@@ -19,7 +28,7 @@ const CustomDragger = () => {
       message.error(`${info.file.name} falló al cargar.`);
     }
 
-    // Si hay una imagen válida, actualizar la vista previa
+    // Si se sube un archivo, generar preview con FileReader
     if (newFileList.length > 0) {
       const lastFile = newFileList[newFileList.length - 1];
       if (lastFile.originFileObj) {
@@ -28,7 +37,8 @@ const CustomDragger = () => {
         reader.readAsDataURL(lastFile.originFileObj);
       }
     } else {
-      setPreviewImage(null);
+      // Si no hay archivos, y existe una URL inicial, la mostramos
+      setPreviewImage(initialImageUrl || null);
     }
   };
 
@@ -87,7 +97,11 @@ const CustomDragger = () => {
   );
 };
 
-const Drop = () => (
+CustomDragger.propTypes = {
+  initialImageUrl: PropTypes.string, // URL inicial para mostrar si no se carga un archivo
+};
+
+const Drop = ({ initialImageUrl }) => (
   <ConfigProvider
     theme={{
       token: {
@@ -104,8 +118,12 @@ const Drop = () => (
       },
     }}
   >
-    <CustomDragger />
+    <CustomDragger initialImageUrl={initialImageUrl} />
   </ConfigProvider>
 );
+
+Drop.propTypes = {
+  initialImageUrl: PropTypes.string,
+};
 
 export default Drop;
