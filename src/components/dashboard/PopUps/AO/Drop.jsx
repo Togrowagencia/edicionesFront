@@ -50,13 +50,11 @@ const CustomDragger = ({ initialImageUrl }) => {
       onChange={handleChange}
       beforeUpload={() => false} // No subir automáticamente
       style={{
-        border: `${token.lineWidth}px dashed ${token.colorBorder}`,
+        display: "block",
+        maxWidth: "100%",
+        maxHeight: "100%",
+        objectFit: "contain",
         borderRadius: token.borderRadiusLG,
-        backgroundColor: token.colorFillAlter,
-        padding: token.paddingLG,
-        transition: `all ${token.motionDurationMid} ${token.motionEaseInOut}`,
-        position: "relative",
-        overflow: "hidden",
       }}
     >
       {previewImage ? (

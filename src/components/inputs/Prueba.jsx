@@ -10,11 +10,12 @@ const DemoAutoCompleteWithAdd = ({
   value,
   onChange = () => {},
   options = [],
+  multiselect, // true para permitir varios, false para uno solo
 }) => {
-  // Estado para las opciones actualizables
   const [option, setOption] = useState(options);
-
   const inputRef = useRef(null);
+  
+  // Siempre trabajamos con array internamente, ya que mode="tags" lo requiere
   const [selectedValue, setSelectedValue] = useState(
     Array.isArray(value) ? value : value ? [value] : []
   );
@@ -27,18 +28,35 @@ const DemoAutoCompleteWithAdd = ({
     setName(event.target.value);
   };
 
+  // Actualizamos selectedValue e inputValue usando las opciones para encontrar el label correspondiente
   useEffect(() => {
-    if (Array.isArray(value)) {
-      setSelectedValue(value);
-      setInputValue(value.join(", "));
-    } else if (value) {
-      setSelectedValue([value]);
-      setInputValue(value);
+    if (value) {
+      let vals = Array.isArray(value) ? value : [value];
+      const newLabels = vals.map((val) => {
+        const found = option.find((opt) => opt.value === val);
+        return found ? found.label : val;
+      });
+      setSelectedValue(vals);
+      setInputValue(newLabels.join(", "));
     } else {
       setSelectedValue([]);
       setInputValue("");
     }
-  }, [value]);
+  }, [value, option]);
+
+  // Si el valor recibido no existe en las opciones, lo agregamos
+  useEffect(() => {
+    if (value) {
+      let vals = Array.isArray(value) ? value : [value];
+      const missing = vals.filter((val) => !option.some((opt) => opt.value === val));
+      if (missing.length > 0) {
+        setOption((prev) => [
+          ...prev,
+          ...missing.map((val) => ({ label: val, value: val })),
+        ]);
+      }
+    }
+  }, [value, option]);
 
   const addItem = (e) => {
     e.preventDefault();
@@ -51,7 +69,11 @@ const DemoAutoCompleteWithAdd = ({
   };
 
   const handleSelect = (data) => {
-    const newValue = Array.isArray(data) ? data : [data];
+    // data es un array, forzamos a que si no es multiselect, se quede con un solo valor (el último)
+    let newValue = Array.isArray(data) ? data : [data];
+    if (!multiselect && newValue.length > 1) {
+      newValue = [newValue[newValue.length - 1]];
+    }
     setSelectedValue(newValue);
     onChange(newValue);
   };
@@ -61,10 +83,11 @@ const DemoAutoCompleteWithAdd = ({
     const exactMatch = option.find(
       (opt) => opt.label.toLowerCase() === text.toLowerCase()
     );
-
     if (exactMatch) {
-      setSelectedValue([exactMatch.value]);
-      onChange([exactMatch.value]);
+      // Forzamos el valor a ser un array de un solo elemento si no es multiselect
+      const newVal = !multiselect ? [exactMatch.value] : [exactMatch.value];
+      setSelectedValue(newVal);
+      onChange(newVal);
     }
   };
 
@@ -92,7 +115,7 @@ const DemoAutoCompleteWithAdd = ({
               </Space>
             </>
           )}
-          maxTagCount={1}
+          maxTagCount={1} // se muestra 1 etiqueta visualmente
           maxTagPlaceholder={(omittedValues) =>
             `+${omittedValues.length} más`
           }
@@ -100,6 +123,14 @@ const DemoAutoCompleteWithAdd = ({
           style={{ width: "100%", height: "45px" }}
           onChange={handleSelect}
           onSearch={handleSearch}
+          onBlur={() => {
+            // Si no es multiselect, forzamos a que solo quede un valor
+            if (!multiselect && selectedValue.length > 1) {
+              const trimmed = [selectedValue[selectedValue.length - 1]];
+              setSelectedValue(trimmed);
+              onChange(trimmed);
+            }
+          }}
           value={selectedValue.length > 0 ? selectedValue : undefined}
           options={option}
           notFoundContent={null}
@@ -122,7 +153,7 @@ const DemoAutoCompleteWithAdd = ({
       )}
       <label
         className={`absolute negro h4 cursor-text bg-white px-1 transition-all transform origin-left ${
-          selectedValue.length > 0
+          (!multiselect && selectedValue) || (multiselect && selectedValue.length > 0)
             ? "-top-2 left-2.5 text-xs text-green-600 scale-75"
             : "top-3 left-12 text-sm text-slate-400"
         } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
@@ -134,7 +165,8 @@ const DemoAutoCompleteWithAdd = ({
           src={iconSrc}
           alt=""
           className={`absolute bg-white px-1 py-1 left-1 top-2 rounded-[5px] transition-all transform ${
-            selectedValue.length > 0
+            (!multiselect && selectedValue) ||
+            (multiselect && selectedValue.length > 0)
               ? "left-[calc(100%+(-40px))] "
               : "left-5"
           } peer-focus:left-[calc(100%-40px)]`}
@@ -160,6 +192,11 @@ DemoAutoCompleteWithAdd.propTypes = {
       value: PropTypes.string.isRequired,
     })
   ),
+  multiselect: PropTypes.bool,
+};
+
+DemoAutoCompleteWithAdd.defaultProps = {
+  multiselect: false, // Por defecto se permite multiselección
 };
 
 export default DemoAutoCompleteWithAdd;

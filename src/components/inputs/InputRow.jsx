@@ -9,6 +9,7 @@ export const InputRow = ({
   className,
   values = {},
   onChange = () => {},
+  multiselect
 }) => {
   return (
     <div
@@ -25,7 +26,8 @@ export const InputRow = ({
           hasArrow={field.hasArrow}
           value={values[field.name] || ""}
           onChange={(value) => onChange(field.name, value)}
-          options={Array.isArray(field.options) ? field.options : []} // Asegura que sea un array
+          options={Array.isArray(field.options) ? field.options : []}
+          multiselect={field.multiselect !== undefined ? field.multiselect : true}
         />
       ))}
     </div>

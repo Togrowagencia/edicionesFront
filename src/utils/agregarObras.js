@@ -1,23 +1,5 @@
 import { createPublishing } from "../api/editorial";
 
-export const createBooks = async (books, idProveedor) => {
-  for (const book of books) {
-    try {
-      const libro = {
-        name: book.name,
-        id_provider: idProveedor,
-      };
-      const response = await createPublishing(libro);
-      console.log(`Libro creado: ${response.data.name}`);
-    } catch (error) {
-      console.error(
-        `Error al crear el libro ${book.name}:`,
-        error.response?.data || error.message
-      );
-    }
-  }
-};
-
 const validateEditoriales = (editoriales, datos, proveedor) => {
     // Verificar que 'proveedor' no esté vacío
     if (!proveedor || proveedor.trim() === "") {
