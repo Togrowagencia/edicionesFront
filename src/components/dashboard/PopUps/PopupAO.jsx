@@ -12,7 +12,8 @@ import { createPublishing } from "../../../api/editorial";
 import Swal from "sweetalert2";
 import { TablaAO } from "./TablaAO";
 import Notify from "simple-notify";
-
+import {createGender} from "../../../api/genders"
+import { createItem } from "../../../utils/agregarObras";
 const PopupAO = ({
   isPopupOpen,
   handlePopupClose,
@@ -111,6 +112,7 @@ const PopupAO = ({
         });
       }
     }
+    createItem()
     // Continuar con el submit si la editorial existe o se creó correctamente
     console.log("Submit final:", inputValues);
   };

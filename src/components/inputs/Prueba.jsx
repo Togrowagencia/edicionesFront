@@ -14,7 +14,8 @@ const DemoAutoCompleteWithAdd = ({
 }) => {
   const [option, setOption] = useState(options);
   const inputRef = useRef(null);
-  
+  const [isFocused, setIsFocused] = useState(false);
+
   // Siempre trabajamos con array internamente, ya que mode="tags" lo requiere
   const [selectedValue, setSelectedValue] = useState(
     Array.isArray(value) ? value : value ? [value] : []
@@ -139,7 +140,7 @@ const DemoAutoCompleteWithAdd = ({
         <input
           className={`p-2 peer w-full bg-white border border-[#000] rounded-[10px] h4 transition-all duration-300 ease focus:outline-none focus:border-green-600 shadow-sm focus:shadow ${
             iconSrc ? "pl-3" : "pl-4"
-          } ${hasArrow ? "pr-10" : ""}`}
+          } `}
           type="text"
           value={inputValue}
           onChange={(e) => {
@@ -153,10 +154,13 @@ const DemoAutoCompleteWithAdd = ({
       )}
       <label
         className={`absolute negro h4 cursor-text bg-white px-1 transition-all transform origin-left ${
-          (!multiselect && selectedValue) || (multiselect && selectedValue.length > 0)
+          (multiselect && selectedValue.length > 0) || 
+          (!multiselect && selectedValue.length > 0) || 
+          isFocused
             ? "-top-2 left-2.5 text-xs text-green-600 scale-75"
             : "top-3 left-12 text-sm text-slate-400"
         } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
+        
       >
         {placeholder}
       </label>
@@ -164,12 +168,7 @@ const DemoAutoCompleteWithAdd = ({
         <img
           src={iconSrc}
           alt=""
-          className={`absolute bg-white px-1 py-1 left-1 top-2 rounded-[5px] transition-all transform ${
-            (!multiselect && selectedValue) ||
-            (multiselect && selectedValue.length > 0)
-              ? "left-[calc(100%+(-40px))] "
-              : "left-5"
-          } peer-focus:left-[calc(100%-40px)]`}
+          className={`absolute bg-white px-1 py-1 left-1 top-2 rounded-[5px] transition-all transform  peer-focus:left-[calc(100%-40px)]`}
         />
       )}
     </div>
