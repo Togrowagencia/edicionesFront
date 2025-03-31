@@ -110,7 +110,7 @@ const Grafico = () => {
   };
 
   return (
-    <div style={{ height: '400px', width: '100%' }}> {/* Asegurar un tamaño adecuado */}
+    <div style={{ height: '45%', width: '100%' }}> {/* Asegurar un tamaño adecuado */}
       <Line ref={chartRef} data={data} options={options} />
     </div>
   );

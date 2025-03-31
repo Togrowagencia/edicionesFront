@@ -1,9 +1,11 @@
 import Grafico from "./Estadisticas/Grafico";
 import Cantidad from "./Estadisticas/Cantidad";
+import Ganancia from "./Estadisticas/Ganancia";
+import Inventario from "./Estadisticas/Inventario";
 
 const Estadisticas = () => {
   return (
-    <div className="flex flex-wrap gap-x-4 gap-y-0">
+    <div className="flex flex-wrap gap-4">
       <div className="bg-[url('/images/fondografico.png')] bg-cover bg-center sombra rounded-[10px] w-[44%] h-[45%] p-4 flex-col flex justify-center gap-1">
         <div className="flex w-full ">
           <div className="flex flex-col w-full gap-1">
@@ -23,13 +25,22 @@ const Estadisticas = () => {
         <Cantidad />
       </div>
 
-      <div className="sombra rounded-[10px] w-[26%] h-[45%] p-4 flex-col flex justify-center border border-[#9E9E9E]"></div>
-
-      <div className="sombra rounded-[10px] w-[36.2%] h-[20%] p-4 flex-col flex justify-center border border-[#9E9E9E]">
-
+      <div className="sombra rounded-[10px] w-[26%] h-[45%] p-4 flex-col flex justify-center border border-[#9E9E9E]">
+        <Ganancia />
       </div>
 
-      <div className="bg-red-500 sombra rounded-[10px] w-[30%] h-[20%] px-4 gap-1 flex-col flex justify-center">
+      <div className="sombra rounded-[10px] w-[36.2%] h-[20%] p-4 flex justify-between items-center border border-[#9E9E9E] relative overflow-visible">
+        <div className="flex flex-col justify-center">
+          <p className="gris-urbano textos-bold">Inventario total</p>
+          <p className="h2 negro">24.418</p>
+        </div>
+
+        <div className="flex items-center justify-center h-full">
+          <Inventario />
+        </div>
+      </div>
+
+      <div className="bg-red-500 sombra rounded-[10px] w-[30%] h-[20%] px-4 py-4 gap-1 flex-col flex justify-center">
         <p className="h4 blanco">Cantidad de devoluciones realizadas</p>
         <div className="bg-red-400 w-[63%] p-1 rounded-[5px] h4">
           <p className="blanco w-full">100 unidades</p>
@@ -38,11 +49,14 @@ const Estadisticas = () => {
 
       <div className="sombra rounded-[10px] w-[30.24%] h-[20%] p-4 flex-col flex justify-center border border-[#9E9E9E]">
         <div className="flex flex-col gap-4">
-            <p className="textos-bold gris-elegancia">Punto con más ventas</p>
-            <p className="h4 negro">Centro comercial <br/>florida Local 1340</p>
+          <p className="textos-bold gris-elegancia">Punto con más ventas</p>
+          <p className="h4 negro">
+            Centro comercial <br />
+            florida Local 1340
+          </p>
         </div>
         <div className="flex flex-col">
-            <img src="" alt="" />
+          <img src="" alt="" />
         </div>
       </div>
     </div>

@@ -28,16 +28,16 @@ const Cantidad = () => {
                 fontFamily: fontFamily,
                 background: colors.background,
                 toolbar: { show: false },
-                animations: { enabled: true } // Desactiva animaciones para mejor rendimiento
+                animations: { enabled: true }
             },
             colors: colors.series,
             plotOptions: {
                 bar: {
                     horizontal: true,
                     borderRadius: 0, // Sin bordes redondeados
-                    barHeight: '15%', // Altura de la barra
+                    barHeight: '35%', // Altura de la barra
                     dataLabels: {
-                        position: 'end', // Posición de las etiquetas
+                        position: 'start', // Posición de las etiquetas
                         hideOverflowingLabels: false
                     }
                 },
@@ -110,12 +110,12 @@ const Cantidad = () => {
     });
 
     return (
-        <div id="chart" style={{ width: '100%', marginTop: '50%' }}>
+        <div id="chart" style={{ width: '100%', marginTop: '0%', height:'45%' }}>
             <ReactApexChart
                 options={state.options}
                 series={state.series}
                 type="bar"
-                height={275}
+                height={180}
             />
         </div>
     );

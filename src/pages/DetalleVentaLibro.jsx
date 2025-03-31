@@ -15,11 +15,11 @@ const DetalleVentaLibro = () => {
         <div className="w-full h-[90%] flex flex-col -ml-[1%] mt-[0.9%]">
           <Banner />
           <div className="flex w-full">
-            <div className="flex flex-col w-full p-6 gap-6">
+            <div className="flex flex-col w-full p-6 gap-6 h-full">
               <Datos />
               <Estadisticas />
             </div>
-            <div className="flex flex-col w-[55%] items-end mt-[-7%] z-20">
+            <div className="flex flex-col w-[55%] items-end mt-[-15%] z-20">
               <Libro />
             </div>
           </div>

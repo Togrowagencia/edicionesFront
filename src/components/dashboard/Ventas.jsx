@@ -21,9 +21,8 @@ const Ventas = () => {
         <img 
           src="/public/svg/vector.svg" 
           alt="Icono" 
-          className="w-6 h-6 ml-[105px]" 
-          onClick={() => window.location.href = '/gestion-de-obras'} 
-          style={{ cursor: 'pointer' }}
+          className="w-6 h-6 ml-[105px] cursor-pointer" 
+          onClick={() => window.location.href = '/detalles-venta'}
         />
       </div>
         <div className='w-full h-full justify-center'>
