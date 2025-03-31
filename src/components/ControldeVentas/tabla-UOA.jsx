@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import TablaUOA from '../Data/ControldeVentas/Data-UOA'; 
+import Frecuentes from './Frecuentes'
 
 const Tabla_TLV = () => {
     const [currentPage] = useState(1);
@@ -16,8 +17,9 @@ const Tabla_TLV = () => {
 
             <div className="flex mt-[-8px] gap-5">
                 <div className="flex w-[218px] h-[261px] bg-[#FFF] rounded-[10px] justify-center items-center">
-                    <div className="flex items-center justify-center h-full w-full">
+                    <div className="flex flex-col items-center justify-center h-full w-full mt-8">
                         <p className="h3 negro text-center">Clientes frecuentes vs nuevos</p>
+                        <Frecuentes/>
                     </div>
                 </div>
 

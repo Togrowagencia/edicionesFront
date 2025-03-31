@@ -68,7 +68,7 @@ const Tabla = () => {
       </div>
       <div className="relative w-full my-2 flex gap-[14px] h-full">
 
-        <div className="w-full rounded-[10px] bg-[#d9b030] bg-cover bg-center relative sombra h-full p-6 flex flex-col gap-1" style={{ backgroundImage: "url('/images/balance.png')" }}>
+        <div className="w-full rounded-[10px] bg-[#d9b030] bg-cover bg-center relative sombra h-full p-6 flex flex-col gap-1" style={{ backgroundImage: "url('/images/balance2.png')" }}>
           <p className="h4">Balance de la tienda</p>
           <p className="textos-bold mt-[10%]">Ingresos totales</p>
           <p className="h2">654.541</p>
@@ -81,7 +81,7 @@ const Tabla = () => {
           </div>
         </div>
 
-        <div onClick={() => navigate('/ingresos')}  className="cursor-pointer w-full rounded-[10px] bg-[#00733C] bg-cover bg-center relative sombra h-full p-6 flex flex-col gap-1" style={{ backgroundImage: "url('/images/totalingresos.png')" }}>
+        <div onClick={() => navigate('/ingresos')}  className="cursor-pointer w-full rounded-[10px] bg-[#00733C] bg-cover bg-center relative sombra h-full p-6 flex flex-col gap-1" style={{ backgroundImage: "url('/images/totalingresos2.png')" }}>
           <p className="h4">Ingresos de la tienda</p>
           <p className="textos-bold mt-[10%] dorado-optimista">Ingresos totales</p>
           <p className="h2 blanco">654.541</p>
@@ -94,7 +94,7 @@ const Tabla = () => {
           </div>
         </div>
 
-        <div onClick={() => navigate('/egresos')} className="cursor-pointer w-full rounded-[10px] bg-[#D55665] bg-cover bg-center relative sombra h-full p-6 flex flex-col gap-1" style={{ backgroundImage: "url('/images/totalegresos.png')" }}>
+        <div onClick={() => navigate('/egresos')} className="cursor-pointer w-full rounded-[10px] bg-[#D55665] bg-cover bg-center relative sombra h-full p-6 flex flex-col gap-1" style={{ backgroundImage: "url('/images/totalegresos2.png')" }}>
           <p className="h4">Balance de la tienda</p>
           <p className="textos-bold mt-[10%] verde-serenidad">Gastos totales</p>
           <p className="h2 blanco">654.541</p>
