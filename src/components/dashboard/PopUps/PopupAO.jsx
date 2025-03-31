@@ -128,8 +128,6 @@ const PopupAO = ({
             (item) => item.name.toLowerCase() === publisher.toLowerCase()
           );
           if (found) {
-            console.log("found");
-            console.log(found);
             editorialValue = found.id; // Se asigna el id de la editorial
             associatedProvider = found.provider ? found.provider.id : "";
           }
@@ -145,14 +143,11 @@ const PopupAO = ({
             image: respuesta.data.volumeInfo.imageLinks
               ? respuesta.data.volumeInfo.imageLinks.thumbnail
               : "",
-            // Si se encontró proveedor asociado, se actualiza
             proveedor: associatedProvider || prevData.proveedor,
           };
           console.log("newData", newData);
           return newData;
         });
-        setEditorial(publisher);
-        console.log("editorial", publisher);
       } else {
         console.log(respuesta);
       }
