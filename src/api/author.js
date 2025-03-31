@@ -33,7 +33,7 @@ export const putAuthor = async (formData) => {
 export const createAuthor = async (formData) => {
   try {
     const config = token();
-    const response = await axios.post(`${baseurl}/author/register`,config, formData);
+    const response = await axios.post(`${baseurl}/author/register`, formData,config);
     console.log(response);
     return response;
   } catch (error) {

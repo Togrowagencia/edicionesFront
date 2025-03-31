@@ -8,7 +8,10 @@ import { CheckboxWithLabel } from "../../inputs/CheckboxWithLabel";
 import { InputRow } from "../../inputs/InputRow";
 import DataAO from "../../Data/DataAO";
 import Drop from "./AO/Drop";
+import { createPublishing } from "../../../api/editorial";
 import Swal from "sweetalert2";
+import { TablaAO } from "./TablaAO";
+import Notify from "simple-notify";
 
 const PopupAO = ({
   isPopupOpen,
@@ -17,34 +20,8 @@ const PopupAO = ({
   sindatos,
   reload,
 }) => {
-  const [currentPage] = useState(1);
-  const itemsPerPage = 10;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentItems = DataAO.slice(startIndex, endIndex);
   const [book, setBook] = useState([]);
   const [editorial, setEditorial] = useState("");
-
-  const [options] = useState({
-    proveedores: [
-      { value: "Proveedor A", label: "Proveedor A" },
-      { value: "Proveedor B", label: "Proveedor B" },
-      { value: "Proveedor C", label: "Proveedor C" },
-    ],
-    contenidos: [
-      { value: "Contenido A", label: "Contenido A" },
-      { value: "Contenido B", label: "Contenido B" },
-    ],
-    clasificaciones: [
-      { value: "Clasificación 1", label: "Clasificación 1" },
-      { value: "Clasificación 2", label: "Clasificación 2" },
-    ],
-    generos: [
-      { value: "Género A", label: "Género A" },
-      { value: "Género B", label: "Género B" },
-      { value: "Género C", label: "Género C" },
-    ],
-  });
 
   const [selectedCheckboxes, setSelectedCheckboxes] = useState({
     obraPropia: true,
@@ -67,33 +44,115 @@ const PopupAO = ({
     image: "",
   });
 
-  // Función que se encarga de verificar la editorial
-
+  const handleSubmit = async () => {
+    console.log(inputValues);
+  
+    // Validar que el proveedor tenga un valor
+    if (String(inputValues.proveedor).trim() === "") {
+      return new Notify({
+        title: "Por favor, rellene todos los campos.",
+        status: "warning",
+        type: "filled",
+        autotimeout: 850,
+        autoclose: true,
+        position: "left top",
+        effect: "slide",
+        gap: 20,
+      });
+    }
+  
+    const editorialExists = datos.Publishing?.some((pub) => {
+      // Se compara por id y por nombre (ignorando mayúsculas)
+      return (
+        String(pub.id) === String(inputValues.editorial) ||
+        (pub.name &&
+          pub.name.toLowerCase() ===
+            String(inputValues.editorial).toLowerCase())
+      );
+    });
+  
+    if (!editorialExists) {
+      try {
+        const response = await createPublishing({
+          name: inputValues.editorial,
+          id_provider: String(inputValues.proveedor).trim(),
+        });
+  
+        let editorialCreada = null;
+        // Si response.data es un array, buscar la editorial
+        if (Array.isArray(response.data)) {
+          editorialCreada = response.data.find(
+            (pub) =>
+              pub.name.toLowerCase() === inputValues.editorial.toLowerCase()
+          );
+        } else {
+          // Sino, se asume que response.data es el objeto creado
+          editorialCreada = response.data;
+        }
+        console.log("Editorial creada:", editorialCreada);
+        if (editorialCreada) {
+          setInputValues((prev) => ({
+            ...prev,
+            editorial: editorialCreada.name,
+          }));
+        }
+        console.log(inputValues);
+      } catch (error) {
+        console.error("Error al crear la editorial", error);
+        return new Notify({
+          title: "Error al crear la editorial",
+          status: "error",
+          type: "filled",
+          autotimeout: 850,
+          autoclose: true,
+          position: "left top",
+          effect: "slide",
+          gap: 20,
+        });
+      }
+    }
+    // Continuar con el submit si la editorial existe o se creó correctamente
+    console.log("Submit final:", inputValues);
+  };
   const handleBook = async () => {
     try {
       const respuesta = await getGoogleBook(inputValues.isbn);
       console.log(datos);
       if (respuesta.data.volumeInfo) {
         setBook(respuesta.data.volumeInfo);
+        const publisher = respuesta.data.volumeInfo.publisher || "";
+        let editorialValue = publisher; // Por defecto, la cadena
+        let associatedProvider = ""; // Por defecto, vacío
+        if (datos.Publishing) {
+          const found = datos.Publishing.find(
+            (item) => item.name.toLowerCase() === publisher.toLowerCase()
+          );
+          if (found) {
+            console.log("found");
+            console.log(found);
+            editorialValue = found.id; // Se asigna el id de la editorial
+            associatedProvider = found.provider ? found.provider.id : "";
+          }
+        }
         setInputValues((prevData) => {
           const newData = {
             ...prevData,
             nombreObra: respuesta.data.volumeInfo.title || "",
-            editorial: respuesta.data.volumeInfo.publisher || "",
+            editorial: editorialValue,
             autor: respuesta.data.volumeInfo.authors || "",
             contenido: respuesta.data.volumeInfo.contentVersion || "",
-            clasificacion: respuesta.data.volumeInfo.categories || "",
+            genero: respuesta.data.volumeInfo.categories || "",
             image: respuesta.data.volumeInfo.imageLinks
               ? respuesta.data.volumeInfo.imageLinks.thumbnail
               : "",
+            // Si se encontró proveedor asociado, se actualiza
+            proveedor: associatedProvider || prevData.proveedor,
           };
-          console.log("newData");
-          console.log(newData);
+          console.log("newData", newData);
           return newData;
         });
-        setEditorial(respuesta.data.volumeInfo.publisher || "");
-        console.log("editorial");
-        console.log(editorial);
+        setEditorial(publisher);
+        console.log("editorial", publisher);
       } else {
         console.log(respuesta);
       }
@@ -120,10 +179,25 @@ const PopupAO = ({
 
   const handleInputChange = (name, value) => {
     console.log(name, value);
-    setInputValues((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setInputValues((prev) => {
+      let newData = { ...prev, [name]: value };
+      // Si se actualiza la editorial, buscamos el objeto en Publishing
+      // y, si se encuentra, actualizamos el proveedor con el id asociado
+      if (name === "editorial") {
+        // Suponemos que value es un array (porque el select está en mode="tags")
+        const editorialId = Array.isArray(value) ? value[0] : value;
+        if (datos.Publishing) {
+          const found = datos.Publishing.find(
+            (item) => item.id === editorialId
+          );
+          if (found && found.provider) {
+            newData.proveedor = found.provider.id;
+          }
+        }
+      }
+      // Si se actualiza el proveedor, se puede filtrar la lista de editoriales (opcional)
+      return newData;
+    });
   };
 
   // Definir las filas de campos con nombres únicos
@@ -143,6 +217,7 @@ const PopupAO = ({
         name: "proveedor",
         placeholder: "Proveedor",
         hasArrow: true,
+        multiselect: false,
         options: datos.Providers
           ? datos.Providers.map((item) => ({
               value: item.id,
@@ -156,6 +231,7 @@ const PopupAO = ({
         name: "editorial",
         placeholder: "Editorial",
         hasArrow: true,
+        multiselect: false,
         options: datos.Publishing
           ? datos.Publishing.map((item) => ({
               value: item.id,
@@ -167,7 +243,8 @@ const PopupAO = ({
         name: "autor",
         placeholder: "Autor",
         hasArrow: true,
-        options: datos.Publishing
+        multiselect: true,
+        options: datos.Author
           ? datos.Author.map((item) => ({
               value: item.id,
               label: item.name,
@@ -178,7 +255,13 @@ const PopupAO = ({
         name: "contenido",
         placeholder: "Contenido",
         hasArrow: true,
-        options: options.contenidos,
+        multiselect: false,
+        options: datos.Content
+          ? datos.Content.map((item) => ({
+              value: item.id,
+              label: item.name,
+            }))
+          : [],
       },
     ],
     [
@@ -186,13 +269,25 @@ const PopupAO = ({
         name: "clasificacion",
         placeholder: "Clasificación",
         hasArrow: true,
-        options: options.clasificaciones,
+        multiselect: false,
+        options: datos.Classification
+          ? datos.Classification.map((item) => ({
+              value: item.id,
+              label: item.name,
+            }))
+          : [],
       },
       {
         name: "genero",
         placeholder: "Género",
         hasArrow: true,
-        options: options.generos,
+        multiselect: true,
+        options: datos.Gender
+          ? datos.Gender.map((item) => ({
+              value: item.id,
+              label: item.name,
+            }))
+          : [],
       },
       {
         name: "costoLibro",
@@ -302,9 +397,7 @@ const PopupAO = ({
             <div className="flex justify-end py-6 px-10">
               <button
                 className="flex bg-[#00733C] px-2 py-1 rounded-[3px] gap-2"
-                onClick={() => {
-                  console.log(inputValues);
-                }}
+                onClick={handleSubmit}
               >
                 <p className="blanco h4">Agregar obra</p>
                 <img src="/svg/agregar.svg" alt="" />
@@ -322,80 +415,7 @@ const PopupAO = ({
           </div>
 
           <div className="w-full h-full flex justify-center">
-            <div className="w-[1385px]">
-              <table className="w-full">
-                {/* Encabezados de la tabla */}
-                <thead>
-                  <tr className="border-b border-grey-500 h-[10%] items-end">
-                    <th className="text-left gris-urbano p-2 textos">ID</th>
-                    <th className="text-left gris-urbano p-2 textos">ISBN</th>
-                    <th className="text-left gris-urbano p-2 textos">
-                      Nombre de la obra
-                    </th>
-                    <th className="text-left gris-urbano p-2 textos">
-                      Editorial
-                    </th>
-                    <th className="text-left gris-urbano p-2 textos">Genero</th>
-                    <th className="text-left gris-urbano p-2 textos">Costo</th>
-                    <th className="text-left gris-urbano p-2 textos">
-                      Inducción
-                    </th>
-                    <th className="text-left gris-urbano p-2 textos">
-                      Proveedor
-                    </th>
-                    <th className="text-left gris-urbano p-2 textos">
-                      Cantidad total
-                    </th>
-                    <th className="text-left gris-urbano p-2 textos">
-                      Costo total
-                    </th>
-                    <th className="text-left gris-urbano p-2 textos">
-                      Editar/Eliminar
-                    </th>
-                  </tr>
-                </thead>
-
-                {/* Filas de datos */}
-                <tbody>
-                  {currentItems.map((item, index) => (
-                    <tr key={index} className="mb-5 mt-[10px]">
-                      <td className="textos-bold verde-eco truncate p-2">
-                        {item.ID}
-                      </td>
-                      <td className="textos-bold truncate p-2">{item.ISBN}</td>
-                      <td className="textos-bold truncate p-2">
-                        {item["Nombre de la obra"]}
-                      </td>
-                      <td className="textos-bold truncate p-2">
-                        {item["Editorial"]}
-                      </td>
-                      <td className="textos-bold truncate p-2">
-                        {item["Genero"]}
-                      </td>
-                      <td className="textos-bold truncate p-2">
-                        {item["Costo"]}
-                      </td>
-                      <td className="textos-bold truncate p-2">
-                        {item["Induccion"]}
-                      </td>
-                      <td className="textos-bold truncate p-2">
-                        {item["Proveedor"]}
-                      </td>
-                      <td className="textos-bold truncate p-2">
-                        {item["Cantidad-total"]}
-                      </td>
-                      <td className="textos-bold truncate p-2">
-                        {item["Costo-total"]}
-                      </td>
-                      <td className="flex gap-6 mx-5">
-                        <img src="/svg/editar.svg" alt="" />
-                        <img src="/svg/eliminar.svg" alt="" />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <TablaAO />
           </div>
           <div className="flex items-center p-4 justify-end w-full">
             <div className="flex items-center gap-2 bg-[#EEE] p-2 rounded-[3px] justify-end w-auto">
