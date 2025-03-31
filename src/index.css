@@ -994,8 +994,16 @@ height: 125px;
 }
 
 
-
-
+.ant-select-selector{
+  border-color: #000 !important;
+  border-radius: 10px !important;
+  font-family: afacad !important;
+  font-weight: bold !important;
+  font-size: large;
+}
+.ant-select-selection-item {
+  height: 30px !important;
+}
 .ant-select .ant-select-arrow svg {
   color: #00733C;
   font-size: medium;
@@ -1003,12 +1011,12 @@ height: 125px;
 
 }
 .ant-select-focused .ant-select-selector {
-  border-color: #5fb868 !important;
+  border-color: #31a53d !important;
   box-shadow: 0 0 0 2px rgba(95,184,104,0.2) !important;
 }
 
 .ant-select:hover .ant-select-selector {
-  border-color: #5fb8683c !important;
+  border-color: none !important;
   box-shadow: 0 0 0 2px rgba(95, 184, 104, 0.032) !important;
 }
 

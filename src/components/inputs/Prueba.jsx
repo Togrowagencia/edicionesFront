@@ -49,7 +49,9 @@ const DemoAutoCompleteWithAdd = ({
   useEffect(() => {
     if (value) {
       let vals = Array.isArray(value) ? value : [value];
-      const missing = vals.filter((val) => !option.some((opt) => opt.value === val));
+      const missing = vals.filter(
+        (val) => !option.some((opt) => opt.value === val)
+      );
       if (missing.length > 0) {
         setOption((prev) => [
           ...prev,
@@ -86,6 +88,7 @@ const DemoAutoCompleteWithAdd = ({
     );
     if (exactMatch) {
       // Forzamos el valor a ser un array de un solo elemento si no es multiselect
+
       const newVal = !multiselect ? [exactMatch.value] : [exactMatch.value];
       setSelectedValue(newVal);
       onChange(newVal);
@@ -93,7 +96,7 @@ const DemoAutoCompleteWithAdd = ({
   };
 
   return (
-    <div className={`relative w-[316px] ml-[5px] ${className}`}>
+    <div className={`relative w-[316px] ml-[5px]${className}`}>
       {hasArrow ? (
         <Select
           showSearch
@@ -117,9 +120,7 @@ const DemoAutoCompleteWithAdd = ({
             </>
           )}
           maxTagCount={1} // se muestra 1 etiqueta visualmente
-          maxTagPlaceholder={(omittedValues) =>
-            `+${omittedValues.length} más`
-          }
+          maxTagPlaceholder={(omittedValues) => `+${omittedValues.length} más`}
           optionFilterProp="label"
           style={{ width: "100%", height: "45px" }}
           onChange={handleSelect}
@@ -138,7 +139,7 @@ const DemoAutoCompleteWithAdd = ({
         />
       ) : (
         <input
-          className={`p-2 peer w-full bg-white border border-[#000] rounded-[10px] h4 transition-all duration-300 ease focus:outline-none focus:border-green-600 shadow-sm focus:shadow ${
+          className={`p-2 peer w-full bg-white border border-[#000] rounded-[10px] h4 transition-all duration-300 ease focus:outline-none focus:border-green-600 negro shadow-sm focus:shadow ${
             iconSrc ? "pl-3" : "pl-4"
           } `}
           type="text"
@@ -153,14 +154,11 @@ const DemoAutoCompleteWithAdd = ({
         />
       )}
       <label
-        className={`absolute negro h4 cursor-text bg-white px-1 transition-all transform origin-left ${
-          (multiselect && selectedValue.length > 0) || 
-          (!multiselect && selectedValue.length > 0) || 
-          isFocused
+        className={`absolute h4 cursor-text bg-white px-2 transition-all transform origin-left ${
+          isFocused || inputValue || selectedValue.length > 0 // Cuando está enfocado, tiene texto o valor seleccionado
             ? "-top-2 left-2.5 text-xs text-green-600 scale-75"
-            : "top-3 left-12 text-sm text-slate-400"
+            : "top-3 left-12 text-sm text-slate-400 negro"
         } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
-        
       >
         {placeholder}
       </label>
@@ -168,7 +166,9 @@ const DemoAutoCompleteWithAdd = ({
         <img
           src={iconSrc}
           alt=""
-          className={`absolute bg-white px-1 py-1 left-1 top-2 rounded-[5px] transition-all transform  peer-focus:left-[calc(100%-40px)]`}
+          className={`absolute bg-white px-1 py-1 left-1 top-2 rounded-[5px] transition-all transform ${
+            value ? "left-[calc(100%+(-40px))] " : "left-5"
+          } peer-focus:left-[calc(100%-40px)]`}
         />
       )}
     </div>

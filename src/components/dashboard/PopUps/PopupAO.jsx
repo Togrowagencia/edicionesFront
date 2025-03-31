@@ -43,7 +43,15 @@ const PopupAO = ({
     precioVenta: "",
     cantidad: "",
     image: "",
+    image: "",
   });
+//** los formatos son en pasta dura o blanda*/
+//** numero de paginas */
+//** dimensiones */
+//** idioma  */
+//** peso *//
+//* funcion de repeticion en donde los libros de menor valor son los que se van a añadir a la promocion *//
+//* Las promociones me deben afectar cotizaciones   *//
 
   const handleSubmit = async () => {
     console.log(inputValues);
