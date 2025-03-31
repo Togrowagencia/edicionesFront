@@ -115,7 +115,7 @@ const Cantidad = () => {
                 options={state.options}
                 series={state.series}
                 type="bar"
-                height={180}
+                height={215}
             />
         </div>
     );

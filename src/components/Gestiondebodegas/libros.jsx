@@ -1,11 +1,10 @@
-import React, { useState,useEffect} from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import { baseurl2 } from "../../utils/baseurl";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function SampleArrow(props) {
-  
   const { className, style, onClick } = props;
   return (
     <div className={className} style={{ ...style, display: "block" }} onClick={onClick}>
@@ -14,10 +13,9 @@ function SampleArrow(props) {
   );
 }
 
-function Libros({ setLibroSeleccionado,datos,load }) {
-  const [startIndex, setStartIndex] = useState(0); 
-  const [warehouse, setwarehouse] = useState([]);
- 
+function Libros({ setLibroSeleccionado, datos }) {
+  const [startIndex, setStartIndex] = useState(0);
+
   const settings = {
     dots: false,
     infinite: true,
@@ -27,7 +25,6 @@ function Libros({ setLibroSeleccionado,datos,load }) {
     nextArrow: null,
     prevArrow: <SampleArrow />,
     beforeChange: (current, next) => {
-      console.log("Nuevo índice de inicio:", next);
       setStartIndex(next);
     },
   };
@@ -37,15 +34,13 @@ function Libros({ setLibroSeleccionado,datos,load }) {
       <div className="slider-container relative">
         <Slider {...settings}>
           {datos.map((item, index) => {
-            const isThirdVisible = index === (startIndex + 2) % warehouse.length; // Ajuste para el tercer ítem visible en 3 
-
-            console.log(`Índice: ${index} | Tercer visible: ${isThirdVisible}`);
+            const isThirdVisible = datos.length >= 3 && index === (startIndex + 2) % datos.length;
 
             return (
               <div className="slide relative" key={index}>
                 <div className="gap-2 flex relative">
                   <img
-                    src={ baseurl2+item.file}
+                    src={baseurl2 + item.file}
                     alt="Libro"
                     className="w-[32%] cursor-pointer"
                     onClick={() => setLibroSeleccionado(item)}

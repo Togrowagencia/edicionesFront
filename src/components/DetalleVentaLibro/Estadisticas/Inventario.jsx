@@ -32,10 +32,10 @@ const Inventario = () => {
   };
 
   return (
-    <div className="relative h-[150px] w-[150px] border rounded-[100%] p-2">
+    <div className="absolute h-[130px] w-[130px] border bg-[#FFF] border-[#C1C1C1] rounded-[100%] p-2 right-3">
       <Doughnut data={data} options={options} />
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="border rounded-[100%] h-[50%] w-[50%]">
+        <div className="border border-[#EEE] bg-[#EEE] rounded-[100%] h-[50%] w-[50%]">
           <span className="textos-bold negro absolute inset-0 flex items-center justify-center">{porcentaje}%</span>
         </div>
       </div>

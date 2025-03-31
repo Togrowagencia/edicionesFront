@@ -50,7 +50,7 @@ const Ganancia = () => {
     <div className="relative w-full h-[80%] gap-4 flex flex-col items-center">
       <p className="textos gris-elegancia">Margen de ganancia por libro</p>
       
-      <div className="relative w-full flex items-center h-[160px] justify-center">
+      <div className="relative w-[160px] flex items-center h-[196px] justify-center">
         <Doughnut data={data} options={options} />
         
         {/* Texto centrado */}

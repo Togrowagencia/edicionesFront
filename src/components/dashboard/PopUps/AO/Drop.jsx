@@ -51,10 +51,11 @@ const CustomDragger = ({ initialImageUrl }) => {
       beforeUpload={() => false} // No subir automáticamente
       style={{
         display: "block",
-        maxWidth: "100%",
+        maxWidth: "75%",
         maxHeight: "100%",
         objectFit: "contain",
         borderRadius: token.borderRadiusLG,
+        marginLeft: "10%",
       }}
     >
       {previewImage ? (
@@ -67,7 +68,7 @@ const CustomDragger = ({ initialImageUrl }) => {
             left: 0,
             width: "100%",
             height: "100%",
-            objectFit: "cover",
+            objectFit: "container",
             borderRadius: token.borderRadiusLG,
           }}
         />

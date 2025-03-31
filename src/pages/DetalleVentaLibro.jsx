@@ -19,7 +19,7 @@ const DetalleVentaLibro = () => {
               <Datos />
               <Estadisticas />
             </div>
-            <div className="flex flex-col w-[55%] items-end mt-[-15%] z-20">
+            <div className="flex flex-col w-[55%] items-end mt-[-13%] z-20">
               <Libro />
             </div>
           </div>

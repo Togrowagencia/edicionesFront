@@ -56,9 +56,9 @@ const Grafico = () => {
         data: [85, 59, 10, 21, 56, 25, 20, 34, 41, 36, 30, 40, 54],
         fill: {
           target: 'origin', // Esto es importante para el relleno
-          above: fillGradient || "rgba(95, 184, 104, 0.2)", // Fallback
+          above: fillGradient || "rgba(95, 184, 104, 0.2)", 
         },
-        backgroundColor: fillGradient || "rgba(95, 184, 104, 0.2)", // Fallback
+        backgroundColor: fillGradient || "rgba(95, 184, 104, 0.2)",
         borderColor: "#F1F4FF",
         tension: 0.4,
         borderWidth: 2,
@@ -75,7 +75,7 @@ const Grafico = () => {
   // Configuración del gráfico
   const options = {
     responsive: true,
-    maintainAspectRatio: false, // Permite que el gráfico se ajuste al contenedor
+    maintainAspectRatio: false, 
     plugins: {
       legend: {
         display: false,
@@ -110,7 +110,7 @@ const Grafico = () => {
   };
 
   return (
-    <div style={{ height: '45%', width: '100%' }}> {/* Asegurar un tamaño adecuado */}
+    <div style={{ height: '187px', width: '100%' }}>
       <Line ref={chartRef} data={data} options={options} />
     </div>
   );

@@ -32,7 +32,7 @@ const GestiondeBodegas = () => {
       <div className="w-1553px h-883px flex gap-5">
         <Sidebar />
 
-        <div className="w-[83%] gestion-de-obras ml-[17%]">
+        <div className="w-[83%] gestion-de-obras ml-[21%]">
           <HeaderGdB load={handleW} />
           <div className="grid grid-cols-2 grid-rows-4 gap-0 w-full h-full">
             <div className="col-start-1 col-end-2 row-start-1 row-end-4">

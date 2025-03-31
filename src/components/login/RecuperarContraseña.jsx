@@ -39,11 +39,10 @@ const RecuperarContraseña = ({ setActiveComponent }) => {
             />
             <label
               htmlFor="npassword"
-              className={`absolute negro h4 cursor-text bg-[#f5f5f5] px-1 left-2.5 transition-all transform origin-left ${
-                npassword
+              className={`absolute negro h4 cursor-text bg-[#f5f5f5] px-1 left-2.5 transition-all transform origin-left ${npassword
                   ? "-top-2 left-2.5 text-xs text-green-600 scale-75"
                   : "top-3 left-4 text-sm text-slate-400"
-              } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
+                } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
             >
               Escribe tu contraseña
             </label>
@@ -77,11 +76,10 @@ const RecuperarContraseña = ({ setActiveComponent }) => {
             />
             <label
               htmlFor="cpassword"
-              className={`absolute negro h4 cursor-text bg-[#f5f5f5] px-1 left-2.5 transition-all transform origin-left ${
-                cpassword
+              className={`absolute negro h4 cursor-text bg-[#f5f5f5] px-1 left-2.5 transition-all transform origin-left ${cpassword
                   ? "-top-2 left-2.5 text-xs text-green-600 scale-75"
                   : "top-3 left-4 text-sm text-slate-400"
-              } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
+                } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
             >
               Confirma tu contraseña
             </label>
@@ -90,8 +88,8 @@ const RecuperarContraseña = ({ setActiveComponent }) => {
                 <img
                   src={
                     coincide
-                      ? "/svg/sidebar/togrow.svg"
-                      : "/svg/sidebar/cerrar.svg"
+                      ? "/svg/login/cumple.svg"
+                      : "/svg/login/nocumple.svg"
                   }
                   alt=""
                 />
@@ -119,7 +117,7 @@ const RecuperarContraseña = ({ setActiveComponent }) => {
             }
           }}
         >
-          Recuperar contraseña
+          Restablecer contraseña
         </button>
       </form>
       <div className="flex gap-[15%] w-full justify-center mt-[18%] items-end">

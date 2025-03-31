@@ -30,7 +30,7 @@ const Estadisticas = () => {
       </div>
 
       <div className="sombra rounded-[10px] w-[36.2%] h-[20%] p-4 flex justify-between items-center border border-[#9E9E9E] relative overflow-visible">
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-center py-[7px]">
           <p className="gris-urbano textos-bold">Inventario total</p>
           <p className="h2 negro">24.418</p>
         </div>
@@ -40,14 +40,14 @@ const Estadisticas = () => {
         </div>
       </div>
 
-      <div className="bg-red-500 sombra rounded-[10px] w-[30%] h-[20%] px-4 py-4 gap-1 flex-col flex justify-center">
+      <div className="bg-[#D55665] sombra rounded-[10px] w-[30%] h-[20%] px-4 py-4 gap-1 flex-col flex justify-center">
         <p className="h4 blanco">Cantidad de devoluciones realizadas</p>
-        <div className="bg-red-400 w-[63%] p-1 rounded-[5px] h4">
+        <div className="bg-[#EB707E] w-[63%] p-1 rounded-[5px] h4">
           <p className="blanco w-full">100 unidades</p>
         </div>
       </div>
 
-      <div className="sombra rounded-[10px] w-[30.24%] h-[20%] p-4 flex-col flex justify-center border border-[#9E9E9E]">
+      <div className="sombra rounded-[10px] w-[30.24%] h-[20%] p-4 flex justify-between border border-[#9E9E9E]">
         <div className="flex flex-col gap-4">
           <p className="textos-bold gris-elegancia">Punto con más ventas</p>
           <p className="h4 negro">
@@ -56,7 +56,7 @@ const Estadisticas = () => {
           </p>
         </div>
         <div className="flex flex-col">
-          <img src="" alt="" />
+          <img src="/svg/libro.svg" alt="" className="absolute right-[30%] top-[82%] justify-center items-center flex" />
         </div>
       </div>
     </div>
