@@ -110,7 +110,7 @@ const Cantidad = () => {
     });
 
     return (
-        <div id="chart" style={{ width: '100%', marginTop: '0%', height:'45%' }}>
+        <div id="chart" style={{ width: '100%', height:'45%' }}>
             <ReactApexChart
                 options={state.options}
                 series={state.series}

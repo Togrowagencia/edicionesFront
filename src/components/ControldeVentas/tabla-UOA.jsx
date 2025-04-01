@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import TablaUOA from '../Data/ControldeVentas/Data-UOA'; 
+import TablaUOA from '../Data/ControldeVentas/Data-UOA';
 import Frecuentes from './Frecuentes'
+import Objetivo from './Objetivo'
 
 const Tabla_TLV = () => {
     const [currentPage] = useState(1);
@@ -10,7 +11,7 @@ const Tabla_TLV = () => {
     // Calcular los índices para paginación
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const currentItems = TablaUOA.slice(startIndex, endIndex);  
+    const currentItems = TablaUOA.slice(startIndex, endIndex);
 
     return (
         <div className="flex flex-col items-center ml-[20%]">
@@ -19,13 +20,14 @@ const Tabla_TLV = () => {
                 <div className="flex w-[218px] h-[261px] bg-[#FFF] rounded-[10px] justify-center items-center">
                     <div className="flex flex-col items-center justify-center h-full w-full mt-8">
                         <p className="h3 negro text-center">Clientes frecuentes vs nuevos</p>
-                        <Frecuentes/>
+                        <Frecuentes />
                     </div>
                 </div>
 
-                <div className="flex w-[218px] h-[261px] bg-[#FFF] rounded-[10px] justify-center items-center">
-                    <div className="flex items-center justify-center h-full w-full">
+                <div className="flex flex-col w-[218px] h-[261px] bg-[#FFF] rounded-[10px] justify-center items-center">
+                    <div className="flex flex-col items-center justify-end h-full w-full p-4">
                         <p className="h4 negro text-center">Objetivo mensual de ventas globales</p>
+                        <Objetivo />
                     </div>
                 </div>
             </div>
@@ -42,14 +44,14 @@ const Tabla_TLV = () => {
                         <p className='gris-urbano w-[40%] ml-[7px]'>Libros</p>
                         <p className='gris-urbano w-[43%] ml-[137px]'>Libros vendidos</p>
                     </div>
- 
-            {currentItems.map((item, index) => (
-                <div className='gap-2 flex mb-[20px] relative mt-[10px] ml-[32px]' key={index}>
-                    <p className='w-[10%] ml-[15px] textos-bold truncate'>{startIndex + index + 1}</p>
-                    <p className='textos-bold w-[90%]  truncate'>{item["libros"]}</p>
-                    <p className='textos-bold w-[20%] truncate'>{item["libros-vendidos"]}</p>
-                </div>
-            ))}
+
+                    {currentItems.map((item, index) => (
+                        <div className='gap-2 flex mb-[20px] relative mt-[10px] ml-[32px]' key={index}>
+                            <p className='w-[10%] ml-[15px] textos-bold truncate'>{startIndex + index + 1}</p>
+                            <p className='textos-bold w-[90%]  truncate'>{item["libros"]}</p>
+                            <p className='textos-bold w-[20%] truncate'>{item["libros-vendidos"]}</p>
+                        </div>
+                    ))}
 
                 </div>
             </div>
