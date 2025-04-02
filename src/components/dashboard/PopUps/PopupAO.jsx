@@ -12,8 +12,10 @@ import { createPublishing } from "../../../api/editorial";
 import Swal from "sweetalert2";
 import { TablaAO } from "./TablaAO";
 import Notify from "simple-notify";
-import {getPublishing} from "../../../api/editorial"
+import { getPublishing } from "../../../api/editorial";
 import { createItem } from "../../../utils/agregarObras";
+import Masivamente from "./Masivamente";
+
 const PopupAO = ({
   isPopupOpen,
   handlePopupClose,
@@ -24,6 +26,11 @@ const PopupAO = ({
   const [book, setBook] = useState([]);
   const [editorial, setEditorial] = useState("");
 
+  const [segundoDrawerVisible, setSegundoDrawerVisible] = useState(false);
+  const abrirSegundoDrawer = () => {
+    handlePopupClose(); // Cierra el primer Drawer
+    setSegundoDrawerVisible(true); // Abre el segundo
+  };
   const [selectedCheckboxes, setSelectedCheckboxes] = useState({
     obraPropia: true,
     obraConsignacion: false,
@@ -45,17 +52,17 @@ const PopupAO = ({
     image: "",
     image: "",
   });
-//** los formatos son en pasta dura o blanda*/
-//** numero de paginas */
-//** dimensiones */
-//** idioma  */
-//** peso *//
-//* funcion de repeticion en donde los libros de menor valor son los que se van a añadir a la promocion *//
-//* Las promociones me deben afectar cotizaciones   *//
+  //** los formatos son en pasta dura o blanda*/
+  //** numero de paginas */
+  //** dimensiones */
+  //** idioma  */
+  //** peso *//
+  //* funcion de repeticion en donde los libros de menor valor son los que se van a añadir a la promocion *//
+  //* Las promociones me deben afectar cotizaciones   *//
 
   const handleSubmit = async () => {
     console.log(inputValues);
-  
+
     // Validar que el proveedor tenga un valor
     if (String(inputValues.proveedor).trim() === "") {
       return new Notify({
@@ -69,7 +76,7 @@ const PopupAO = ({
         gap: 20,
       });
     }
-  
+
     const editorialExists = datos.Publishing?.some((pub) => {
       // Se compara por id y por nombre (ignorando mayúsculas)
       return (
@@ -79,14 +86,14 @@ const PopupAO = ({
             String(inputValues.editorial).toLowerCase())
       );
     });
-  
+
     if (!editorialExists) {
       try {
         const response = await createPublishing({
           name: inputValues.editorial[0],
           id_provider: String(inputValues.proveedor).trim(),
         });
-  
+
         let editorialCreada = null;
         // Si response.data es un array, buscar la editorial
         if (Array.isArray(response.data)) {
@@ -101,7 +108,7 @@ const PopupAO = ({
         console.log("Editorial creada:", editorialCreada);
         if (editorialCreada) {
           reload(getPublishing, "Publishing");
-          console.log(reload)
+          console.log(reload);
           setInputValues((prev) => ({
             ...prev,
             editorial: editorialCreada.name,
@@ -356,12 +363,19 @@ const PopupAO = ({
           />
           <p className="h3 verde-corporativo">Añadir nueva obra</p>
           <div className="w-[13%] h-full flex justify-end items-start">
-            <button className="blanco bg-[#00733C] px-2 py-1 rounded-[3px] flex gap-2">
+            <button
+              onClick={abrirSegundoDrawer}
+              className="blanco bg-[#00733C] px-2 py-1 rounded-[3px] flex gap-2"
+            >
               <p className="textos-bold">Añadir masivamente</p>
               <img src="/svg/agregarmasi.svg" alt="" />
             </button>
           </div>
         </div>
+        <Masivamente
+          visible={segundoDrawerVisible}
+          onClose={() => setSegundoDrawerVisible(false)}
+        />
         <div className="grid grid-flow-col grid-cols-2 h-[45%]">
           <div className="h-full w-[145%]">
             {/* Renderizar las filas de campos con valores y manejadores */}
