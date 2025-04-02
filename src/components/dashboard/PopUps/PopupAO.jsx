@@ -12,7 +12,7 @@ import { createPublishing } from "../../../api/editorial";
 import Swal from "sweetalert2";
 import { TablaAO } from "./TablaAO";
 import Notify from "simple-notify";
-import {createGender} from "../../../api/genders"
+import {getPublishing} from "../../../api/editorial"
 import { createItem } from "../../../utils/agregarObras";
 const PopupAO = ({
   isPopupOpen,
@@ -83,7 +83,7 @@ const PopupAO = ({
     if (!editorialExists) {
       try {
         const response = await createPublishing({
-          name: inputValues.editorial,
+          name: inputValues.editorial[0],
           id_provider: String(inputValues.proveedor).trim(),
         });
   
@@ -100,6 +100,8 @@ const PopupAO = ({
         }
         console.log("Editorial creada:", editorialCreada);
         if (editorialCreada) {
+          reload(getPublishing, "Publishing");
+          console.log(reload)
           setInputValues((prev) => ({
             ...prev,
             editorial: editorialCreada.name,
@@ -120,8 +122,6 @@ const PopupAO = ({
         });
       }
     }
-    createItem()
-    // Continuar con el submit si la editorial existe o se creó correctamente
     console.log("Submit final:", inputValues);
   };
   const handleBook = async () => {

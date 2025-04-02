@@ -1,4 +1,3 @@
-
 export const createItem = async (
   inputs,
   createEntityFunction,
@@ -6,7 +5,12 @@ export const createItem = async (
   entityKey,
   setInputValues
 ) => {
+  console.log("inputs");
   console.log(inputs);
+  console.log("createEntityFunction");
+  console.log(createEntityFunction);
+  console.log("entityKey");
+  console.log(entityKey);
 
   if (String(inputs[entityKey]).trim() === "") {
     return new Notify({
@@ -32,10 +36,11 @@ export const createItem = async (
 
   // Si la entidad no existe, crearla
   if (!exists) {
+    console.log(inputs[0], "DESDE EXIST");
     try {
       // Llamar a la función para crear la entidad
       const response = await createEntityFunction({
-        name: inputs[entityKey],
+        name: inputs[0],
       });
 
       let createdEntity = null;
