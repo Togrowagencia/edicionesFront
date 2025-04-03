@@ -312,6 +312,50 @@ const PopupAO = ({
         name: "Precio de venta",
         iconSrc: "/public/svg/popup-ao/costo.svg",
         placeholder: "Precio de venta",
+  
+      },
+      {
+        name: "Cantidad",
+        iconSrc: "",
+        placeholder: "Cantidad",
+        
+      },
+      {
+        name: "Dimensiones",
+        iconSrc: "",
+        placeholder: "Dimensiones",
+       
+      },
+    ],
+    [
+      {
+        name: "Edicion",
+        iconSrc: "",
+        placeholder: "Edición",
+    
+      },
+      
+      {
+        name: "Formato",
+        iconSrc: "",
+        placeholder: "Formato",
+      },
+      {
+        name: "Idioma",
+        iconSrc: "",
+        placeholder: "Idioma",
+      },
+    ],
+    [
+      {
+        name: "Nro paginas",
+        iconSrc: "",
+        placeholder: "Numero de páginas",
+      },
+      {
+        name: "Peso",
+        placeholder: "Cantidad",
+        iconSrc: "/public/svg/popup-ao/costo.svg",
       },
       {
         name: "Cantidad",
@@ -319,7 +363,9 @@ const PopupAO = ({
         iconSrc: "/public/svg/popup-ao/costo.svg",
       },
     ],
+
   ];
+
 
   useEffect(() => {
     if (inputValues.isbn.trim() !== "") {
@@ -355,13 +401,13 @@ const PopupAO = ({
           />
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 m-2 ml-[40px]">
           <img
             src="/public/svg/popup-ao/agregar-obra.svg"
             alt="Icono"
             className="w-33px h-33px ml-[20px]"
           />
-          <p className="h3 verde-corporativo">Añadir nueva obra</p>
+          <p className="h3 verde-corporativo ">Añadir nueva obra</p>
           <div className="w-[13%] h-full flex justify-end items-start">
             <button
               onClick={abrirSegundoDrawer}
@@ -376,8 +422,8 @@ const PopupAO = ({
           visible={segundoDrawerVisible}
           onClose={() => setSegundoDrawerVisible(false)}
         />
-        <div className="grid grid-flow-col grid-cols-2 h-[45%]">
-          <div className="h-full w-[145%]">
+        <div className="flex gap-2 min-h-[45%]  ">
+          <div className="h-full w-[75%] flex flex-col items-end gap-2 justify-center ">
             {/* Renderizar las filas de campos con valores y manejadores */}
             {rows.map((fields, index) => (
               <InputRow
@@ -389,31 +435,8 @@ const PopupAO = ({
               />
             ))}
             {/* Checkboxes y textos */}
-            <div className="w-full h-[37%] flex flex-col gap-2 justify-start px-4 py-9">
-              <div className="flex items-center">
-                <CheckboxWithLabel
-                  label="Obra propia"
-                  checked={selectedCheckboxes.obraPropia}
-                  onChange={() => handleCheckboxChange("obraPropia")}
-                  className="mr-2 ml-[7px]"
-                />
-                <CheckboxWithLabel
-                  label="Obra en consignación"
-                  checked={selectedCheckboxes.obraConsignacion}
-                  onChange={() => handleCheckboxChange("obraConsignacion")}
-                  className="mr-2 ml-[20px]"
-                />
-                <CheckboxWithLabel
-                  label="IVA"
-                  checked={selectedCheckboxes.iva}
-                  onChange={() => handleCheckboxChange("iva")}
-                  className="mr-2 ml-[20px]"
-                />
-              </div>
-            </div>
-            {selectedCheckboxes.obraPropia && <ObraPropia />}
-            {selectedCheckboxes.obraConsignacion && <ObraConsignacion />}
-            <div className="flex justify-end py-6 px-10">
+            
+            <div className="flex justify-end py-10 px-[65px]">
               <button
                 className="flex bg-[#00733C] px-2 py-1 rounded-[3px] gap-2"
                 onClick={handleSubmit}
@@ -423,32 +446,21 @@ const PopupAO = ({
               </button>
             </div>
           </div>
-          <div className="h-full w-[100%] justify-end flex">
+          <div className="h-[350px] w-[25%] justify-center flex ">
             <Drop initialImageUrl={inputValues.image} />
           </div>
         </div>
 
-        <div className="flex flex-col items-start mt-[1%]">
-          <div className="w-auto h-[10%] flex gap-2 items-start justify-start my-[1%] relative mx-[1.5%]">
+        <div className="flex flex-col items-start ">
+          <div className="w-auto h-[10%] flex gap-2 items-start justify-start relative mx-[4%]">
             <p className="h4 verde-corporativo text-start">Compra de la obra</p>
           </div>
 
           <div className="w-full h-full flex justify-center">
             <TablaAO />
           </div>
-          <div className="flex items-center p-4 justify-end w-full">
-            <div className="flex items-center gap-2 bg-[#EEE] p-2 rounded-[3px] justify-end w-auto">
-              <img src="/svg/popup-ao/NDLO.svg" alt="" />
-              <p className="textos negro">
-                Cantidad total <span className="textos-bold mx-3">450</span>
-              </p>
-              <img src="/svg/total (2).svg" alt="" className="ml-6" />
-              <p className="textos negro">
-                Cantidad total <span className="textos-bold">$8,405,393</span>
-              </p>
-            </div>
-          </div>
-          <div className="flex gap-4 w-full justify-end p-4">
+          
+          <div className="flex gap-4 w-full justify-end p-4 mt-[-75px] px-[60px]">
             <button className="bg-[#00733C] flex px-2 py-1 rounded-[3px] gap-2">
               <p className="h4 blanco">Confirmar carga de obras</p>
               <img src="/svg/gestiondeobras/agregar(2).svg" alt="" />

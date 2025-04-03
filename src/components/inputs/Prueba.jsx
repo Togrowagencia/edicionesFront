@@ -101,28 +101,10 @@ const DemoAutoCompleteWithAdd = ({
         <Select
           showSearch
           mode="tags"
-          dropdownRender={(menu) => (
-            <>
-              {menu}
-              <Divider style={{ margin: "8px 0" }} />
-              <Space style={{ padding: "0 8px 4px" }}>
-                <Input
-                  placeholder="Please enter item"
-                  ref={inputRef}
-                  value={name}
-                  onChange={onNameChange}
-                  onKeyDown={(e) => e.stopPropagation()}
-                />
-                <Button type="text" icon={"+"} onClick={addItem}>
-                  Add item
-                </Button>
-              </Space>
-            </>
-          )}
           maxTagCount={1} // se muestra 1 etiqueta visualmente
           maxTagPlaceholder={(omittedValues) => `+${omittedValues.length} más`}
           optionFilterProp="label"
-          style={{ width: "100%", height: "45px" }}
+          style={{ width: "100%", height: "40px" }}
           onChange={handleSelect}
           onSearch={handleSearch}
           onBlur={() => {
@@ -139,7 +121,7 @@ const DemoAutoCompleteWithAdd = ({
         />
       ) : (
         <input
-          className={`p-2 peer w-full bg-white border border-[#000] rounded-[10px] h4 transition-all duration-300 ease focus:outline-none focus:border-green-600 negro shadow-sm focus:shadow ${
+          className={`p-2 peer w-full bg-white border border-[#000] rounded-[10px] h-[40px] transition-all duration-300 ease focus:outline-none focus:border-green-600 negro shadow-sm focus:shadow ${
             iconSrc ? "pl-3" : "pl-4"
           } `}
           type="text"

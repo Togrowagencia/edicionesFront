@@ -8,8 +8,8 @@ const ObraPropia = () => {
   const [tipoCompra, setTipoCompra] = useState("");
 
   return (
-    <div className="w-full h-[10%] flex items-center gap-2 justify-start px-4 -mt-[70px]">
-      <div className="relative w-[316px] ml-[5px]">
+    <div className="w-full h-[10%] flex items-center gap-2 justify-start px-4 -mt-[80px]">
+      <div className="relative w-[315px]">
         <input
           id="factura"
           className="p-2 peer w-full bg-white border border-[#000] rounded-[10px] h4 transition duration-300 ease focus:outline-none focus:border-green-600 h-[43px] pl-10"
@@ -38,7 +38,7 @@ const ObraPropia = () => {
       </div>
 
       {/* Input Retefuente */}
-      <div className="relative w-[316px] ml-[5px]">
+      <div className="relative w-[315px]">
         <input
           id="retefuente"
           className="p-2 peer w-full bg-white border border-[#000] rounded-[10px] h4 transition duration-300 ease focus:outline-none focus:border-green-600 h-[43px] pl-10"
@@ -65,9 +65,7 @@ const ObraPropia = () => {
           } peer-focus:left-[calc(100%-28px)]`}
         />
       </div>
-
-      {/* Input Tipo de compra (con icono a la derecha) */}
-      <div className="relative w-[316px] ml-[5px]">
+      <div className="relative w-[315px]">
         <input
           id="tipoCompra"
           className="p-2 peer w-full bg-white border border-[#000] rounded-[10px] h4 transition duration-300 ease focus:outline-none focus:border-green-600 h-[43px] pr-10"

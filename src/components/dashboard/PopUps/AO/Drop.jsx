@@ -50,12 +50,9 @@ const CustomDragger = ({ initialImageUrl }) => {
       onChange={handleChange}
       beforeUpload={() => false} // No subir automáticamente
       style={{
-        display: "block",
-        maxWidth: "75%",
-        maxHeight: "100%",
-        objectFit: "contain",
+        width: "100%",
+        height: "100%",
         borderRadius: token.borderRadiusLG,
-        marginLeft: "10%",
       }}
     >
       {previewImage ? (
@@ -68,12 +65,13 @@ const CustomDragger = ({ initialImageUrl }) => {
             left: 0,
             width: "100%",
             height: "100%",
-            objectFit: "container",
+            objectFit: "cover",
+            objectPosition: "center",
             borderRadius: token.borderRadiusLG,
           }}
         />
       ) : (
-        <div className="flex flex-col items-center justify-center h-full w-full">
+        <div className="flex flex-col items-center justify-center">
           <div
             className="ant-upload-drag-icon"
             style={{ color: token.colorPrimary }}

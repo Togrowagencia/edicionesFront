@@ -93,7 +93,27 @@ const DataAO = [
     "Costo":"20$",
     "Costo-total":"30$",
     "Cantidad-en-inventario": "35"
-  }
+  },{
+    "ID": "000001",
+    "ISBN": "9783161484100",
+    "Nombre de la obra": "Cien Años de Soledad",
+    "Editorial": "Sudamericana",
+    "Clasificacion": "Novela",
+    "Precio-de-venta": "$35",
+    "Costo-de-compra": "$20",
+    "Induccion": "30/05/1967",
+    "Proveedor": "Distribuidora XYZ",
+    "Cantidad-Propia": "30",
+    "Cantidad-en-consignacion": "20",
+    "Cantidad-total": "50",
+    "Tipo-de-movimiento": "Ingreso",
+    "Genero":"Terror",
+    "Costo":"20$",
+    "Costo-total":"30$",
+    "Cantidad-en-inventario": "50"
+  },
+ 
+
 ];
 
 export default DataAO;
