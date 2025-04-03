@@ -1,20 +1,8 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { InputRow } from '../inputs/InputRow';
 import { CheckboxWithLabel } from '../inputs/CheckboxWithLabel';
-import { Drawer } from 'antd';
-
-const DrawerPagoCredito = ({ visible, onClose }) => (
-  <Drawer title="Pago Crédito" visible={visible} onClose={onClose}>
-    <p>Contenido del drawer de pago crédito</p>
-  </Drawer>
-);
-
-const DrawerAgregarCliente = ({ visible, onClose }) => (
-  <Drawer title="Agregar Cliente" visible={visible} onClose={onClose}>
-    <p>Contenido del drawer para agregar nuevo cliente</p>
-  </Drawer>
-);
+import PagoCredito from './PagoCredito';
+import NuevoCliente from './NuevoCliente'
 
 const Header = () => {
   const [selectedCheckboxes, setSelectedCheckboxes] = useState({
@@ -22,8 +10,25 @@ const Header = () => {
     obraConsignacion: false
   });
 
-  const [isDrawerPagoCreditoOpen, setDrawerPagoCreditoOpen] = useState(false);
-  const [isDrawerAgregarClienteOpen, setDrawerAgregarClienteOpen] = useState(false);
+  // Mover los estados dentro del componente
+  const [openDrawer1, setOpenDrawer1] = useState(false);
+  const [openDrawer2, setOpenDrawer2] = useState(false);
+
+  const showDrawer1 = () => {
+    setOpenDrawer1(true);
+  };
+
+  const showDrawer2 = () => {
+    setOpenDrawer2(true);
+  };
+
+  const onCloseDrawer1 = () => {
+    setOpenDrawer1(false);
+  };
+
+  const onCloseDrawer2 = () => {
+    setOpenDrawer2(false);
+  };
 
   const handleCheckboxChange = (name) => {
     setSelectedCheckboxes(prev => ({
@@ -45,7 +50,7 @@ const Header = () => {
 
   return (
     <div className='w-full h-full flex'>
-      <div className=''>
+      <div>
         {rows.map((fields, index) => (
           <InputRow key={index} fields={fields} className="h-[50%] p-4" />
         ))}
@@ -54,11 +59,11 @@ const Header = () => {
       <div className='flex'>
         <div className='flex flex-wrap items-center gap-4 mt-3 h-[70%] w-full'>
           <div className='flex w-full'>
-            <button onClick={() => setDrawerPagoCreditoOpen(true)}>
+            <button onClick={showDrawer1}>
               <p className='bg-green-700 rounded blanco textos py-1 px-2'>Pago crédito</p>
             </button>
-            <button onClick={() => setDrawerAgregarClienteOpen(true)} className='bg-green-700 rounded blanco textos py-1 ml-2 px-2 flex gap-1'>
-              <p className=''>Agregar nuevo cliente</p>
+            <button onClick={showDrawer2} className='bg-green-700 rounded blanco textos py-1 ml-2 px-2 flex gap-1'>
+              <p>Agregar nuevo cliente</p>
               <img src="/svg/agregar.svg" alt="" className='w-2'/>
             </button>
           </div>
@@ -77,9 +82,11 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Renderizar los Drawers */}
-      <DrawerPagoCredito visible={isDrawerPagoCreditoOpen} onClose={() => setDrawerPagoCreditoOpen(false)} />
-      <DrawerAgregarCliente visible={isDrawerAgregarClienteOpen} onClose={() => setDrawerAgregarClienteOpen(false)} />
+      {/* Primer Drawer (PagoCredito) */}
+      <PagoCredito isPopupOpen={openDrawer1} handlePopupClose={onCloseDrawer1} />
+
+      {/* Segundo Drawer (PopUpTO) */}
+      <NuevoCliente isPopupOpen={openDrawer2} handlePopupClose={onCloseDrawer2} />
     </div>
   );
 }
