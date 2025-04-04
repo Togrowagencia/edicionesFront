@@ -1025,3 +1025,20 @@ height: 125px;
   box-shadow: 0 0 0 2px rgba(95, 184, 104, 0.032) !important;
 }
 
+/* Aplica el margen izquierdo al placeholder */
+.placeholderr{
+  margin-left: 20px;
+}
+
+.ant-select-selection-item {
+background: #f7f7f7 !important;
+font-weight: 500 !important;
+}
+
+.ant-select-selection-item-remove {
+  color: #00733C !important;
+  margin-bottom: 3px !important;
+}
+.ant-select-selection-overflow {
+  padding: 4px !important;
+}

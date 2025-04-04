@@ -14,7 +14,7 @@ export const InputRow = ({
   return (
     <div
       className={classNames(
-        "w-[100%] h-[10%] flex items-center gap-2 justify-center ",
+        "w-[100%] full h-[10%] flex items-center gap-1",
         className
       )}
     >

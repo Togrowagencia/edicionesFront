@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Button, Divider, Input, Select, Space } from "antd";
+import { Select } from "antd";
 import PropTypes from "prop-types";
 
 const DemoAutoCompleteWithAdd = ({
@@ -23,13 +23,8 @@ const DemoAutoCompleteWithAdd = ({
   const [inputValue, setInputValue] = useState(
     Array.isArray(value) ? value.join(", ") : value || ""
   );
-  const [name, setName] = useState("");
 
-  const onNameChange = (event) => {
-    setName(event.target.value);
-  };
-
-  // Actualizamos selectedValue e inputValue usando las opciones para encontrar el label correspondiente
+  // Actualizar el estado cuando el valor recibido cambia (para cuando se pasa un nuevo "value")
   useEffect(() => {
     if (value) {
       let vals = Array.isArray(value) ? value : [value];
@@ -43,7 +38,7 @@ const DemoAutoCompleteWithAdd = ({
       setSelectedValue([]);
       setInputValue("");
     }
-  }, [value, option]);
+  }, [value, option]); // Se actualiza cuando el "value" o "option" cambia
 
   // Si el valor recibido no existe en las opciones, lo agregamos
   useEffect(() => {
@@ -61,18 +56,7 @@ const DemoAutoCompleteWithAdd = ({
     }
   }, [value, option]);
 
-  const addItem = (e) => {
-    e.preventDefault();
-    if (!name.trim()) return;
-    setOption([...option, { label: name, value: name }]);
-    setName("");
-    setTimeout(() => {
-      inputRef.current?.focus();
-    }, 0);
-  };
-
   const handleSelect = (data) => {
-    // data es un array, forzamos a que si no es multiselect, se quede con un solo valor (el último)
     let newValue = Array.isArray(data) ? data : [data];
     if (!multiselect && newValue.length > 1) {
       newValue = [newValue[newValue.length - 1]];
@@ -87,8 +71,6 @@ const DemoAutoCompleteWithAdd = ({
       (opt) => opt.label.toLowerCase() === text.toLowerCase()
     );
     if (exactMatch) {
-      // Forzamos el valor a ser un array de un solo elemento si no es multiselect
-
       const newVal = !multiselect ? [exactMatch.value] : [exactMatch.value];
       setSelectedValue(newVal);
       onChange(newVal);
@@ -96,32 +78,26 @@ const DemoAutoCompleteWithAdd = ({
   };
 
   return (
-    <div className={`relative w-[316px] ml-[5px]${className}`}>
+    <div className={`relative w-[100%] ml-[5px] ${className}`}>
       {hasArrow ? (
         <Select
           showSearch
           mode="tags"
-          maxTagCount={1} // se muestra 1 etiqueta visualmente
+          maxTagCount={1}
           maxTagPlaceholder={(omittedValues) => `+${omittedValues.length} más`}
           optionFilterProp="label"
-          style={{ width: "100%", height: "40px" }}
+          style={{ width: "100%", height: "42px", fontWeight: "lighter" }}
           onChange={handleSelect}
           onSearch={handleSearch}
-          onBlur={() => {
-            // Si no es multiselect, forzamos a que solo quede un valor
-            if (!multiselect && selectedValue.length > 1) {
-              const trimmed = [selectedValue[selectedValue.length - 1]];
-              setSelectedValue(trimmed);
-              onChange(trimmed);
-            }
-          }}
+          onFocus={() => setIsFocused(true)} // Establecer el enfoque
+          onBlur={() => setIsFocused(false)} // Restablecer el enfoque
           value={selectedValue.length > 0 ? selectedValue : undefined}
           options={option}
           notFoundContent={null}
         />
       ) : (
         <input
-          className={`p-2 peer w-full bg-white border border-[#000] rounded-[10px] h-[40px] transition-all duration-300 ease focus:outline-none focus:border-green-600 negro shadow-sm focus:shadow ${
+          className={`peer w-full bg-white border border-[#000] rounded-[10px] h-[42px] transition-all duration-300 ease focus:outline-none focus:border-green-600 negro shadow-sm focus:shadow  font-[700]  ${
             iconSrc ? "pl-3" : "pl-4"
           } `}
           type="text"
@@ -135,21 +111,23 @@ const DemoAutoCompleteWithAdd = ({
           placeholder=" "
         />
       )}
+
       <label
-        className={`absolute h4 cursor-text bg-white px-2 transition-all transform origin-left ${
+        className={`perl absolute h4 cursor-text bg-white ml-3  transition-all transform origin-left ${
           isFocused || inputValue || selectedValue.length > 0 // Cuando está enfocado, tiene texto o valor seleccionado
-            ? "-top-2 left-2.5 text-xs text-green-600 scale-75"
-            : "top-3 left-12 text-sm text-slate-400 negro"
-        } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75`}
+            ? "-top-2.5 left-2.5 text-xs text-green-600 scale-75"
+            : `top-3 ${iconSrc ? "left-10" : "left-1"} text-sm text-slate-200 negro`
+        } peer-focus:-top-2 peer-focus:left-2.5 peer-focus:textos-peques peer-focus:text-green-600 peer-focus:scale-75 px-2`}
       >
         {placeholder}
       </label>
+
       {iconSrc && (
         <img
           src={iconSrc}
           alt=""
-          className={`absolute bg-white px-1 py-1 left-1 top-2 rounded-[5px] transition-all transform ${
-            value ? "left-[calc(100%+(-40px))] " : "left-5"
+          className={`absolute py-1 top-1 transition-all transform ${
+            value ? "left-[calc(100%+(-40px))]" : "left-5"
           } peer-focus:left-[calc(100%-40px)]`}
         />
       )}
@@ -177,7 +155,7 @@ DemoAutoCompleteWithAdd.propTypes = {
 };
 
 DemoAutoCompleteWithAdd.defaultProps = {
-  multiselect: false, // Por defecto se permite multiselección
+  multiselect: false,
 };
 
 export default DemoAutoCompleteWithAdd;
