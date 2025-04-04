@@ -1,19 +1,28 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import Data from '../Data/Cotizaciones/Data';
+import { pdf } from '@react-pdf/renderer';
+import VoucherPDF from './VoucherPDF';
+import cotizacionData from '../Data/Cotizaciones/CotizacionData';
 
 const Resumen = () => {
-    const [currentPage] = useState(1);
-    const itemsPerPage = 10;
+    const handleGeneratePDF = async () => {
+        const blob = await pdf(<VoucherPDF data={cotizacionData} />).toBlob();
+        const url = URL.createObjectURL(blob);
 
-    // Calcular los índices para paginación
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const currentItems = Data.slice(startIndex, endIndex);
+        // Abre el PDF en una nueva pestaña
+        window.open(url);
+
+        // Opcional: Revoca la URL luego de unos segundos
+        setTimeout(() => {
+            URL.revokeObjectURL(url);
+        }, 10000); // 10 segundos está bien para que cargue
+    };
+
 
     // Estado para manejar la cantidad de libros seleccionados por cada item
     const [quantities, setQuantities] = useState(
-        currentItems.reduce((acc, item) => {
+        Data.reduce((acc, item) => {
             acc[item.id] = 1; // Inicializa cada libro con una cantidad de 1
             return acc;
         }, {})
@@ -31,7 +40,7 @@ const Resumen = () => {
     };
 
     // Calcular el total de la compra
-    const subtotal = currentItems.reduce((total, item) => {
+    const subtotal = Data.reduce((total, item) => {
         return total + item.PreciodeVenta * quantities[item.id];
     }, 0);
 
@@ -59,7 +68,7 @@ const Resumen = () => {
                 </div>
 
                 <div className='w-full px-9 h-[10%] justify-center'>
-                    {currentItems.map((item, index) => (
+                    {Data.map((item, index) => (
                         <div className='w-full flex mb-[20px] relative mt-[10px] border-b pb-2' key={item.id}>
                             <div className="gap-4 flex relative w-full">
                                 <img src={item.imagenlibro} alt="Libro" className="w-[32%] cursor-pointer" />
@@ -129,9 +138,14 @@ const Resumen = () => {
                         <span className='gris-elegancia'>Total</span>
                         <span className="negro">${total.toLocaleString()}</span>
                     </p>
-                    <button className="w-full bg-green-700 blanco h4 py-2 rounded mt-4">
+                    <button
+                        onClick={handleGeneratePDF}
+                        className="w-full bg-green-700 blanco h4 py-[10px] rounded-[10px] mt-4 flex items-center justify-center gap-2"
+                    >
+                        <img src="\svg\Cotizaciones\cotizacion.svg" alt="" />
                         Generar cotización
                     </button>
+
                 </div>
             </div>
         </div>
