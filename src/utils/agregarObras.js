@@ -84,3 +84,34 @@ export const createItem = async (
     }
   }
 };
+
+
+const handleCheckboxChange = (checkbox) => {
+  if (checkbox === "obraPropia" || checkbox === "obraConsignacion") {
+    setSelectedCheckboxes((prevState) => ({
+      ...prevState,
+      obraPropia: checkbox === "obraPropia" ? !prevState.obraPropia : false,
+      obraConsignacion:
+        checkbox === "obraConsignacion" ? !prevState.obraConsignacion : false,
+    }));
+  } else {
+    setSelectedCheckboxes((prevState) => ({
+      ...prevState,
+      [checkbox]: !prevState[checkbox],
+    }));
+  }
+};
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState({
+    obraPropia: true,
+    obraConsignacion: false,
+    iva: false,
+  });
+  //** los formatos son en pasta dura o blanda*/
+  //** numero de paginas */
+  //** dimensiones */
+  //** idioma  */
+  //** peso *//
+  //* funcion de repeticion en donde los libros de menor valor son los que se van a añadir a la promocion *//
+  //* Las promociones me deben afectar cotizaciones   *//
+
+  

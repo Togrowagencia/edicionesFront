@@ -24,20 +24,20 @@ const Promociones = () => {
     fetch();
   }, []);
   return (
-    <div className="w-[50.5%]  rounded-[10px] sombra flex-shrink-0 bg-white flex flex-col py-2 my-2">
-      <div className="w-full h-[10%] flex items-center gap-2 mb-[20px] mt-[16px]">
-        <p className="h3 negro w-[85%] ml-[5%]">Promociones</p>
+    <div className="w-[50.5%] h-auto rounded-[10px] sombra flex-shrink-0 bg-white flex flex-col py-2 my-2">
+      <div className="w-full flex items-center mb-4">
+        <p className="h3 negro w-[85%]  mx-[3%] mt-2">Proveedores</p>
         <img src="/public/svg/header/buscar.svg" alt="Icono" />
       </div>
 
-      <div className="flex-1 overflow-auto max-h-[calc(100%-35%)] my-1">
+      <div className="overflow-auto max-h-[200px]">
         <table className="w-[95%] mx-auto">
           <thead className="bg-white sticky top-0 z-10">
             <tr className="border-b border-green-500">
-              <th className="gris-urbano ">Promocion</th>
-              <th className="gris-urbano ">tipo</th>
-              <th className="gris-urbano ">estado</th>
-              <th className="gris-urbano ">Editar / Eliminar</th>
+              <th className="gris-urbano text-start px-2">Promocion</th>
+              <th className="gris-urbano text-start">tipo</th>
+              <th className="gris-urbano text-start">estado</th>
+              <th className="gris-urbano text-end">Editar / Eliminar</th>
             </tr>
           </thead>
           <tbody>
@@ -52,19 +52,19 @@ const Promociones = () => {
               datos.map((item, index) => (
                 <tr
                   key={index}
-                  className={`text-center ${
+                  className={`text-start ${
                     index % 2 === 0 ? "bg-gray-100" : "bg-white"
                   }`}
                 >
-                  <td className="textos-bold py-2">{item.name}</td>
+                  <td className="textos-bold px-2">{item.name}</td>
                   <td className="textos-bold ">{item.name}</td>
                   <td className="textos-bold">{item.name}</td>
-                  <td className="flex items-center justify-center">
-                    <img src="/svg/editar.svg" alt="editar" className="p-2" />
+                  <td className="flex items-center justify-end">
+                    <img src="/svg/editar.svg" alt="editar" className="px-3 py-2 cursor-pointer" />
                     <img
                       src="/svg/eliminar.svg"
                       alt="Eliminar"
-                      className="p-2"
+                      className="px-5 py-2"
                     />
                   </td>
                 </tr>
