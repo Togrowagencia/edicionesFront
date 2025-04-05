@@ -36,7 +36,7 @@ export const createItem = async (
 
   // Si la entidad no existe, crearla
   if (!exists) {
-    console.log(inputs[0], "DESDE EXIST");
+    console.log(inputs, "DESDE EXIST");
     try {
       // Llamar a la función para crear la entidad
       const response = await createEntityFunction({
