@@ -17,8 +17,8 @@ const PagoCredito = ({ isPopupOpen, handlePopupClose }) => {
         onClose={handlePopupClose}
         open={isPopupOpen}
         width={1483}
-        closable={false} // Desactiva el botón de cierre predeterminado
-        headerStyle={{ display: "none" }} // Oculta el header del Drawer
+        closable={false}
+        headerStyle={{ display: "none" }}
         drawerStyle={{
           borderRadius: "10px 10px 10px 10px",
           height: "100%",

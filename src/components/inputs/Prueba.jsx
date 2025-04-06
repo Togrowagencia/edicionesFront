@@ -83,11 +83,7 @@ const DemoAutoCompleteWithAdd = ({
         <Select
           showSearch
           mode="tags"
-<<<<<<< Updated upstream
           maxTagCount={1}
-=======
-          maxTagCount={1} // se muestra 1 etiqueta visualmente
->>>>>>> Stashed changes
           maxTagPlaceholder={(omittedValues) => `+${omittedValues.length} más`}
           optionFilterProp="label"
           style={{ width: "100%", height: "42px", fontWeight: "lighter" }}
@@ -158,11 +154,8 @@ DemoAutoCompleteWithAdd.propTypes = {
   multiselect: PropTypes.bool,
 };
 
-<<<<<<< Updated upstream
 DemoAutoCompleteWithAdd.defaultProps = {
   multiselect: false,
 };
 
-=======
->>>>>>> Stashed changes
 export default DemoAutoCompleteWithAdd;
