@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
 import { Drawer } from "antd";
 import { getGoogleBook } from "../../../api/googleBooks";
 import { InputRow } from "../../inputs/InputRow";
@@ -12,9 +11,13 @@ import { getPublishing } from "../../../api/editorial";
 import Masivamente from "./Masivamente";
 import { calcularPrecioVenta, formatNumber } from "../../../utils/agregarObras";
 
-
-const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) => {
-  const [book, setBook] = useState([]);
+const PopupAO = ({
+  isPopupOpen,
+  handlePopupClose,
+  datos,
+  reload,
+  onConfirm,
+}) => {
   const [percentage, setPercentage] = useState("");
   const [segundoDrawerVisible, setSegundoDrawerVisible] = useState(false);
   const [libros, setLibros] = useState([]);
@@ -43,37 +46,39 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
     description: "",
     file: "",
   });
+  const [isEditing, setIsEditing] = useState(false);
+  const resetInputValues = () => {
+    setInputValues({
+      isbn: "",
+      name: "",
+      proveedor: "",
+      name_publishing: "",
+      authors: "",
+      name_content: "",
+      classification: "",
+      genders: "",
+      number_pages: "",
+      peso: "",
+      dimensions: "",
+      cost: "",
+      price_vent: "",
+      quantity: "",
+      edition: "",
+      name_format: "",
+      language: "",
+      name_presentation: "",
+      description: "",
+      file: "",
+    });
+  };
 
   const rows = useMemo(() => Rows(datos), [datos]);
 
   const handleEdit = (item) => {
-    console.log("item")
-    console.log(item)
+    setIsEditing(true); // Activamos el flag de edición
     setInputValues({
-      isbn: item.isbn,
-      name: item.name,
-      proveedor: item.proveedor,
-      name_publishing: item.name_publishing,
-      authors: item.authors,
-      name_content: item.name_content,
-      classification: item.classification,
-      genders: item.genders,
-      number_pages: item.number_pages,
-      peso: item.peso,
-      dimensions: item.dimensions,
-      cost: item.cost,
-      price_vent: item.price_vent,
-      quantity: item.quantity,
-      dimensions: item.dimensions,
-      edition: item.edition,
-      name_format:item.name_format,
-      language:item.language,
-      peso: item.peso,
-      name_presentation: item.name_presentation,
-      description: item.description,
-      file: item.file,
+      ...item,
     });
-    
   };
 
   const abrirSegundoDrawer = useCallback(() => {
@@ -82,13 +87,14 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
   }, [handlePopupClose]);
 
   useEffect(() => {
-    const costo = parseFloat(inputValues.cost.toString().replace(/\./g, "")) || 0;
+    const costo =
+      parseFloat(inputValues.cost.toString().replace(/\./g, "")) || 0;
     const pct = parseFloat(percentage) || 0;
     const precioCalculado = calcularPrecioVenta(costo, pct);
     if (inputValues.price_vent !== precioCalculado) {
       setInputValues((prev) => ({ ...prev, price_vent: precioCalculado }));
     }
-  }, [inputValues.cost, percentage, inputValues.price_vent]);
+  }, [inputValues.cost, percentage, inputValues.price_vent, isEditing]); // Añadimos isEditing como dependencia
 
   const handleInputChange = useCallback(
     (name, value) => {
@@ -103,7 +109,6 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
           return newData;
         }
 
-
         newData[name] = value;
 
         if (name === "proveedor") {
@@ -116,13 +121,9 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
         }
 
         if (name === "name_publishing") {
-
-          const editorialName = Array.isArray(value) ? value[0] : value;
-          console.log(editorialName)
+          console.log(value)
           if (datos.Publishing) {
-            const found = datos.Publishing.find(
-              (item) => item.name == editorialName
-            );
+            const found = datos.Publishing.find((item) => item.name == value);
             if (found && found.provider) {
               newData.proveedor = found.provider.id;
               setPercentage(found.provider.percentage);
@@ -151,7 +152,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
           if (found) {
             editorialValue = found.name;
             associatedProvider = found.provider ? found.provider.id : "";
-            setPercentage(found.provider.percentage)
+            setPercentage(found.provider.percentage);
           }
         }
         setInputValues((prevData) => ({
@@ -162,13 +163,8 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
           genders: Book.categories || "",
           number_pages: Book.pageCount || "",
           description: Book.description || "",
-          language:
-            Book.language === "es"
-              ? "Español"
-              : Book.language || "",
-          file: Book.imageLinks
-            ? Book.imageLinks.thumbnail
-            : "",
+          language: Book.language === "es" ? "Español" : Book.language || "",
+          file: Book.imageLinks ? Book.imageLinks.thumbnail : "",
           proveedor: associatedProvider || prevData.proveedor,
         }));
       }
@@ -178,10 +174,10 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
   }, [inputValues.isbn, datos.Publishing]);
 
   useEffect(() => {
-    if (inputValues.isbn.trim() !== "") {
+    if (!isEditing && inputValues.isbn.length === 13) {
       handleBook();
     }
-  }, [inputValues.isbn, handleBook]);
+  }, [inputValues.isbn, handleBook, isEditing]);
 
   const handleSubmit = async () => {
     // Verificar si el proveedor está vacío
@@ -211,14 +207,15 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
     if (!editorialExists) {
       try {
         const response = await createPublishing({
-          name: inputValues.name_publishing,
+          name: inputValues.name_publishing[0],
           id_provider: String(inputValues.proveedor).trim(),
         });
         let editorialCreada = Array.isArray(response.data)
           ? response.data.find(
-            (pub) =>
-              pub.name.toLowerCase() === inputValues.name_publishing.toLowerCase()
-          )
+              (pub) =>
+                pub.name.toLowerCase() ===
+                inputValues.name_publishing.toLowerCase()
+            )
           : response.data;
 
         // Si la editorial se crea correctamente, actualizamos el estado
@@ -226,7 +223,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
           reload(getPublishing, "Publishing");
           setInputValues((prev) => ({
             ...prev,
-            name_publishing: editorialCreada.name,  // Actualizar el nombre de la editorial en el estado
+            name_publishing: editorialCreada.name, // Actualizar el nombre de la editorial en el estado
           }));
         }
       } catch (error) {
@@ -268,29 +265,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
       return newLibros;
     });
 
-    // Limpiar los campos del formulario después de agregar el libro
-    setInputValues({
-      isbn: "",
-      name: "",
-      proveedor: "",
-      name_publishing: "",
-      authors: "",
-      name_content: "",
-      classification: "",
-      genders: "",
-      number_pages: "",
-      peso: "",
-      dimensions: "",
-      cost: "",
-      price_vent: "",
-      quantity: "",
-      edition: "",
-      name_format: "",
-      language: "",
-      name_presentation: "",
-      description: "",
-      file: "",
-    });
+    resetInputValues();
 
     // Mostrar una notificación de éxito
     new Notify({
@@ -325,7 +300,10 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
         drawerStyle={{ borderRadius: "10px" }}
       >
         {/* Header del Drawer */}
-        <div className="absolute top-5 right-8 cursor-pointer" onClick={handlePopupClose}>
+        <div
+          className="absolute top-5 right-8 cursor-pointer"
+          onClick={handlePopupClose}
+        >
           <img
             src="/public/svg/popup-ao/cerrar (2).svg"
             alt="Cerrar popup"
@@ -341,7 +319,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
           />
           <p className="h3 verde-corporativo">Añadir nueva obra</p>
           <div className="w-[13%] flex justify-end">
-            <button 
+            <button
               className="blanco bg-[#00733C] px-2 py-1 rounded-[3px] flex gap-2"
               onClick={() => setSegundoDrawerVisible(true)}
             >
@@ -391,8 +369,24 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
                 onClick={handleSubmit}
                 className="blanco bg-[#00733C] px-2 py-2 rounded-[3px] flex gap-2 w-[75%] justify-center items-center"
               >
-                <p className="textos-bold">Agregar obra +</p>
+                <p className="textos-bold">
+                  {isEditing ? "Finalizar edición" : "Agregar obra +"}
+                </p>
               </button>
+            </div>
+
+            <div className="w-full flex justify-center mt-1">
+              {isEditing && (
+                <button
+                  onClick={() => {
+                    setIsEditing(false); // Puedes agregar la lógica de cancelación aquí
+                    resetInputValues();
+                  }}
+                  className="blanco bg-black px-2 py-2 rounded-[3px] flex gap-2 w-[75%] justify-center items-center mt-2"
+                >
+                  <p className="textos-bold">Cancelar edición</p>
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -405,7 +399,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
           <div className="w-full h-full flex justify-center">
             <TablaAO datos={libros} onEdit={handleEdit} />
           </div>
-          
+
           <div className="flex gap-4 w-full justify-end p-4 mt-[-75px] px-[60px]">
             <button
               className="bg-[#00733C] flex px-2 py-1 rounded-[3px] gap-2"
@@ -426,14 +420,6 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
       </Drawer>
     </div>
   );
-};
-
-PopupAO.propTypes = {
-  isPopupOpen: PropTypes.bool.isRequired,
-  handlePopupClose: PropTypes.func.isRequired,
-  datos: PropTypes.object.isRequired,
-  reload: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired,
 };
 
 export default PopupAO;
