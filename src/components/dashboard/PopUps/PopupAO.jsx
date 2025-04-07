@@ -10,7 +10,7 @@ import { TablaAO } from "./TablaAO";
 import Notify from "simple-notify";
 import { getPublishing } from "../../../api/editorial";
 import Masivamente from "./Masivamente";
-import { calcularPrecioVenta,formatNumber} from "../../../utils/agregarObras";
+import { calcularPrecioVenta, formatNumber } from "../../../utils/agregarObras";
 
 const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
   const [book, setBook] = useState([]);
@@ -40,10 +40,40 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
     peso: "",
     name_presentation: "",
     description: "",
-    file: ""
+    file: "",
   });
 
   const rows = useMemo(() => Rows(datos), [datos]);
+
+  const handleEdit = (item) => {
+    console.log("item")
+    console.log(item)
+    setInputValues({
+      isbn: item.isbn,
+      name: item.name,
+      proveedor: item.proveedor,
+      name_publishing: item.name_publishing,
+      authors: item.authors,
+      name_content: item.name_content,
+      classification: item.classification,
+      genders: item.genders,
+      number_pages: item.number_pages,
+      peso: item.peso,
+      dimensions: item.dimensions,
+      cost: item.cost,
+      price_vent: item.price_vent,
+      quantity: item.quantity,
+      dimensions: item.dimensions,
+      edition: item.edition,
+      name_format:item.name_format,
+      language:item.language,
+      peso: item.peso,
+      name_presentation: item.name_presentation,
+      description: item.description,
+      file: item.file,
+    });
+    
+  };
 
   const abrirSegundoDrawer = useCallback(() => {
     handlePopupClose();
@@ -51,7 +81,8 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
   }, [handlePopupClose]);
 
   useEffect(() => {
-    const costo = parseFloat(inputValues.cost.toString().replace(/\./g, "")) || 0;
+    const costo =
+      parseFloat(inputValues.cost.toString().replace(/\./g, "")) || 0;
     const pct = parseFloat(percentage) || 0;
     const precioCalculado = calcularPrecioVenta(costo, pct);
     if (inputValues.price_vent !== precioCalculado) {
@@ -72,7 +103,6 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
           return newData;
         }
 
-
         newData[name] = value;
 
         if (name === "proveedor") {
@@ -85,9 +115,8 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
         }
 
         if (name === "name_publishing") {
-
           const editorialName = Array.isArray(value) ? value[0] : value;
-          console.log(editorialName)
+          console.log(editorialName);
           if (datos.Publishing) {
             const found = datos.Publishing.find(
               (item) => item.name == editorialName
@@ -120,7 +149,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
           if (found) {
             editorialValue = found.name;
             associatedProvider = found.provider ? found.provider.id : "";
-            setPercentage(found.provider.percentage)
+            setPercentage(found.provider.percentage);
           }
         }
         setInputValues((prevData) => ({
@@ -131,13 +160,8 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
           genders: Book.categories || "",
           number_pages: Book.pageCount || "",
           description: Book.description || "",
-          language:
-            Book.language === "es"
-              ? "Español"
-              : Book.language || "",
-          file: Book.imageLinks
-            ? Book.imageLinks.thumbnail
-            : "",
+          language: Book.language === "es" ? "Español" : Book.language || "",
+          file: Book.imageLinks ? Book.imageLinks.thumbnail : "",
           proveedor: associatedProvider || prevData.proveedor,
         }));
       }
@@ -185,9 +209,10 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
         });
         let editorialCreada = Array.isArray(response.data)
           ? response.data.find(
-            (pub) =>
-              pub.name.toLowerCase() === inputValues.name_publishing.toLowerCase()
-          )
+              (pub) =>
+                pub.name.toLowerCase() ===
+                inputValues.name_publishing.toLowerCase()
+            )
           : response.data;
 
         // Si la editorial se crea correctamente, actualizamos el estado
@@ -195,7 +220,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
           reload(getPublishing, "Publishing");
           setInputValues((prev) => ({
             ...prev,
-            name_publishing: editorialCreada.name,  // Actualizar el nombre de la editorial en el estado
+            name_publishing: editorialCreada.name, // Actualizar el nombre de la editorial en el estado
           }));
         }
       } catch (error) {
@@ -379,7 +404,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
             <p className="h4 verde-corporativo text-start">Compra de la obra</p>
           </div>
           <div className="w-full h-full flex justify-center">
-            <TablaAO datos={libros} />
+            <TablaAO datos={libros} onEdit={handleEdit} />
           </div>
           <div className="flex gap-4 w-full justify-end p-4 mt-[-75px] px-[60px]">
             <button className="bg-[#00733C] flex px-2 py-1 rounded-[3px] gap-2">
