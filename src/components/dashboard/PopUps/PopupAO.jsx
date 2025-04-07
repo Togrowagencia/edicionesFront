@@ -10,6 +10,7 @@ import { TablaAO } from "./TablaAO";
 import Notify from "simple-notify";
 import { getPublishing } from "../../../api/editorial";
 import Masivamente from "./Masivamente";
+import { calcularPrecioVenta, formatNumber } from "../../../utils/agregarObras";
 
 const calcularPrecioVenta = (costo, pct) => {
   const precio = parseFloat(costo) * (1 + parseFloat(pct) / 100);
@@ -39,19 +40,51 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
     idioma: "",
     nroPaginas: "",
     peso: "",
-    dimensiones: "",
-    costoLibro: "",
-    precioVenta: "",
-    Formato: "",
-    cantidad: "",
-    edicion: "",
-    formato: "",
-    paginas: "",
-    presentacion: "",
-    descripcion: "",
+    dimensions: "",
+    cost: "",
+    price_vent: "",
+    quantity: "",
+    dimensions: "",
+    edition: "",
+    name_format: "",
+    language: "",
+    peso: "",
+    name_presentation: "",
+    description: "",
+    file: "",
   });
 
   const rows = useMemo(() => Rows(datos), [datos]);
+
+  const handleEdit = (item) => {
+    console.log("item")
+    console.log(item)
+    setInputValues({
+      isbn: item.isbn,
+      name: item.name,
+      proveedor: item.proveedor,
+      name_publishing: item.name_publishing,
+      authors: item.authors,
+      name_content: item.name_content,
+      classification: item.classification,
+      genders: item.genders,
+      number_pages: item.number_pages,
+      peso: item.peso,
+      dimensions: item.dimensions,
+      cost: item.cost,
+      price_vent: item.price_vent,
+      quantity: item.quantity,
+      dimensions: item.dimensions,
+      edition: item.edition,
+      name_format:item.name_format,
+      language:item.language,
+      peso: item.peso,
+      name_presentation: item.name_presentation,
+      description: item.description,
+      file: item.file,
+    });
+    
+  };
 
   const abrirSegundoDrawer = useCallback(() => {
     handlePopupClose();
@@ -59,7 +92,8 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
   }, [handlePopupClose]);
 
   useEffect(() => {
-    const costo = parseFloat(inputValues.costoLibro.toString().replace(/\./g, "")) || 0;
+    const costo =
+      parseFloat(inputValues.cost.toString().replace(/\./g, "")) || 0;
     const pct = parseFloat(percentage) || 0;
     const precioCalculado = calcularPrecioVenta(costo, pct);
     
@@ -68,9 +102,43 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
     }
   }, [inputValues.costoLibro, percentage, inputValues.precioVenta]);
 
-  const handleInputChange = useCallback((name, value) => {
-    setInputValues(prev => {
-      const newData = { ...prev };
+  const handleInputChange = useCallback(
+    (name, value) => {
+      setInputValues((prev) => {
+        let newData = { ...prev };
+
+        if (name === "cost") {
+          const rawValue = (value || "").toString().replace(/\./g, ""); // Asegúrate de que 'value' sea una cadena
+          const costo = parseFloat(rawValue) || 0;
+          newData[name] = rawValue;
+          newData.price_vent = calcularPrecioVenta(costo, percentage || 0);
+          return newData;
+        }
+
+        newData[name] = value;
+
+        if (name === "proveedor") {
+          const selectedProvider = datos.Providers.find(
+            (provider) => provider.id == value
+          );
+          if (selectedProvider) {
+            setPercentage(selectedProvider.percentage);
+          }
+        }
+
+        if (name === "name_publishing") {
+          const editorialName = Array.isArray(value) ? value[0] : value;
+          console.log(editorialName);
+          if (datos.Publishing) {
+            const found = datos.Publishing.find(
+              (item) => item.name == editorialName
+            );
+            if (found && found.provider) {
+              newData.proveedor = found.provider.id;
+              setPercentage(found.provider.percentage);
+            }
+          }
+        }
 
       if (name === "costoLibro") {
         const rawValue = value.replace(/\./g, "");
@@ -110,28 +178,27 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
         const publisher = volumeInfo.publisher || "";
         let editorialValue = publisher;
         let associatedProvider = "";
-        
-        const found = datos.Publishing?.find(
-          item => item.name.toLowerCase() === publisher.toLowerCase()
-        );
-        
-        if (found) {
-          editorialValue = found.id;
-          associatedProvider = found.provider?.id || "";
+        if (datos.Publishing) {
+          const found = datos.Publishing.find(
+            (item) => item.name.toLowerCase() === publisher.toLowerCase()
+          );
+          if (found) {
+            editorialValue = found.name;
+            associatedProvider = found.provider ? found.provider.id : "";
+            setPercentage(found.provider.percentage);
+          }
         }
-
-        setInputValues(prev => ({
-          ...prev,
-          nombreObra: volumeInfo.title || "",
-          editorial: editorialValue,
-          autor: volumeInfo.authors || "",
-          contenido: volumeInfo.contentVersion || "",
-          genero: volumeInfo.categories || "",
-          paginas: volumeInfo.pageCount || "",
-          descripcion: volumeInfo.description || "",
-          idioma: volumeInfo.language === "es" ? "Español" : volumeInfo.language || "",
-          image: volumeInfo.imageLinks?.thumbnail || "",
-          proveedor: associatedProvider || prev.proveedor,
+        setInputValues((prevData) => ({
+          ...prevData,
+          name: Book.title || "",
+          name_publishing: editorialValue,
+          authors: Book.authors || "",
+          genders: Book.categories || "",
+          number_pages: Book.pageCount || "",
+          description: Book.description || "",
+          language: Book.language === "es" ? "Español" : Book.language || "",
+          file: Book.imageLinks ? Book.imageLinks.thumbnail : "",
+          proveedor: associatedProvider || prevData.proveedor,
         }));
       }
     } catch (error) {
@@ -283,9 +350,11 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) =>
 
         {/* Sección inferior */}
         <div className="flex flex-col items-start">
-          <p className="h4 verde-corporativo mx-[4%]">Compra de la obra</p>
-          <div className="w-full flex justify-center">
-            <TablaAO />
+          <div className="w-auto h-[10%] flex gap-2 items-start relative mx-[4%]">
+            <p className="h4 verde-corporativo text-start">Compra de la obra</p>
+          </div>
+          <div className="w-full h-full flex justify-center">
+            <TablaAO datos={libros} onEdit={handleEdit} />
           </div>
           
           <div className="flex gap-4 w-full justify-end p-4 mt-[-75px] px-[60px]">
