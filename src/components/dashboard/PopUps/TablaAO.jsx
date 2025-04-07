@@ -1,5 +1,5 @@
 import DataAO from "../../Data/DataAO";
-export const TablaAO = () => {
+export const TablaAO = ({ datos }) => {
   return (
     <div className="w-[1340px]">
       <div className="">
@@ -13,9 +13,7 @@ export const TablaAO = () => {
                 Nombre de la obra
               </th>
               <th className="text-left gris-urbano p-2 textos">Editorial</th>
-              <th className="text-left gris-urbano p-2 textos">Genero</th>
               <th className="text-left gris-urbano p-2 textos">Costo</th>
-              <th className="text-left gris-urbano p-2 textos">Inducción</th>
               <th className="text-left gris-urbano p-2 textos">Proveedor</th>
               <th className="text-left gris-urbano p-2 textos">
                 Cantidad total
@@ -29,33 +27,30 @@ export const TablaAO = () => {
 
           {/* Filas de datos */}
           <tbody>
-            {DataAO.map((item, index) => (
+            {datos.map((item, index) => (
               <tr key={index} className="mb-5 mt-[10px]">
                 <td className="textos-bold verde-eco truncate p-2">
-                  {item.ID}
+                  {item.isbn}
                 </td>
-                <td className="textos-bold truncate p-2">{item.ISBN}</td>
+                <td className="textos-bold truncate p-2">{item.isbn}</td>
                 <td className="textos-bold truncate p-2">
-                  {item["Nombre de la obra"]}
+                  {item.name}
                 </td>
                 <td className="textos-bold truncate p-2">
-                  {item["Editorial"]}
+                  {item.name_publishing}
                 </td>
-                <td className="textos-bold truncate p-2">{item["Genero"]}</td>
-                <td className="textos-bold truncate p-2">{item["Costo"]}</td>
-                <td className="textos-bold truncate p-2">
-                  {item["Induccion"]}
-                </td>
+               
+                <td className="textos-bold truncate p-2">{item.cost}</td>
                 <td className="textos-bold truncate p-2">
                   {item["Proveedor"]}
                 </td>
                 <td className="textos-bold truncate p-2">
-                  {item["Cantidad-total"]}
+                  {item.quantity}
                 </td>
                 <td className="textos-bold truncate p-2">
                   {item["Costo-total"]}
                 </td>
-                <td className="flex gap-6 mx-5">
+                <td className="flex gap-6 mx-5 my-1">
                   <img src="/svg/editar.svg" alt="" />
                   <img src="/svg/eliminar.svg" alt="" />
                 </td>
@@ -74,7 +69,7 @@ export const TablaAO = () => {
           <p className="textos negro">
             Cantidad total <span className="textos-bold">$8,405,393</span>
           </p>
-          
+
         </div>
       </div>
     </div>
