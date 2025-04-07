@@ -12,22 +12,11 @@ import { getPublishing } from "../../../api/editorial";
 import Masivamente from "./Masivamente";
 import { calcularPrecioVenta, formatNumber } from "../../../utils/agregarObras";
 
-const calcularPrecioVenta = (costo, pct) => {
-  const precio = parseFloat(costo) * (1 + parseFloat(pct) / 100);
-  return Math.round(precio);
-};
-
-const formatNumber = (num) => {
-  if (!num) return "";
-  const parsed = parseFloat(num.toString().replace(/\./g, ""));
-  return isNaN(parsed) ? "" : parsed.toLocaleString("es-AR");
-};
 
 const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload, onConfirm }) => {
   const [book, setBook] = useState([]);
   const [percentage, setPercentage] = useState("");
   const [segundoDrawerVisible, setSegundoDrawerVisible] = useState(false);
-
   const [inputValues, setInputValues] = useState({
     isbn: "",
     nombreObra: "",
