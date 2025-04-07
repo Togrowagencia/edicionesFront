@@ -10,53 +10,37 @@ import { TablaAO } from "./TablaAO";
 import Notify from "simple-notify";
 import { getPublishing } from "../../../api/editorial";
 import Masivamente from "./Masivamente";
-
-// Función helper para calcular el precio de venta
-const calcularPrecioVenta = (costo, pct) => {
-  const precio = parseFloat(costo) * (1 + parseFloat(pct) / 100);
-  return Math.round(precio);
-};
-
-
-
-const formatNumber = (num) => {
-  if (!num) return "";
-  const parsed = parseFloat(num.toString().replace(/\./g, ""));
-  if (isNaN(parsed)) return "";
-  return parsed.toLocaleString("es-AR"); 
-};
-
+import { calcularPrecioVenta,formatNumber} from "../../../utils/agregarObras";
 
 const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
   const [book, setBook] = useState([]);
   const [percentage, setPercentage] = useState("");
   const [segundoDrawerVisible, setSegundoDrawerVisible] = useState(false);
+  const [libros, setLibros] = useState([]);
 
   const [inputValues, setInputValues] = useState({
     isbn: "",
-    nombreObra: "",
+    name: "",
     proveedor: "",
-    editorial: "",
-    autor: "",
-    contenido: "",
-    clasificacion: "",
-    genero: "",
-    idioma : "",
-    nroPaginas : "",
-    peso:"",
-    dimesiones:"",
-    costoLibro: "",
-    precioVenta: "",
-    Formato:"",
-    cantidad: "",
-    dimensiones: "",
-    edicion: "",
-    formato: "",
-    idioma: "",
-    paginas: "",
+    name_publishing: "",
+    authors: "",
+    name_content: "",
+    classification: "",
+    genders: "",
+    number_pages: "",
     peso: "",
-    presentacion: "",
-    descripcion: "",
+    dimensions: "",
+    cost: "",
+    price_vent: "",
+    quantity: "",
+    dimensions: "",
+    edition: "",
+    name_format: "",
+    language: "",
+    peso: "",
+    name_presentation: "",
+    description: "",
+    file: ""
   });
 
   const rows = useMemo(() => Rows(datos), [datos]);
@@ -67,26 +51,27 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
   }, [handlePopupClose]);
 
   useEffect(() => {
-    const costo = parseFloat(inputValues.costoLibro.toString().replace(/\./g, "")) || 0;
+    const costo = parseFloat(inputValues.cost.toString().replace(/\./g, "")) || 0;
     const pct = parseFloat(percentage) || 0;
     const precioCalculado = calcularPrecioVenta(costo, pct);
-    if (inputValues.precioVenta !== precioCalculado) {
-      setInputValues((prev) => ({ ...prev, precioVenta: precioCalculado }));
+    if (inputValues.price_vent !== precioCalculado) {
+      setInputValues((prev) => ({ ...prev, price_vent: precioCalculado }));
     }
-  }, [inputValues.costoLibro, percentage, inputValues.precioVenta]);
+  }, [inputValues.cost, percentage, inputValues.price_vent]);
 
   const handleInputChange = useCallback(
     (name, value) => {
       setInputValues((prev) => {
         let newData = { ...prev };
 
-        if (name === "costoLibro") {
-          const rawValue = value.replace(/\./g, "");
+        if (name === "cost") {
+          const rawValue = (value || "").toString().replace(/\./g, ""); // Asegúrate de que 'value' sea una cadena
           const costo = parseFloat(rawValue) || 0;
           newData[name] = rawValue;
-          newData.precioVenta = calcularPrecioVenta(costo, percentage || 0);
+          newData.price_vent = calcularPrecioVenta(costo, percentage || 0);
           return newData;
         }
+
 
         newData[name] = value;
 
@@ -99,8 +84,10 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
           }
         }
 
-        if (name === "editorial") {
+        if (name === "name_publishing") {
+
           const editorialName = Array.isArray(value) ? value[0] : value;
+          console.log(editorialName)
           if (datos.Publishing) {
             const found = datos.Publishing.find(
               (item) => item.name == editorialName
@@ -122,8 +109,8 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
     try {
       const respuesta = await getGoogleBook(inputValues.isbn);
       if (respuesta.data.volumeInfo) {
-        setBook(respuesta.data.volumeInfo);
-        const publisher = respuesta.data.volumeInfo.publisher || "";
+        const Book = respuesta.data.volumeInfo;
+        const publisher = Book.publisher || "";
         let editorialValue = publisher;
         let associatedProvider = "";
         if (datos.Publishing) {
@@ -131,25 +118,25 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
             (item) => item.name.toLowerCase() === publisher.toLowerCase()
           );
           if (found) {
-            editorialValue = found.id;
+            editorialValue = found.name;
             associatedProvider = found.provider ? found.provider.id : "";
+            setPercentage(found.provider.percentage)
           }
         }
         setInputValues((prevData) => ({
           ...prevData,
-          nombreObra: respuesta.data.volumeInfo.title || "",
-          editorial: editorialValue,
-          autor: respuesta.data.volumeInfo.authors || "",
-          contenido: respuesta.data.volumeInfo.contentVersion || "",
-          genero: respuesta.data.volumeInfo.categories || "",
-          paginas: respuesta.data.volumeInfo.pageCount || "",
-          descripcion: respuesta.data.volumeInfo.description || "",
-          idioma:
-            respuesta.data.volumeInfo.language === "es"
+          name: Book.title || "",
+          name_publishing: editorialValue,
+          authors: Book.authors || "",
+          genders: Book.categories || "",
+          number_pages: Book.pageCount || "",
+          description: Book.description || "",
+          language:
+            Book.language === "es"
               ? "Español"
-              : respuesta.data.volumeInfo.language || "",
-          image: respuesta.data.volumeInfo.imageLinks
-            ? respuesta.data.volumeInfo.imageLinks.thumbnail
+              : Book.language || "",
+          file: Book.imageLinks
+            ? Book.imageLinks.thumbnail
             : "",
           proveedor: associatedProvider || prevData.proveedor,
         }));
@@ -166,7 +153,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
   }, [inputValues.isbn, handleBook]);
 
   const handleSubmit = async () => {
-    console.log(inputValues);
+    // Verificar si el proveedor está vacío
     if (String(inputValues.proveedor).trim() === "") {
       return new Notify({
         title: "Por favor, rellene todos los campos.",
@@ -180,31 +167,35 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
       });
     }
 
+    // Verificar si la editorial existe
     const editorialExists = datos.Publishing?.some(
       (pub) =>
-        String(pub.id) === String(inputValues.editorial) ||
+        String(pub.id) === String(inputValues.name_publishing) ||
         (pub.name &&
-          pub.name.toLowerCase() === inputValues.editorial[0].toLowerCase())
+          typeof inputValues.name_publishing === "string" &&
+          pub.name.toLowerCase() === inputValues.name_publishing.toLowerCase())
     );
 
+    // Si la editorial no existe, creamos una nueva
     if (!editorialExists) {
       try {
         const response = await createPublishing({
-          name: inputValues.editorial[0],
+          name: inputValues.name_publishing,
           id_provider: String(inputValues.proveedor).trim(),
         });
         let editorialCreada = Array.isArray(response.data)
           ? response.data.find(
-              (pub) =>
-                pub.name.toLowerCase() === inputValues.editorial.toLowerCase()
-            )
+            (pub) =>
+              pub.name.toLowerCase() === inputValues.name_publishing.toLowerCase()
+          )
           : response.data;
 
+        // Si la editorial se crea correctamente, actualizamos el estado
         if (editorialCreada) {
           reload(getPublishing, "Publishing");
           setInputValues((prev) => ({
             ...prev,
-            editorial: editorialCreada.name,
+            name_publishing: editorialCreada.name,  // Actualizar el nombre de la editorial en el estado
           }));
         }
       } catch (error) {
@@ -221,7 +212,75 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
         });
       }
     }
+
+    // Asegúrate de que el libro no esté ya en la lista de libros
+    const isDuplicate = libros.some((libro) => libro.isbn === inputValues.isbn);
+    if (isDuplicate) {
+      return new Notify({
+        title: "Este libro ya ha sido agregado.",
+        status: "warning",
+        type: "filled",
+        autotimeout: 850,
+        autoclose: true,
+        position: "left top",
+        effect: "slide",
+        gap: 20,
+      });
+    }
+
+    // Crear una copia de inputValues sin el campo proveedor
+    const { proveedor, ...inputValuesWithoutProveedor } = inputValues;
+
+    // Agregar el nuevo libro al estado (sin el proveedor)
+    setLibros((prevLibros) => {
+      const newLibros = [...prevLibros, inputValuesWithoutProveedor]; // Crear un nuevo array con los libros previos y el nuevo libro
+      return newLibros;
+    });
+
+    // Limpiar los campos del formulario después de agregar el libro
+    setInputValues({
+      isbn: "",
+      name: "",
+      proveedor: "",
+      name_publishing: "",
+      authors: "",
+      name_content: "",
+      classification: "",
+      genders: "",
+      number_pages: "",
+      peso: "",
+      dimensions: "",
+      cost: "",
+      price_vent: "",
+      quantity: "",
+      edition: "",
+      name_format: "",
+      language: "",
+      name_presentation: "",
+      description: "",
+      file: "",
+    });
+
+    // Mostrar una notificación de éxito
+    new Notify({
+      title: "Libro agregado con éxito",
+      status: "success",
+      type: "filled",
+      autotimeout: 850,
+      autoclose: true,
+      position: "left top",
+      effect: "slide",
+      gap: 20,
+    });
+
+    // El estado de "libros" no se actualizará inmediatamente, así que utiliza useEffect para ver los cambios
+    console.log("Intento de agregar libro: ", inputValuesWithoutProveedor);
   };
+
+  // Usar useEffect para monitorear el estado de los libros y verificar cambios
+  useEffect(() => {
+    console.log("Estado actualizado de libros:", libros);
+  }, [libros]);
 
   return (
     <div style={{ position: "relative" }}>
@@ -280,8 +339,8 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
                 className="h-[22%]"
                 values={{
                   ...inputValues,
-                  costoLibro: formatNumber(inputValues.costoLibro),
-                  precioVenta: formatNumber(inputValues.precioVenta),
+                  cost: formatNumber(inputValues.cost),
+                  price_vent: formatNumber(inputValues.price_vent),
                 }}
                 onChange={handleInputChange}
               />
@@ -289,12 +348,12 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
 
             <div className="flex flex-col w-[100%]">
               <textarea
-                rows="2"
-                className="peer w-full bg-white border border-[#000] rounded-[10px] transition-all duration-300 ease focus:outline-none focus:border-green-600 negro shadow-sm placeholder:text-gray-700 placeholder:text-md px-2 py-2 resize-none overflow-auto"
+                rows="3"
+                className="peer w-full bg-white textos border border-[#000] rounded-[10px] transition-all duration-300 ease focus:outline-none focus:border-green-600 negro shadow-sm placeholder:text-gray-700 placeholder:text-md px-2 py-2 resize-none overflow-auto"
                 placeholder="Descripción"
-                value={inputValues.descripcion}
+                value={inputValues.description}
                 onChange={(e) =>
-                  handleInputChange("descripcion", e.target.value)
+                  handleInputChange("description", e.target.value)
                 }
               ></textarea>
             </div>
@@ -302,7 +361,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
 
           <div className="h-[350px] w-[25%] rounded-[10px] flex flex-col justify-center">
             <div className="h-full flex justify-center">
-              <Drop initialImageUrl={inputValues.image} />
+              <Drop initialImageUrl={inputValues.file} />
             </div>
             <div className="w-full flex justify-center">
               <button
@@ -320,7 +379,7 @@ const PopupAO = ({ isPopupOpen, handlePopupClose, datos, reload }) => {
             <p className="h4 verde-corporativo text-start">Compra de la obra</p>
           </div>
           <div className="w-full h-full flex justify-center">
-            <TablaAO />
+            <TablaAO datos={libros} />
           </div>
           <div className="flex gap-4 w-full justify-end p-4 mt-[-75px] px-[60px]">
             <button className="bg-[#00733C] flex px-2 py-1 rounded-[3px] gap-2">

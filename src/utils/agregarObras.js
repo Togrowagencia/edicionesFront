@@ -101,11 +101,11 @@ const handleCheckboxChange = (checkbox) => {
     }));
   }
 };
-  const [selectedCheckboxes, setSelectedCheckboxes] = useState({
-    obraPropia: true,
-    obraConsignacion: false,
-    iva: false,
-  });
+ //**  const [selectedCheckboxes, setSelectedCheckboxes] = useState({
+   //** obraPropia: true,
+  //**  obraConsignacion: false,
+  //**  iva: false,
+ //** });*//
   //** los formatos son en pasta dura o blanda*/
   //** numero de paginas */
   //** dimensiones */
@@ -114,4 +114,15 @@ const handleCheckboxChange = (checkbox) => {
   //* funcion de repeticion en donde los libros de menor valor son los que se van a añadir a la promocion *//
   //* Las promociones me deben afectar cotizaciones   *//
 
+  export const calcularPrecioVenta = (costo, pct) => {
+    const precio = parseFloat(costo) * (1 + parseFloat(pct) / 100);
+    return Math.round(precio);
+  };
+
+  export const formatNumber = (num) => {
+    if (!num) return "";
+    const parsed = parseFloat(num.toString().replace(/\./g, ""));
+    if (isNaN(parsed)) return "";
+    return parsed.toLocaleString("es-AR");
+  };
   
