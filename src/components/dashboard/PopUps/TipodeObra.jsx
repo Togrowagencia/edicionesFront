@@ -31,8 +31,8 @@ export function TipodeObra({ isOpen, onClose }) {
       placeholder: "Tipo de compra",
       hasArrow: true,
       options: [
-        { label: "Compra nacional", value: "nacional" },
-        { label: "Importación", value: "importacion" },
+        { label: "Contado", value: "Contado" },
+        { label: "Credito", value: "Credito" },
       ],
       multiselect: false,
     },

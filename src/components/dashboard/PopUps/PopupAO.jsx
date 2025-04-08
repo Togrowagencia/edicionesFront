@@ -23,15 +23,14 @@ const PopupAO = ({
   const [libros, setLibros] = useState([]);
   const [inputValues, setInputValues] = useState({
     isbn: "",
-    nombreObra: "",
+    name: "",
     proveedor: "",
     editorial: "",
-    autor: "",
-    contenido: "",
-    clasificacion: "",
-    genero: "",
-    idioma: "",
-    nroPaginas: "",
+    authors: "",
+    name_content: "",
+    classification: "",
+    genders: "",
+    number_pages: "",
     peso: "",
     dimensions: "",
     cost: "",
@@ -98,8 +97,8 @@ const PopupAO = ({
 
   const handleInputChange = useCallback(
     (name, value) => {
-      console.log("name,value")
-      console.log(name, value)
+      console.log("name,value");
+      console.log(name, value);
       setInputValues((prev) => {
         let newData = { ...prev };
 
@@ -123,7 +122,7 @@ const PopupAO = ({
         }
 
         if (name === "name_publishing") {
-          console.log(value)
+          console.log(value);
           if (datos.Publishing) {
             const found = datos.Publishing.find((item) => item.name == value);
             if (found && found.provider) {
@@ -195,57 +194,58 @@ const PopupAO = ({
         gap: 20,
       });
     }
-  
-    // Verificar si la editorial existe
-    const editorialExists = datos.Publishing?.some(
-      (pub) =>
-        String(pub.id) === String(inputValues.name_publishing) ||
-        (pub.name && Array.isArray(inputValues.name_publishing) &&
-          inputValues.name_publishing.some((name) =>
-            pub.name.toLowerCase() === name.toLowerCase()
-          )
-        )
-    );
-  
-    // Si la editorial no existe, creamos una nueva
+
+    // Normalizamos el nombre de la editorial (sea string o array)
+    const nombreEditorial = Array.isArray(inputValues.name_publishing)
+      ? inputValues.name_publishing[0]
+      : inputValues.name_publishing;
+
+    // Verificar si la editorial existe en datos.Publishing
+    const editorialExists = datos.Publishing?.some((pub) => {
+      const pubName = pub.name?.toLowerCase().trim();
+      const inputName = nombreEditorial?.toLowerCase().trim();
+      return pubName === inputName;
+    });
+
+    // Si no existe, la creamos
     if (!editorialExists) {
       try {
         const response = await createPublishing({
-          name: inputValues.name_publishing,
+          name: nombreEditorial,
           id_provider: String(inputValues.proveedor).trim(),
         });
+
         let editorialCreada = Array.isArray(response.data)
           ? response.data.find(
-            (pub) =>
-              pub.name.toLowerCase() ===
-              inputValues.name_publishing.toLowerCase()
-          )
+              (pub) =>
+                pub.name.toLowerCase().trim() ===
+                nombreEditorial.toLowerCase().trim()
+            )
           : response.data;
-  
-        // Si la editorial se crea correctamente, actualizamos el estado
+
         if (editorialCreada) {
           reload(getPublishing, "Publishing");
           setInputValues((prev) => ({
             ...prev,
-            name_publishing: editorialCreada.name, // Actualizar el nombre de la editorial en el estado
+            name_publishing: editorialCreada.name, // igual que antes
           }));
         }
       } catch (error) {
         console.error("Error al crear la editorial", error);
-        return new Notify({
-          title: "Error al crear la editorial",
-          status: "error",
-          type: "filled",
-          autotimeout: 850,
-          autoclose: true,
-          position: "left top",
-          effect: "slide",
-          gap: 20,
-        });
+          return new Notify({
+            title: "Error al crear la editorial",
+            status: "error",
+            type: "filled",
+            autotimeout: 850,
+            autoclose: true,
+            position: "left top",
+            effect: "slide",
+            gap: 20,
+          });
       }
     }
-  
-    // Asegúrate de que el libro no esté ya en la lista de libros
+
+    // Evitar duplicados
     const isDuplicate = libros.some((libro) => libro.isbn === inputValues.isbn);
     if (isDuplicate && !isEditing) {
       return new Notify({
@@ -259,29 +259,23 @@ const PopupAO = ({
         gap: 20,
       });
     }
-  
-    // Si estamos editando un libro existente
+
+    // Si estamos editando
     if (isEditing) {
       setLibros((prevLibros) =>
         prevLibros.map((libro) =>
-          libro.isbn === inputValues.isbn
-            ? { ...libro, ...inputValues }  // Actualiza el libro con los nuevos valores
-            : libro
+          libro.isbn === inputValues.isbn ? { ...libro, ...inputValues } : libro
         )
       );
-      setIsEditing(false); // Cambiar el estado de edición
+      setIsEditing(false);
     } else {
-      // Si no estamos editando, agregamos un nuevo libro
+      // Agregar nuevo libro
       const { proveedor, ...inputValuesWithoutProveedor } = inputValues;
-      setLibros((prevLibros) => [
-        ...prevLibros,
-        inputValuesWithoutProveedor, // Crear un nuevo array con los libros previos y el nuevo libro
-      ]);
+      setLibros((prevLibros) => [...prevLibros, inputValuesWithoutProveedor]);
     }
-  
+
     resetInputValues();
-  
-    // Mostrar una notificación de éxito
+
     new Notify({
       title: "Libro agregado con éxito",
       status: "success",
@@ -293,6 +287,7 @@ const PopupAO = ({
       gap: 20,
     });
   };
+
   // Usar useEffect para monitorear el estado de los libros y verificar cambios
   useEffect(() => {
     console.log("Estado actualizado de libros:", libros);
@@ -363,7 +358,7 @@ const PopupAO = ({
 
             <textarea
               rows="2"
-              className="w-full bg-white border border-black rounded-[10px] focus:outline-none focus:border-green-600 px-2 py-2 resize-none"
+              className="w-full bg-white border border-black rounded-[10px] focus:outline-none focus:border-green-600 px-2 py-2 resize-none textoss"
               placeholder="Descripción"
               value={inputValues.description}
               onChange={(e) => handleInputChange("description", e.target.value)}
@@ -372,7 +367,15 @@ const PopupAO = ({
 
           <div className="w-[25%] flex flex-col justify-center">
             <div className="h-[350px] flex justify-center">
-              <Drop initialImageUrl={inputValues.file} />
+              <Drop
+                key={inputValues.file?.name || inputValues.isbn}
+                initialImageUrl={
+                  inputValues.file instanceof File
+                    ? URL.createObjectURL(inputValues.file)
+                    : inputValues.file
+                }
+                onFileChange={(file) => handleInputChange("file", file)}
+              />
             </div>
             <div className="w-full flex justify-center mt-2">
               <button
@@ -413,7 +416,7 @@ const PopupAO = ({
           <div className="flex gap-4 w-full justify-end p-4 mt-[-75px] px-[60px]">
             <button
               className="bg-[#00733C] flex px-2 py-1 rounded-[3px] gap-2"
-              onClick={onConfirm}
+              onClick={() => onConfirm(libros)}
             >
               <p className="h4 blanco">Confirmar carga de obras</p>
               <img src="/svg/gestiondeobras/agregar(2).svg" alt="Confirmar" />

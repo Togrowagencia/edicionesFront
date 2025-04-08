@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import DataObra from '../Data/DataObra.js';
-import PopupAO from './PopUps/PopupAO.jsx';
+import React, { useState } from "react";
+import DataObra from "../Data/DataObra.js";
+import PopupAO from "./PopUps/PopupAO.jsx";
 import { TipodeObra } from "./PopUps/TipodeObra.jsx";
-import PopupTO from './PopUps/PopupTO.jsx';
-
+import PopupTO from "./PopUps/PopupTO.jsx";
+import Swal from "sweetalert2";
+import Notify from "simple-notify";
 const Obra = ({ datos, sindatos, reload }) => {
   // Estados para controlar los popups
   const [isPopupAOOpen, setIsPopupAOOpen] = useState(false);
   const [isTipodeObraOpen, setIsTipodeObraOpen] = useState(false);
   const [isPopupTOOpen, setIsPopupTOOpen] = useState(false);
+  const [nuevasObras, setNuevasObras] = useState(null);
 
   // Paginación
   const [currentPage] = useState(1);
@@ -20,11 +22,46 @@ const Obra = ({ datos, sindatos, reload }) => {
   );
 
   // Manejadores para TipodeObra
-  const handleOpenTipodeObra = () => {
-    setIsPopupAOOpen(false);
-    setIsTipodeObraOpen(true);
-  };
+  const handleOpenTipodeObra = (obras) => {
+  
+    if (obras.length === 0) {
+      new Notify({
+        title: "No se han añadido obras",
+        status: "warning",
+        position: "left top",
+        effect: "slide",
+        autotimeout: 900,
+        autoclose: true,
+        button: true,
+        type: "filled",
+        gap: 5,
+      });
+      return;
+    }
+    Swal.fire({
+      title: "¿Seguro que desea finalizar la carga de obras?",
+      text: "",
+      iconHtml: '<img src="svg/popup-ao/agregar-obra.svg" style="width:50px; height:50px;"/>',
+      width: 600,
+      showCancelButton: true,
+      confirmButtonColor: "#5fb868",
+      cancelButtonColor: "black",
+      confirmButtonText: "Confirmar",
+      cancelButtonText: "Cancelar",
+      color: "black",
+      background: "#ffff",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        console.log("OBRAS");
+        console.log(obras);
+        setIsPopupAOOpen(false);
+        setIsTipodeObraOpen(true);
+        setNuevasObras(obras);
+      }
+    });
 
+ 
+  };
   const handleCloseTipodeObra = () => {
     setIsTipodeObraOpen(false);
     setIsPopupAOOpen(true);
@@ -33,14 +70,14 @@ const Obra = ({ datos, sindatos, reload }) => {
   return (
     <div className="flex flex-col items-center ml-[20%]">
       {/* Botón para abrir PopupAO (Agregar Obra) */}
-      <div onClick={() => setIsPopupAOOpen(true)} style={{ cursor: 'pointer' }}>
+      <div onClick={() => setIsPopupAOOpen(true)} style={{ cursor: "pointer" }}>
         <div className="agregar-obra -mt-[8px]">
           <div className="texto-ingresos relative mt-[23px] ml-[35px] m-4 flex items-center gap-2">
             <p className="h3 blanco">Agregar Obra</p>
-            <img 
-              src="/public/svg/mas.svg" 
-              alt="Icono agregar" 
-              className="w-6 h-6 ml-[190px] mt-[40px]" 
+            <img
+              src="/public/svg/mas.svg"
+              alt="Icono agregar"
+              className="w-6 h-6 ml-[190px] mt-[40px]"
             />
           </div>
           <div className="texto-ingresos relative mt-[-30px] ml-[35px] m-4 flex items-center gap-2">
@@ -50,14 +87,14 @@ const Obra = ({ datos, sindatos, reload }) => {
       </div>
 
       {/* Botón para abrir PopupTO (Trasladar Obra) */}
-      <div onClick={() => setIsPopupTOOpen(true)} style={{ cursor: 'pointer' }}>
+      <div onClick={() => setIsPopupTOOpen(true)} style={{ cursor: "pointer" }}>
         <div className="t-obra mt-[28px]">
           <div className="texto-ingresos relative top-[52px] left-[20px] m-4">
             <p className="h3 blanco">Trasladar Obra</p>
-            <img 
-              src="/public/svg/flecha.svg" 
-              alt="Icono trasladar" 
-              className="w-6 h-6 ml-[372px] mt-[-27px]" 
+            <img
+              src="/public/svg/flecha.svg"
+              alt="Icono trasladar"
+              className="w-6 h-6 ml-[372px] mt-[-27px]"
             />
           </div>
         </div>
@@ -74,44 +111,44 @@ const Obra = ({ datos, sindatos, reload }) => {
       />
 
       {/* Popup Tipo de Obra */}
-      <TipodeObra
-        isOpen={isTipodeObraOpen}
-        onClose={handleCloseTipodeObra}
-      />
+      <TipodeObra isOpen={isTipodeObraOpen} onClose={handleCloseTipodeObra} />
 
       {/* Popup Trasladar Obra (PopupTO) */}
-      <PopupTO 
-        isPopupOpen={isPopupTOOpen} 
-        handlePopupClose={() => setIsPopupTOOpen(false)} 
+      <PopupTO
+        isPopupOpen={isPopupTOOpen}
+        handlePopupClose={() => setIsPopupTOOpen(false)}
       />
 
       {/* Listado de últimas obras agregadas */}
       <div className="venta-tienda flex flex-col items-center mt-[38px]">
-        <div className='w-full h-[10%] flex items-center gap-2 mb-[20px] relative mt-[16px] ml-[57px]'>
-          <p className='h3 negro'>Ultimas obras agregadas</p>
-          <img 
-            src="/public/svg/vector.svg" 
-            alt="Icono lista" 
-            className="w-6 h-6 ml-[55px]" 
+        <div className="w-full h-[10%] flex items-center gap-2 mb-[20px] relative mt-[16px] ml-[57px]">
+          <p className="h3 negro">Ultimas obras agregadas</p>
+          <img
+            src="/public/svg/vector.svg"
+            alt="Icono lista"
+            className="w-6 h-6 ml-[55px]"
           />
         </div>
-        
-        <div className='w-full h-full justify-center'>
-          <div className='w-[402px] h-[10%] gap-2 border-b border-green-500 flex items-end pb-2 -mt-[15px] mx-auto'>
-            <p className='gris-urbano w-[50%] ml-[7px]'>Titulo de la Obra</p>
-            <p className='gris-urbano w-[13%] ml-[137px]'>Fecha</p>
+
+        <div className="w-full h-full justify-center">
+          <div className="w-[402px] h-[10%] gap-2 border-b border-green-500 flex items-end pb-2 -mt-[15px] mx-auto">
+            <p className="gris-urbano w-[50%] ml-[7px]">Titulo de la Obra</p>
+            <p className="gris-urbano w-[13%] ml-[137px]">Fecha</p>
           </div>
 
           {currentItems.map((item, index) => (
-            <div className='gap-2 flex mb-[20px] relative mt-[10px] ml-[32px]' key={index}>
-              <p className='textos-bold w-[70%] truncate'>{item["t-obra"]}</p>
-              <p className='textos-bold w-[20%] truncate'>{item["Fecha"]}</p>
+            <div
+              className="gap-2 flex mb-[20px] relative mt-[10px] ml-[32px]"
+              key={index}
+            >
+              <p className="textos-bold w-[70%] truncate">{item["t-obra"]}</p>
+              <p className="textos-bold w-[20%] truncate">{item["Fecha"]}</p>
             </div>
           ))}
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Obra;
