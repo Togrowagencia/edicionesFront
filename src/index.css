@@ -775,6 +775,12 @@ height: 125px;
 .ant-upload-list, .ant-upload-list-text {
  display: none;
 }
+.drawer-nuevocliente .ant-drawer-content-wrapper {
+  height: 32% !important;
+  top: 30%;
+  left: 30%;
+  width: 34% !important;
+}
 .drawer-masi .ant-drawer-content-wrapper {
   height: 40% !important;
   top: 25%;
@@ -998,6 +1004,62 @@ height: 125px;
   color: #ffffff !important;
 }
 
+/* Estilo personalizado para Selects del formulario */
+.custom-select2 .ant-select-selector {
+  border: none !important;
+  border-radius: 0 !important;
+  font-family: afacad !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  color: #222 !important;
+  padding: 0 !important;
+  height: auto !important;
+  box-shadow: none !important;
+  background-color: transparent !important; 
+}
+
+/* Refuerza el fondo transparente incluso si Ant usa pseudo-elementos */
+.custom-select2 .ant-select-selector::before,
+.custom-select2 .ant-select-selector::after {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* También refuerza el wrapper del select */
+.custom-select2 {
+  background-color: transparent !important;
+}
+
+/* Elimina relleno del texto */
+.custom-select2 .ant-select-selection-item {
+  padding: 0 !important;
+  line-height: 1.5 !important;
+  background-color: transparent !important;
+  height: 10% !important;
+}
+
+/* Oculta la flecha original y pone tu imagen */
+.custom-select2 .ant-select-arrow {
+  width: 16px;
+  height: 16px;
+  background-image: url('/image.png'); /* 👈 Cambia por tu ruta */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Oculta el SVG original de la flecha */
+.custom-select2 .ant-select-arrow svg {
+  display: none;
+}
+
+/* Evita cambios al enfocar o al pasar el cursor */
+.custom-select2.ant-select-focused .ant-select-selector,
+.custom-select2:hover .ant-select-selector {
+  border-color: #C1C1C1 !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
 
 .ant-select-selector{
   border-color: #000 !important;
