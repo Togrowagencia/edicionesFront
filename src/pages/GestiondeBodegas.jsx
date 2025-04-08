@@ -6,6 +6,7 @@ import Libros from "../components/Gestiondebodegas/libros";
 import { getWarehouses } from "../api/warehouse";
 import Tienda from "../components/Gestiondebodegas/tienda";
 import { useEffect } from "react";
+
 const GestiondeBodegas = () => {
   const [libroSeleccionado, setLibroSeleccionado] = useState(null);
   const [datos, setDatos] = useState([]);
@@ -42,7 +43,7 @@ const GestiondeBodegas = () => {
               <Tienda libro={libroSeleccionado} />{" "}
               {/* Pasamos el libro seleccionado */}
             </div>
-            <div className="col-start-1 col-end-3 row-start-4 row-end-5">
+            <div className="col-start-1 col-end-3 row-start-4 row-end-5 relative">
               <Libros
                 setLibroSeleccionado={setLibroSeleccionado}
                 datos={datos}

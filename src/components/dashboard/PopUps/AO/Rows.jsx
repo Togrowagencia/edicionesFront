@@ -7,12 +7,12 @@ export const Rows = (datos) => {
           placeholder: "ISBN",
         },
         {
-          name: "nombreObra",
+          name: "name",
           iconSrc: "/public/svg/popup-ao/NDLO.svg",
           placeholder: "Nombre de la obra",
         },
         {
-          name: "editorial",
+          name: "name_publishing",
           placeholder: "Editorial",
           hasArrow: true,
           multiselect: false,
@@ -39,7 +39,7 @@ export const Rows = (datos) => {
             : [],
         },
         {
-          name: "autor",
+          name: "authors",
           placeholder: "Autor",
           hasArrow: true,
           multiselect: true,
@@ -51,7 +51,7 @@ export const Rows = (datos) => {
             : [],
         },
         {
-          name: "contenido",
+          name: "name_content",
           placeholder: "Contenido",
           hasArrow: true,
           multiselect: false,
@@ -65,7 +65,7 @@ export const Rows = (datos) => {
       ],
       [
         {
-          name: "clasificacion",
+          name: "classification",
           placeholder: "Clasificación",
           hasArrow: true,
           multiselect: true,
@@ -77,7 +77,7 @@ export const Rows = (datos) => {
             : [],
         },
         {
-          name: "genero",
+          name: "genders",
           placeholder: "Género",
           hasArrow: true,
           multiselect: true,
@@ -89,48 +89,48 @@ export const Rows = (datos) => {
             : [],
         },
         {
-          name: "costoLibro",
+          name: "cost",
           iconSrc: "/public/svg/popup-ao/costo.svg",
           placeholder: "Costo del libro",
         },
       ],
       [
         {
-          name: "precioVenta",
+          name: "price_vent",
           iconSrc: "/public/svg/popup-ao/precio.svg",
           placeholder: "Precio de venta",
         },
         {
-          name: "cantidad",
+          name: "quantity",
           iconSrc: "",
           placeholder: "Cantidad",
         },
         {
-          name: "dimensiones",
+          name: "dimensions",
           iconSrc: "",
           placeholder: "Dimensiones",
         },
       ],
       [
         {
-          name: "edicion",
+          name: "edition",
           iconSrc: "/public/svg/popup-ao/NDLO.svg",
           placeholder: "Edición",
         },
         {
-          name: "formato",
+          name: "name_format",
           iconSrc: "/public/svg/popup-ao/NDLO.svg",
           placeholder: "Formato",
         },
         {
-          name: "idioma",
+          name: "language",
           iconSrc: "",
           placeholder: "Idioma",
         },
       ],
       [
         {
-          name: "paginas",
+          name: "number_pages",
           iconSrc: "",
           placeholder: "Numero de páginas",
         },
@@ -140,7 +140,7 @@ export const Rows = (datos) => {
           iconSrc: "/public/svg/popup-ao/costo.svg",
         },
         {
-          name: "presentacion",
+          name: "name_presentation",
           placeholder: "Presentacion",
           iconSrc: "/public/svg/popup-ao/NDLO.svg",
         },

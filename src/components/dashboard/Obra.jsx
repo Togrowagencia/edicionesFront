@@ -1,45 +1,47 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import DataObra from '../Data/DataObra.js';
-import PopupTO from './PopUps/PopupTO.jsx';
 import PopupAO from './PopUps/PopupAO.jsx';
+import TipodeObra from './PopUps/TipodeObra.jsx';
+import PopupTO from './PopUps/PopupTO.jsx';
 
-const Obra = ({datos, sindatos,reload}) => {
-  const [openDrawer1, setOpenDrawer1] = useState(false); // Estado para el primer Drawer (PopupAO)
-  const [openDrawer2, setOpenDrawer2] = useState(false); // Estado para el segundo Drawer (PopUpTO)
+const Obra = ({ datos, sindatos, reload }) => {
+  // Estados para controlar los popups
+  const [isPopupAOOpen, setIsPopupAOOpen] = useState(false);
+  const [isTipodeObraOpen, setIsTipodeObraOpen] = useState(false);
+  const [isPopupTOOpen, setIsPopupTOOpen] = useState(false);
+
+  // Paginación
   const [currentPage] = useState(1);
-  const itemsPerPage = 10; // Elementos por página
+  const itemsPerPage = 10;
+  const currentItems = DataObra.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
-  // Calcular los índices para paginación
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentItems = DataObra.slice(startIndex, endIndex);
-
-  const showDrawer1 = () => {
-    setOpenDrawer1(true);
+  // Manejadores para TipodeObra
+  const handleOpenTipodeObra = () => {
+    setIsPopupAOOpen(false);
+    setIsTipodeObraOpen(true);
   };
 
-  const showDrawer2 = () => {
-    setOpenDrawer2(true);
-  };
-
-  const onCloseDrawer1 = () => {
-    setOpenDrawer1(false);
-  };
-
-  const onCloseDrawer2 = () => {
-    setOpenDrawer2(false);
+  const handleCloseTipodeObra = () => {
+    setIsTipodeObraOpen(false);
+    setIsPopupAOOpen(true);
   };
 
   return (
     <div className="flex flex-col items-center ml-[20%]">
-
-      {/* Primer div que abre el primer Drawer (PopupAO) */}
-      <div onClick={showDrawer1} style={{ cursor: 'pointer' }}>
+      {/* Botón para abrir PopupAO (Agregar Obra) */}
+      <div onClick={() => setIsPopupAOOpen(true)} style={{ cursor: 'pointer' }}>
         <div className="agregar-obra -mt-[8px]">
           <div className="texto-ingresos relative mt-[23px] ml-[35px] m-4 flex items-center gap-2">
             <p className="h3 blanco">Agregar Obra</p>
-            <img src="/public/svg/mas.svg" alt="Icono" className="w-6 h-6 ml-[190px] mt-[40px]" />
+            <img 
+              src="/public/svg/mas.svg" 
+              alt="Icono agregar" 
+              className="w-6 h-6 ml-[190px] mt-[40px]" 
+            />
           </div>
           <div className="texto-ingresos relative mt-[-30px] ml-[35px] m-4 flex items-center gap-2">
             <p className="textos blanco">Ultima obra agregada:</p>
@@ -47,27 +49,53 @@ const Obra = ({datos, sindatos,reload}) => {
         </div>
       </div>
 
-      {/* Segundo div que abre el segundo Drawer (PopUpTO) */}
-      <div onClick={showDrawer2} style={{ cursor: 'pointer' }}>
+      {/* Botón para abrir PopupTO (Trasladar Obra) */}
+      <div onClick={() => setIsPopupTOOpen(true)} style={{ cursor: 'pointer' }}>
         <div className="t-obra mt-[28px]">
           <div className="texto-ingresos relative top-[52px] left-[20px] m-4">
             <p className="h3 blanco">Trasladar Obra</p>
-            <img src="/public/svg/flecha.svg" alt="Icono" className="w-6 h-6 ml-[372px] mt-[-27px]" />
+            <img 
+              src="/public/svg/flecha.svg" 
+              alt="Icono trasladar" 
+              className="w-6 h-6 ml-[372px] mt-[-27px]" 
+            />
           </div>
         </div>
       </div>
 
-      {/* Primer Drawer (PopupAO) */}
-      <PopupAO isPopupOpen={openDrawer1} handlePopupClose={onCloseDrawer1} datos={datos} sindatos={sindatos} reload ={reload}/>
+      {/* Popup Agregar Obra (PopupAO) */}
+      <PopupAO
+        isPopupOpen={isPopupAOOpen}
+        handlePopupClose={() => setIsPopupAOOpen(false)}
+        onConfirm={handleOpenTipodeObra}
+        datos={datos}
+        sindatos={sindatos}
+        reload={reload}
+      />
 
-      {/* Segundo Drawer (PopUpTO) */}
-      <PopupTO isPopupOpen={openDrawer2} handlePopupClose={onCloseDrawer2} />
+      {/* Popup Tipo de Obra */}
+      <TipodeObra
+        isOpen={isTipodeObraOpen}
+        onClose={handleCloseTipodeObra}
+      />
 
+      {/* Popup Trasladar Obra (PopupTO) */}
+      <PopupTO 
+        isPopupOpen={isPopupTOOpen} 
+        handlePopupClose={() => setIsPopupTOOpen(false)} 
+      />
+
+      {/* Listado de últimas obras agregadas */}
       <div className="venta-tienda flex flex-col items-center mt-[38px]">
         <div className='w-full h-[10%] flex items-center gap-2 mb-[20px] relative mt-[16px] ml-[57px]'>
           <p className='h3 negro'>Ultimas obras agregadas</p>
-          <img src="/public/svg/vector.svg" alt="Icono" className="w-6 h-6 ml-[55px]" />
+          <img 
+            src="/public/svg/vector.svg" 
+            alt="Icono lista" 
+            className="w-6 h-6 ml-[55px]" 
+          />
         </div>
+        
         <div className='w-full h-full justify-center'>
           <div className='w-[402px] h-[10%] gap-2 border-b border-green-500 flex items-end pb-2 -mt-[15px] mx-auto'>
             <p className='gris-urbano w-[50%] ml-[7px]'>Titulo de la Obra</p>

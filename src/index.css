@@ -804,7 +804,7 @@ height: 125px;
 /*carrusel*/
 .slide{
   background: url("../public/images/fondolibro.png") center/cover;
-  width: 100% !important;
+  width: 450px !important;
   height: 100%;
 }
 .drawer-calculadora .ant-drawer-content-wrapper {
@@ -1103,4 +1103,31 @@ font-weight: 500 !important;
 }
 .ant-select-selection-overflow {
   padding: 4px !important;
+}
+
+/* Animaciones para las imágenes de GdB */
+
+/* Animación del libro que va hacia el centro */
+/* Estilos para el portal (imagen animada) */
+/* (Opcional: si quieres definir estilos fijos para .libro-portal) */
+.libro-portal {
+  /* Estos estilos serán sobrescritos por el objeto de estilo inline */
+  position: fixed;
+  z-index: 1000;
+  transition: all 0.6s ease-out;
+}
+
+.animate-grow-center {
+  animation: growCenter 0.8s linear forwards;
+}
+
+/* Cuando ya está en su posición final (fija y sin animación) */
+.libro-fijo {
+  position: fixed;
+  top: 25vh;
+  left: 30vw;
+  transform: scale(1.8);
+  width: 250px;
+  z-index: 9999;
+  pointer-events: none;
 }
