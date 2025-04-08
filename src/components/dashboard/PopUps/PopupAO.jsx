@@ -98,6 +98,8 @@ const PopupAO = ({
 
   const handleInputChange = useCallback(
     (name, value) => {
+      console.log("name,value")
+      console.log(name, value)
       setInputValues((prev) => {
         let newData = { ...prev };
 
@@ -193,31 +195,33 @@ const PopupAO = ({
         gap: 20,
       });
     }
-
+  
     // Verificar si la editorial existe
     const editorialExists = datos.Publishing?.some(
       (pub) =>
         String(pub.id) === String(inputValues.name_publishing) ||
-        (pub.name &&
-          typeof inputValues.name_publishing === "string" &&
-          pub.name.toLowerCase() === inputValues.name_publishing.toLowerCase())
+        (pub.name && Array.isArray(inputValues.name_publishing) &&
+          inputValues.name_publishing.some((name) =>
+            pub.name.toLowerCase() === name.toLowerCase()
+          )
+        )
     );
-
+  
     // Si la editorial no existe, creamos una nueva
     if (!editorialExists) {
       try {
         const response = await createPublishing({
-          name: inputValues.name_publishing[0],
+          name: inputValues.name_publishing,
           id_provider: String(inputValues.proveedor).trim(),
         });
         let editorialCreada = Array.isArray(response.data)
           ? response.data.find(
-              (pub) =>
-                pub.name.toLowerCase() ===
-                inputValues.name_publishing.toLowerCase()
-            )
+            (pub) =>
+              pub.name.toLowerCase() ===
+              inputValues.name_publishing.toLowerCase()
+          )
           : response.data;
-
+  
         // Si la editorial se crea correctamente, actualizamos el estado
         if (editorialCreada) {
           reload(getPublishing, "Publishing");
@@ -240,10 +244,10 @@ const PopupAO = ({
         });
       }
     }
-
+  
     // Asegúrate de que el libro no esté ya en la lista de libros
     const isDuplicate = libros.some((libro) => libro.isbn === inputValues.isbn);
-    if (isDuplicate) {
+    if (isDuplicate && !isEditing) {
       return new Notify({
         title: "Este libro ya ha sido agregado.",
         status: "warning",
@@ -255,18 +259,28 @@ const PopupAO = ({
         gap: 20,
       });
     }
-
-    // Crear una copia de inputValues sin el campo proveedor
-    const { proveedor, ...inputValuesWithoutProveedor } = inputValues;
-
-    // Agregar el nuevo libro al estado (sin el proveedor)
-    setLibros((prevLibros) => {
-      const newLibros = [...prevLibros, inputValuesWithoutProveedor]; // Crear un nuevo array con los libros previos y el nuevo libro
-      return newLibros;
-    });
-
+  
+    // Si estamos editando un libro existente
+    if (isEditing) {
+      setLibros((prevLibros) =>
+        prevLibros.map((libro) =>
+          libro.isbn === inputValues.isbn
+            ? { ...libro, ...inputValues }  // Actualiza el libro con los nuevos valores
+            : libro
+        )
+      );
+      setIsEditing(false); // Cambiar el estado de edición
+    } else {
+      // Si no estamos editando, agregamos un nuevo libro
+      const { proveedor, ...inputValuesWithoutProveedor } = inputValues;
+      setLibros((prevLibros) => [
+        ...prevLibros,
+        inputValuesWithoutProveedor, // Crear un nuevo array con los libros previos y el nuevo libro
+      ]);
+    }
+  
     resetInputValues();
-
+  
     // Mostrar una notificación de éxito
     new Notify({
       title: "Libro agregado con éxito",
@@ -278,11 +292,7 @@ const PopupAO = ({
       effect: "slide",
       gap: 20,
     });
-
-    // El estado de "libros" no se actualizará inmediatamente, así que utiliza useEffect para ver los cambios
-    console.log("Intento de agregar libro: ", inputValuesWithoutProveedor);
   };
-
   // Usar useEffect para monitorear el estado de los libros y verificar cambios
   useEffect(() => {
     console.log("Estado actualizado de libros:", libros);
