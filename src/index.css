@@ -775,6 +775,12 @@ height: 125px;
 .ant-upload-list, .ant-upload-list-text {
  display: none;
 }
+.drawer-tipodeobra .ant-drawer-content-wrapper {
+  height: 20% !important;
+  top: 35%;
+  left: 20%;
+  right: 35%;
+}
 .drawer-nuevocliente .ant-drawer-content-wrapper {
   height: 32% !important;
   top: 30%;

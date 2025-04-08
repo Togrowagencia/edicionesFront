@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import DataObra from '../Data/DataObra.js';
 import PopupAO from './PopUps/PopupAO.jsx';
-import TipodeObra from './PopUps/TipodeObra.jsx';
+import { TipodeObra } from "./PopUps/TipodeObra.jsx";
 import PopupTO from './PopUps/PopupTO.jsx';
 
 const Obra = ({ datos, sindatos, reload }) => {
