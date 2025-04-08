@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Drawer } from "antd";
 import { CheckboxWithLabel } from "../../inputs/CheckboxWithLabel";
 import { InputRow } from "../../inputs/InputRow";
@@ -15,7 +15,7 @@ export function TipodeObra({ isOpen, onClose }) {
   const obraPropiaFields = [
     {
       name: "numeroFactura",
-      iconSrc: "/public/svg/popup-ao/factura.svg",
+      iconSrc: "/public/svg/popup-ao/nfactura.svg",
       placeholder: "Nº Factura",
       hasArrow: false,
     },
@@ -41,7 +41,7 @@ export function TipodeObra({ isOpen, onClose }) {
   const obraConsignacionFields = [
     {
       name: "numeroRemision",
-      iconSrc: "/public/svg/popup-ao/factura.svg",
+      iconSrc: "/public/svg/popup-ao/nfactura.svg",
       placeholder: "Nº Remisión",
       hasArrow: false,
     },
@@ -59,11 +59,11 @@ export function TipodeObra({ isOpen, onClose }) {
 
   const handleCheckboxChange = (checkboxName) => {
     if (checkboxName === "obraPropia") {
-      setSelectedCheckboxes({
+      setSelectedCheckboxes((prev) => ({
         obraPropia: true,
         obraConsignacion: false,
-        iva: true,
-      });
+        iva: false,
+      }));
     } else if (checkboxName === "obraConsignacion") {
       setSelectedCheckboxes({
         obraPropia: false,
@@ -130,7 +130,7 @@ export function TipodeObra({ isOpen, onClose }) {
           fields={inputFields}
           values={inputValues}
           onChange={handleInputChange}
-          className="mt-2"
+          className="w-[70%]"
         />
 
         {/* Botones */}

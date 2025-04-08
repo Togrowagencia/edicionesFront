@@ -5,13 +5,102 @@ function Tienda({ libro }) {
   const navigate = useNavigate();
 
   if (!libro) {
-    return <p className="negro text-center mt-4"></p>;
+    return (
+      <div className="bg-white p-6 mt-6 ml-[-8%]">
+        {/* Encabezado vacío */}
+        <p className="h1">Seleccione una tienda</p>
+        <p className="h3 my-2 verde-corporativo flex gap-4">
+          <img src="/public/svg/Gestiondebodega/local1.svg" alt="" />
+          Dirección no disponible
+        </p>
+
+        {/* Sección de inventario vacío */}
+        <p className="h3 negro mt-4 flex gap-4">
+          <img src="/public/svg/Gestiondebodega/inventario1.svg" alt="" />
+          Inventario de tienda: 0 obras
+        </p>
+        
+        <div className="flex justify-between">
+          <p className="h3 textos-bold verde-corporativo mt-4 flex gap-4">
+            Últimas obras agregadas a la tienda
+          </p>
+          <button
+            onClick={() => navigate('/detalles-inventario')}
+            className="h3 textos-peques negro border-[4px] rounded-[4px] w-[10%] bg-[#A8D1BD] border-[#A8D1BD] mt-4 flex gap-4 justify-center cursor-pointer"
+          >
+            Ver detalle
+          </button>
+        </div>
+
+        {/* Tabla vacía */}
+        <table className="w-full mt-1">
+          <thead>
+            <tr className="border-b border-grey-500">
+              <th className="textos gris-elegancia p-2">ID</th>
+              <th className="textos gris-elegancia p-2">ISBN</th>
+              <th className="textos gris-elegancia p-2">Nombre</th>
+              <th className="textos gris-elegancia p-2">Editorial</th>
+              <th className="textos gris-elegancia p-2">Género</th>
+              <th className="textos gris-elegancia p-2">Inducción</th>
+              <th className="textos gris-elegancia p-2">Cantidad Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="text-center">
+              <td colSpan="7" className="textos-bold gris-elegancia p-4">
+                No hay datos disponibles
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        {/* Sección de ventas vacía */}
+        <p className="h3 negro mt-4 flex gap-4">
+          <img src="/public/svg/Gestiondebodega/ventas1.svg" alt="" />
+          Ventas mes: 0
+        </p>
+        
+        <div className="flex justify-between">
+          <p className="h3 textos-bold verde-corporativo mt-4 flex gap-4">
+            Últimas ventas hechas por la tienda
+          </p>
+          <button
+            onClick={() => navigate('/detalles-venta')}
+            className="h3 textos-peques negro border-[4px] rounded-[4px] w-[10%] bg-[#A8D1BD] border-[#A8D1BD] mt-4 flex gap-4 justify-center cursor-pointer"
+          >
+            Ver detalle
+          </button>
+        </div>
+
+        {/* Tabla de ventas vacía */}
+        <table className="w-full mt-1">
+          <thead>
+            <tr className="border-b border-grey-500">
+              <th className="textos gris-elegancia p-2">ID</th>
+              <th className="textos gris-elegancia p-2">ISBN</th>
+              <th className="textos gris-elegancia p-2">Nombre de la obra</th>
+              <th className="textos gris-elegancia p-2">Editorial</th>
+              <th className="textos gris-elegancia p-2">Cantidad Total</th>
+              <th className="textos gris-elegancia p-2">Precio de venta</th>
+              <th className="textos gris-elegancia p-2">Costo Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="text-center">
+              <td colSpan="7" className="textos-bold gris-elegancia p-4">
+                No hay datos disponibles
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
   }
 
   return (
     <div className="bg-white p-6 mt-6 ml-[-8%]">
-      <p className="h1">{libro.Nombredelatienda}</p>
-      <p className="h3 negro verde-corporativo flex gap-4">
+      <p className="h1">{libro.name}</p>
+      <p className="h3 verde-corporativo flex gap-4 my-2">
         <img src="/public/svg/Gestiondebodega/local1.svg" alt="" className="" />
         {libro.address}</p>
 
@@ -46,7 +135,7 @@ function Tienda({ libro }) {
         </thead>
         <tbody>
           <tr className="text-center">
-            <td className="textos-bold verde-eco p-2">{libro.ID}</td>
+            <td className="textos-bold verde-eco p-2">{libro.ID || "N/A"}</td>
             <td className="textos-bold p-2">{libro.isbn || "N/A"}</td>
             <td className="textos-bold p-2">{libro.nombre || "N/A"}</td>
             <td className="textos-bold p-2">{libro.editorial || "N/A"}</td>
@@ -87,7 +176,7 @@ function Tienda({ libro }) {
         </thead>
         <tbody>
           <tr className="text-center">
-            <td className="textos-bold verde-eco p-2">{libro.ID}</td>
+            <td className="textos-bold verde-eco p-2">{libro.ID || "N/A"}</td>
             <td className="textos-bold p-2">{libro.isbn || "N/A"}</td>
             <td className="textos-bold p-2">{libro.nombre || "N/A"}</td>
             <td className="textos-bold p-2">{libro.editorial || "N/A"}</td>

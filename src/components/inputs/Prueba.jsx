@@ -126,7 +126,7 @@ const DemoAutoCompleteWithAdd = ({
         <img
           src={iconSrc}
           alt=""
-          className={`absolute py-1 top-1 transition-all transform ${
+          className={`absolute py-1 top-[14%] transition-all transform ${
             value ? "left-[calc(100%+(-40px))]" : "left-5"
           } peer-focus:left-[calc(100%-40px)]`}
         />
