@@ -111,7 +111,7 @@ const Obra = ({ datos, sindatos, reload }) => {
       />
 
       {/* Popup Tipo de Obra */}
-      <TipodeObra isOpen={isTipodeObraOpen} onClose={handleCloseTipodeObra} />
+      <TipodeObra isOpen={isTipodeObraOpen} onClose={handleCloseTipodeObra} libros = {nuevasObras}/>
 
       {/* Popup Trasladar Obra (PopupTO) */}
       <PopupTO

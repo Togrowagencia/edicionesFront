@@ -26,7 +26,7 @@ const Promociones = () => {
   return (
     <div className="w-[50.5%] h-auto rounded-[10px] sombra flex-shrink-0 bg-white flex flex-col py-2 my-2">
       <div className="w-full flex items-center mb-4">
-        <p className="h3 negro w-[85%]  mx-[3%] mt-2">Proveedores</p>
+        <p className="h3 negro w-[85%]  mx-[3%] mt-2">Promociones</p>
         <img src="/public/svg/header/buscar.svg" alt="Icono" />
       </div>
 
