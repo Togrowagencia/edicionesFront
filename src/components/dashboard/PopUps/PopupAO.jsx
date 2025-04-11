@@ -15,6 +15,8 @@
     formatNumber,
     createEntitiesIfNotExist,
   } from "../../../utils/agregarObras";
+import { createContent, getContent } from "../../../api/content";
+import { createGender, getGenders } from "../../../api/genders";
 
   const PopupAO = ({
     isPopupOpen,
@@ -257,6 +259,25 @@
         reload: reload,
         label: "classification",
         fetchFn: getClassification,
+      });
+      await createEntitiesIfNotExist({
+        inputValues,
+        inputKey: "name_content",
+        existingList: datos.Content,
+        createFn: createContent,
+        reload: reload,
+        label: "name_content",
+        fetchFn: getContent,
+      });
+
+      await createEntitiesIfNotExist({
+        inputValues,
+        inputKey: "genders",
+        existingList: datos.Gennder,
+        createFn: createGender,
+        reload: reload,
+        label: "genders",
+        fetchFn: getGendersz,
       });
       
 

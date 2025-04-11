@@ -17,6 +17,9 @@ import { getPayment } from "../api/paymentMethods";
 import { getGenders } from "../api/genders";
 import { getContent } from "../api/content";
 import { getClassification } from "../api/clasification";
+import Presentacion from "../components/ControldeRecursos/Recursos/Presentacion";
+import { getPresentation } from "../api/presentation";
+import { Presentation } from "lucide-react";
 
 const ControldeRecursos = () => {
   const [datos, setDatos] = useState({
@@ -27,6 +30,7 @@ const ControldeRecursos = () => {
     Gender: [],
     Classification: [],
     Content: [],
+    Presentation: [],
   });
 
   const [sinData, setSinData] = useState({
@@ -117,6 +121,12 @@ const ControldeRecursos = () => {
                 datoss={datos.Classification}
                 sinDatos={sinData.Classification}
               />
+                <Presentacion
+                update={() => fetchData(getPresentation, "Presentation")}
+                datoss={datos.Presentation}
+                sinDatos={sinData.Presentation}
+              />
+
             </div>
           </div>
         </div>

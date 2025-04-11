@@ -177,35 +177,41 @@ export const createEntitiesIfNotExist = async ({
   }
 };
 
-export const transformInputValues = (values) => {
-  const toArrayOfObjects = (arr) =>
-    Array.isArray(arr) ? arr.map((item) => ({ name: item })) : [];
-
+ export const formatearCompra = (data) => {
   return {
-    name: values.name || "",
-    isbn: values.isbn || "",
-    cost: parseFloat(values.cost.toString().replace(/\./g, "")) || 0,
-    file:
-      typeof values.file === "string" ? values.file : values.file?.url || "", // o maneja la subida manual si es un File
-    quantity: parseInt(values.quantity) || 0,
-    classification: toArrayOfObjects(values.classification),
-    dimensions: values.dimensions || "",
-    language: values.language || "",
-    number_pages: parseInt(values.number_pages) || 0,
-    price_vent: parseFloat(values.price_vent) || 0,
-    peso: values.peso || "",
-    status: "available",
-    authors: toArrayOfObjects(values.authors),
-    genders: toArrayOfObjects(values.genders),
-    name_publishing: Array.isArray(values.name_publishing)
-      ? values.name_publishing[0]
-      : values.name_publishing,
-    name_content: Array.isArray(values.name_content)
-      ? values.name_content[0]
-      : values.name_content,
-    name_presentation: values.name_presentation || "",
-    description: values.description || "",
-    edition: values.edition || "",
-    name_format: values.name_format || "",
+    own_book: data.own_book,
+    consignment_book: data.consignment_book,
+    iva: data.iva,
+    rete: Number(data.rete),
+    number_invoice: data.number_invoice,
+    type_buy: Array.isArray(data.type_buy) ? data.type_buy[0] : data.type_buy,
+    number_remission: data.number_remission || "",
+    quantity_books: data.libros.reduce((total, libro) => total + Number(libro.quantity || 0), 0),
+    total: data.libros.reduce((total, libro) => total + (Number(libro.cost || 0) * Number(libro.quantity || 0)), 0),
+    books: data.libros.map(libro => ({
+      name: libro.name,
+      isbn: libro.isbn,
+      cost: Number(libro.cost),
+      file: typeof libro.file === "string" ? libro.file : "", // podrías adaptarlo si subís archivos
+      quantity: Number(libro.quantity),
+      classification: (libro.classification || []).map(name => ({ name })),
+      dimensions: libro.dimensions || "",
+      language: libro.language || "Español",
+      number_pages: Number(libro.number_pages),
+      price_vent: Number(libro.price_vent),
+      peso: libro.peso,
+      publication_date: libro.publication_date || null,
+      induction_date: libro.induction_date || new Date().toISOString(),
+      status: libro.status || "available",
+      authors: (libro.authors || []).map(name => ({ name })),
+      genders: (libro.genders || []).map(name => ({ name })),
+      name_publishing: Array.isArray(libro.name_publishing) ? libro.name_publishing[0] : libro.name_publishing,
+      name_content: Array.isArray(libro.name_content) ? libro.name_content[0] : libro.name_content ,
+      name_presentation: libro.name_presentation || "",
+      description: libro.description || "",
+      edition: libro.edition || "",
+      publication_date: Date.now(),
+      name_format: libro.name_format || ""
+    }))
   };
 };
